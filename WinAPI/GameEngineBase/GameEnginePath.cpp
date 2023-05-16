@@ -80,3 +80,8 @@ std::string GameEnginePath::PlusFilePath(const std::string& _ChildPath)
 
 	return CheckPath.string();
 }
+
+bool GameEnginePath::IsDirectory()
+{
+	std::filesystem::is_directory(Path);
+}

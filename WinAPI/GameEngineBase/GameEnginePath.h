@@ -31,9 +31,11 @@ public:
 		return Path.string();
 	}
 
+	bool IsDirectory();
+
 protected:
+	std::filesystem::path Path;
 
 private:
-	std::filesystem::path Path;
 };
 
