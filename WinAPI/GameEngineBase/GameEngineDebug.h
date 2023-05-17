@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string>
 
-//// 설명 :
+// 설명 : 릭 체크, 오류 출력
 class GameEngineDebug
 {
 public:

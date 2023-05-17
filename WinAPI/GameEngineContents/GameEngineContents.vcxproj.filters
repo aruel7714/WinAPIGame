@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Level">
+      <UniqueIdentifier>{d441a50b-59ce-417f-8756-12e896042e23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{b2b0edfa-a5db-484d-bd05-1d6a8ca48840}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterSelectLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MetalSlugCore.h" />
+    <ClInclude Include="Player.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterSelectLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MetalSlugCore.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

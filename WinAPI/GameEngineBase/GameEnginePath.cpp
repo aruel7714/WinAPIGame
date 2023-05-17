@@ -19,7 +19,7 @@ std::string GameEnginePath::GetFileName()
 	return Path.filename().string();
 }
 
-void GameEnginePath::GetCurrentPath()
+void GameEnginePath::SetCurrentPath()
 {
 	Path = std::filesystem::current_path();
 }

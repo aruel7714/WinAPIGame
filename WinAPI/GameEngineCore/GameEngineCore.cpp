@@ -36,10 +36,70 @@ void GameEngineCore::CoreUpdate()
 		{
 			CurLevel->LevelEnd(NextLevel);
 		}
+		NextLevel->LevelStart(CurLevel);
+
+		CurLevel = NextLevel;
+
+		NextLevel = nullptr;
+
+		GameEngineTime::MainTimer.Reset();
 	}
+
+	GameEngineTime::MainTimer.Update();
+	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
+
+	if (true == GameEngineWindow::IsFocus())
+	{
+		GameEngineInput::Update(Delta);
+	}
+	else
+	{
+		GameEngineInput::Reset();
+	}
+
+	CurLevel->Update(Delta);
+
+	CurLevel->ActorUpdate(Delta);
+
+	GameEngineWindow::MainWindow.ClearBackBuffer();
+
+	CurLevel->ActorRender(Delta);
+
+	CurLevel->Render();
+
+	GameEngineWindow::MainWindow.DoubleBuffering();
 }
 
 void GameEngineCore::CoreEnd()
 {
+	Process->Release();
 
+	if (nullptr != Process)
+	{
+		delete Process;
+		Process = nullptr;
+	}
+
+	for (std::pair<std::string, GameEngineLevel*> _Pair : AllLevel)
+	{
+		if (nullptr != _Pair.second)
+		{
+			delete _Pair.second;
+			_Pair.second = nullptr;
+		}
+	}
+}
+
+void GameEngineCore::EngineStart(const std::string& _Title, HINSTANCE _Inst, CoreProcess* _Ptr)
+{
+	Process = _Ptr;
+
+	WindowTitle = _Title;
+
+	GameEngineWindow::MessageLoop(_Inst, CoreStart, CoreUpdate, CoreEnd);
+}
+
+void GameEngineCore::LevelInit(GameEngineLevel* _Level)
+{
+	_Level->Start();
 }

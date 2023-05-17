@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 : 
+// 설명 : 수학 관련 클래스
 class GameEngineMath
 {
 };

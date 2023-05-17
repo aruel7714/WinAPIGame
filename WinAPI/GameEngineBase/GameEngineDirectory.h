@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEnginePath.h"
 
-// 설명 : 
+// 설명 : 스프라이트가 여러개일경우 사용
 class GameEngineDirectory : public GameEnginePath
 {
 public:

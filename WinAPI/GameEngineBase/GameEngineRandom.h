@@ -1,6 +1,6 @@
 #pragma once
 
-// 설명 :
+// 설명 : 랜덤 관련 함수
 class GameEngineRandom
 {
 public:
