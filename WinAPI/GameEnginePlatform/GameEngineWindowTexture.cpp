@@ -1,7 +1,6 @@
 #include "GameEngineWindowTexture.h"
 #include <Windows.h>
 #include <GameEngineBase/GameEngineDebug.h>
-#include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineWindow.h"
 
 #pragma comment(lib, "msimg32.lib")

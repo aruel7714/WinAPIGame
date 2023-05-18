@@ -83,5 +83,30 @@ std::string GameEnginePath::PlusFilePath(const std::string& _ChildPath)
 
 bool GameEnginePath::IsDirectory()
 {
-	std::filesystem::is_directory(Path);
+	return std::filesystem::is_directory(Path);
+}
+
+std::string GameEnginePath::GetParentString(const std::string& _ChildPath)
+{
+	int CountBeforeBackSlash = 0;
+
+	while (true)
+	{
+		if ('\\' == _ChildPath[CountBeforeBackSlash])
+		{
+			break;
+		}
+
+		++CountBeforeBackSlash;
+	}
+
+	std::string ChildPath = "";
+	ChildPath.reserve(CountBeforeBackSlash);
+
+	for (size_t i = 0; i < CountBeforeBackSlash; i++)
+	{
+		ChildPath.push_back(_ChildPath[i]);
+	}
+
+	return ChildPath;
 }

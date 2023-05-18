@@ -1,5 +1,6 @@
 #include "GameEngineWindow.h"
 #include <GameEngineBase/GameEngineDebug.h>
+#include <iostream>
 
 HINSTANCE GameEngineWindow::Instance = nullptr;
 
@@ -14,6 +15,17 @@ GameEngineWindow::GameEngineWindow()
 
 GameEngineWindow::~GameEngineWindow()
 {
+	if (nullptr != BackBuffer)
+	{
+		delete BackBuffer;
+		BackBuffer = nullptr;
+	}
+
+	if (nullptr != WindowBuffer)
+	{
+		delete WindowBuffer;
+		WindowBuffer = nullptr;
+	}
 }
 
 void GameEngineWindow::ClearBackBuffer()
@@ -192,4 +204,13 @@ void GameEngineWindow::SetPosAndScale(const float4& _Pos, const float4& _Scale)
 	AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
 	SetWindowPos(hWnd, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+}
+
+float4 GameEngineWindow::GetMousePos()
+{
+	POINT MoniterPoint;
+	GetCursorPos(&MoniterPoint);
+	ScreenToClient(hWnd, &MoniterPoint);
+
+	return float4{ static_cast<float>(MoniterPoint.x), static_cast<float>(MoniterPoint.y) };
 }

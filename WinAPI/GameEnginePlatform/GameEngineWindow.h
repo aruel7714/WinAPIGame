@@ -43,6 +43,8 @@ public:
 		return BackBuffer;
 	}
 
+	float4 GetMousePos();
+
 	void SetPosAndScale(const float4& _Pos, const float4& _Scale);
 
 	static void WindowLoopOff()
@@ -62,13 +64,12 @@ protected:
 
 private:
 	static bool IsWindowUpdate;
+	static bool IsFocusValue;
 
 	static HINSTANCE Instance;
 	std::string Title = "";
 
 	HWND hWnd = nullptr;
-
-	static bool IsFocusValue;
 
 	float4 Scale;
 

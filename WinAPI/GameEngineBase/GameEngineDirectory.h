@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEnginePath.h"
+#include "GameEngineFile.h"
 
 // 설명 : 스프라이트가 여러개일경우 사용
 class GameEngineDirectory : public GameEnginePath
@@ -15,6 +15,8 @@ public:
 	GameEngineDirectory(GameEngineDirectory && _Other) noexcept = delete;
 	GameEngineDirectory& operator=(const GameEngineDirectory & _Other) = delete;
 	GameEngineDirectory& operator=(GameEngineDirectory && _Other) noexcept = delete;
+
+	std::vector<class GameEngineFile> GetAllFile(std::vector<std::string> _Ext);
 
 protected:
 

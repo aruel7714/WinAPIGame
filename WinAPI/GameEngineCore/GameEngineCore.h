@@ -16,8 +16,6 @@ class GameEngineLevel;
 class GameEngineCore
 {
 public:
-	
-
 	// delete Function
 	GameEngineCore(const GameEngineCore & _Other) = delete;
 	GameEngineCore(GameEngineCore && _Other) noexcept = delete;

@@ -92,15 +92,18 @@ void GameEngineLevel::ActorRelease()
 	std::map<int, std::list<GameEngineActor*>>::iterator GroupStartIter = AllActors.begin();
 	std::map<int, std::list<GameEngineActor*>>::iterator GroupEndIter = AllActors.end();
 
-	std::list<GameEngineActor*>::iterator ObjectStartIter;
-	std::list<GameEngineActor*>::iterator ObjectEndIter;
+	//std::list<GameEngineActor*>::iterator ObjectStartIter;
+	//std::list<GameEngineActor*>::iterator ObjectEndIter;
 
 	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 	{
 		std::list<GameEngineActor*>& Group = GroupStartIter->second;
 
-		ObjectStartIter = Group.begin();
-		ObjectEndIter = Group.end();
+		std::list<GameEngineActor*>::iterator ObjectStartIter = Group.begin();
+		std::list<GameEngineActor*>::iterator ObjectEndIter = Group.end();
+
+		//ObjectStartIter = Group.begin();
+		//ObjectEndIter = Group.end();
 
 		for (; ObjectStartIter != ObjectEndIter; )
 		{
@@ -123,6 +126,32 @@ void GameEngineLevel::ActorRelease()
 			Actor = nullptr;
 
 			ObjectStartIter = Group.erase(ObjectStartIter);
+		}
+	}
+}
+
+void GameEngineLevel::ActorLevelEnd()
+{
+	for (const std::pair<int, std::list<GameEngineActor*>>& _Pair : AllActors)
+	{
+		const std::list<GameEngineActor*>& Group = _Pair.second;
+
+		for (GameEngineActor* _Actor : Group)
+		{
+			_Actor->LevelEnd();
+		}
+	}
+}
+
+void GameEngineLevel::ActorLevelStart()
+{
+	for (const std::pair<int, std::list<GameEngineActor*>>& _Pair : AllActors)
+	{
+		const std::list<GameEngineActor*>& Group = _Pair.second;
+
+		for (GameEngineActor* _Actor : Group)
+		{
+			_Actor->LevelStart();
 		}
 	}
 }

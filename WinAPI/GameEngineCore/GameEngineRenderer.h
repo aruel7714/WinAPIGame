@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include <string>
 #include <map>
+#include <vector>
 
 // 설명 : 
 class GameEngineSprite;
@@ -48,6 +49,11 @@ public:
 		CopyScale = _Value;
 	}
 
+	void SetScaleRatio(const float& _Scale)
+	{
+		ScaleRatio = _Scale;
+	}
+
 	void SetRenderScaleToTexture();
 
 	bool IsDeath() override;
@@ -58,6 +64,8 @@ private:
 	GameEngineActor* Master = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineSprite* Sprite = nullptr;
+
+	float ScaleRatio = 1.0f;
 
 	bool ScaleCheck;
 
@@ -78,13 +86,22 @@ private:
 		size_t StartFrame = -1;
 		size_t EndFrame = -1;
 		float CurInter = 0.0f;
-		float Inter = 0.1f;
+		std::vector<float> Inters;
 		bool Loop = true;
 	};
 
 public:
 	Animation* FindAnimation(const std::string& _AnimationName);
 
+	/// <summary>
+	/// 애니메이션 생성함수
+	/// </summary>
+	/// <param name="_AniamtionName">애니메이션 이름</param>
+	/// <param name="_SpriteName">스프라이트 이름</param>
+	/// <param name="_Start">시작 프레임</param>
+	/// <param name="_End">끝 프레임</param>
+	/// <param name="_Inter">애니메이션 시간</param>
+	/// <param name="_Loop">애니메이션 반복</param>
 	void CreateAnimation(
 		const std::string& _AnimationName,
 		const std::string& _SpriteName,

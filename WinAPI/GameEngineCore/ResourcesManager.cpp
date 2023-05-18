@@ -3,7 +3,7 @@
 #include <GameEngineBase/GameEngineString.h>
 #include "GameEngineSprite.h"
 #include <GameEngineBase/GameEngineDebug.h>
-#include <GameEngineBase/GameEnigneDirectory.h>
+#include <GameEngineBase/GameEngineDirectory.h>
 
 ResourcesManager ResourcesManager::Inst;
 
@@ -89,7 +89,7 @@ GameEngineSprite* ResourcesManager::CreateSpriteSheet(const std::string& _Sprite
 {
 	std::string UpperName = GameEngineString::ToUpperReturn(_SpriteName);
 
-	if (nullptr != FindSprtie(UpperName))
+	if (nullptr != FindSprite(UpperName))
 	{
 		MsgBoxAssert("이미 로드한 스프라이트를 또 로드하려고 했습니다.");
 	}
@@ -116,7 +116,49 @@ GameEngineSprite* ResourcesManager::CreateSpriteSheet(const std::string& _Sprite
 
 GameEngineSprite* ResourcesManager::CreateSpriteFolder(const std::string& _SpriteName, const std::string& _Path)
 {
-	GameEngineDirectory Directory = _Path;
+	std::string UpperName = GameEngineString::ToUpperReturn(_SpriteName);
 
-	return nullptr;
+	if (nullptr != FindSprite(UpperName))
+	{
+		MsgBoxAssert("이미 로드한 스프라이트를 또 로드하려고 했습니다.");
+	}
+
+	GameEngineSprite* NewSprite = new GameEngineSprite();
+
+	NewSprite->CreateSpriteFolder(_Path);
+
+	AllSprite.insert(std::make_pair(UpperName, NewSprite));
+
+	return NewSprite;
+}
+
+void ResourcesManager::TextureFileLoad(const std::string& _FileName, const std::string& _Path)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+
+		std::string ParentPath = GameEnginePath::GetParentString(_Path);
+		FilePath.MoveParentToExistsChild(ParentPath);
+		FilePath.MoveChild(_Path + _FileName);
+		TextureLoad(FilePath.GetStringPath());
+	}
+}
+
+void ResourcesManager::SpriteFileLoad(const std::string& _FileName, const std::string& _Path, int _XCount, int _YCount)
+{
+	if (true == ResourcesManager::GetInst().IsLoadTexture(_FileName))
+	{
+		return;
+	}
+
+	GameEnginePath FilePath;
+
+	std::string ParentPath = GameEnginePath::GetParentString(_Path);
+
+	FilePath.MoveParentToExistsChild(ParentPath);
+	FilePath.MoveChild(_Path);
+
+	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath(_FileName), _XCount, _YCount);
 }

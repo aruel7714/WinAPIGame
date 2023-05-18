@@ -1,4 +1,5 @@
 #pragma once
+#include "GameEngineDebug.h"
 
 // 설명 : 수학 관련 클래스
 class GameEngineMath
@@ -9,7 +10,6 @@ class float4
 {
 public:
 	static const float4 ZERO;
-
 	static const float4 LEFT;
 	static const float4 RIGHT;
 	static const float4 UP;
@@ -55,7 +55,7 @@ public:
 		return { hX(), hY(), Z, W };
 	}
 
-	float4 operator-()
+	float4 operator-() const
 	{
 		float4 ReturnValue = *this;
 
@@ -66,7 +66,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator-(const float4& _Other)
+	float4 operator-(const float4& _Other) const
 	{
 		float4 ReturnValue;
 
@@ -77,7 +77,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator+(const float4& _Other)
+	float4 operator+(const float4& _Other) const
 	{
 		float4 ReturnValue;
 
@@ -88,7 +88,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator*(const float4& _Other)
+	float4 operator*(const float4& _Other) const
 	{
 		float4 ReturnValue;
 
@@ -99,7 +99,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator*(const float _Value)
+	float4 operator*(const float _Value) const
 	{
 		float4 ReturnValue;
 
@@ -144,5 +144,42 @@ public:
 		Z *= _Value;
 
 		return *this;
+	}
+
+	bool operator==(const float4 _Value) const
+	{
+		return X == _Value.X &&
+			Y == _Value.Y &&
+			Z == _Value.Z;
+	}
+
+	inline void Normalize()
+	{
+		float Len = Size();
+
+		if (0.0f == Len)
+		{
+			return;
+		}
+
+		X /= Len;
+		Y /= Len;
+		Z /= Len;
+	}
+
+	inline float4 NomalizeReturn()
+	{
+		float4 Result = *this;
+		Result.Normalize();
+		return Result;
+	}
+
+	inline float Size()
+	{
+		float Value = X * X + Y * Y;
+
+		Value;
+
+		return sqrtf(Value);
 	}
 };

@@ -71,6 +71,8 @@ public:
 	GameEngineInput& operator=(const GameEngineInput & _Other) = delete;
 	GameEngineInput& operator=(GameEngineInput && _Other) noexcept = delete;
 
+	static float4 MousePos();
+
 	static void InputInit();
 	static void Update(float _DeltaTime);
 	static void Reset();

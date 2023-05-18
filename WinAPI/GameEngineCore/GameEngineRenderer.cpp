@@ -33,10 +33,6 @@ void GameEngineRenderer::SetSprite(const std::string& _Name, size_t _Index /*= 0
 	SetCopyPos(SpriteInfo.RenderPos);
 	SetCopyScale(SpriteInfo.RenderScale);
 
-	if (false == ScaleCheck)
-	{
-		SetRenderScaleToTexture();
-	}
 }
 
 void GameEngineRenderer::SetTexture(const std::string& _Name)
@@ -59,7 +55,10 @@ void GameEngineRenderer::SetTexture(const std::string& _Name)
 
 void GameEngineRenderer::SetRenderScaleToTexture()
 {
-	RenderScale = Texture->GetScale();
+	if (nullptr != Texture)
+	{
+		RenderScale = Texture->GetScale();
+	}
 	ScaleCheck = false;
 }
 
@@ -71,9 +70,10 @@ void GameEngineRenderer::Render(class GameEngineCamera* _Camera, float _DeltaTim
 
 		if (0.0f >= CurAnimation->CurInter)
 		{
-			++CurAnimation->CurFrame;
+			CurAnimation->CurInter
+				= CurAnimation->Inters[CurAnimation->CurFrame - CurAnimation->StartFrame];
 
-			CurAnimation->CurInter = CurAnimation->Inter;
+			++CurAnimation->CurFrame;
 
 			if (CurAnimation->CurFrame = CurAnimation->EndFrame)
 			{
@@ -91,7 +91,12 @@ void GameEngineRenderer::Render(class GameEngineCamera* _Camera, float _DeltaTim
 		const GameEngineSprite::Sprite& SpriteInfo = Sprite->GetSprite(CurAnimation->CurFrame);
 		Texture = SpriteInfo.BaseTexture;
 		SetCopyPos(SpriteInfo.RenderPos);
-		SetCopuScale(SpriteInfo.RenderScale);
+		SetCopyScale(SpriteInfo.RenderScale);
+
+		if (false == ScaleCheck)
+		{
+			SetRenderScale(SpriteInfo.RenderScale * ScaleRatio);
+		}
 	}
 
 	if (nullptr == Texture)
@@ -140,7 +145,7 @@ void GameEngineRenderer::CreateAnimation(
 
 	GameEngineSprite* Sprite = ResourcesManager::GetInst().FindSprite(_SpriteName);
 
-	if (nullptr == Sprtie)
+	if (nullptr == Sprite)
 	{
 		MsgBoxAssert("존재하지 않는 스프라이트로 애니메이션을 만들려고 했습니다." + _SpriteName);
 		return;
@@ -168,7 +173,13 @@ void GameEngineRenderer::CreateAnimation(
 		Animation.EndFrame = Animation.Sprite->GetSpriteCount() - 1;
 	}
 
-	Animation.Inter = _Inter;
+	Animation.Inters.resize((Animation.EndFrame - Animation.StartFrame) + 1);
+
+	for (size_t i = 0; i < Animation.Inters.size(); i++)
+	{
+		Animation.Inters[i] = _Inter;
+	}
+
 	Animation.Loop = _Loop;
 }
 
@@ -182,7 +193,7 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool
 	}
 	CurAnimation = FindAnimation(_AnimationName);
 
-	CurAnimation->CurInter = CurAnimation->Inter;
+	CurAnimation->CurInter = CurAnimation->Inters[0];
 	CurAnimation->CurFrame = CurAnimation->StartFrame;
 
 	if (nullptr == CurAnimation)

@@ -56,6 +56,9 @@ private:
 
 	void ActorInit(GameEngineActor* _Actor, int _Order);
 
+	void ActorLevelEnd();
+	void ActorLevelStart();
+
 	void ActorUpdate(float _Delta);
 	void ActorRender(float _Delat);
 	void ActorRelease();

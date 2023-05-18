@@ -61,6 +61,8 @@ public:
 	}
 
 protected:
+	virtual void LevelStart() {}
+	virtual void LevelEnd() {}
 
 private:
 	GameEngineLevel* Level;
@@ -68,6 +70,8 @@ private:
 	float4 Pos = float4::ZERO;
 
 	std::list<GameEngineRenderer*> AllRenderer;
+
+	void PushMainCameraRenderer(GameEngineRenderer*);
 
 	void ActorRelease();
 };

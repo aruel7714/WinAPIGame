@@ -4,6 +4,7 @@
 class GameEngineObject
 {
 	friend class GameEngineLevel;
+	friend class GameEngineCore;
 public:
 	// constrcuter destructer
 	GameEngineObject();
@@ -40,7 +41,7 @@ public:
 
 	bool IsUpdate()
 	{
-		return true == IsUpdateValue && false == IsDEathValue;
+		return true == IsUpdateValue && false == IsDeathValue;
 	}
 
 	virtual bool IsDeath()
