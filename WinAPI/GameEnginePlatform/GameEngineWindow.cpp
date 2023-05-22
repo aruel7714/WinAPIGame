@@ -56,7 +56,7 @@ void GameEngineWindow::Open(const std::string& _Title, HINSTANCE _hInstance)
 void GameEngineWindow::InitInstance()
 {
 	hWnd = CreateWindowA(
-		"DefalutWindow",
+		"DefaultWindow",
 		Title.c_str(),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,

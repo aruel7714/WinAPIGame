@@ -92,6 +92,8 @@ void GameEngineCore::CoreEnd()
 
 void GameEngineCore::EngineStart(const std::string& _Title, HINSTANCE _Inst, CoreProcess* _Ptr)
 {
+	GameEngineDebug::LeckCheck();
+
 	Process = _Ptr;
 
 	WindowTitle = _Title;

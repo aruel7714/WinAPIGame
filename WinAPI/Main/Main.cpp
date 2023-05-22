@@ -7,6 +7,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	GameEngineCore::EngineStart<MetalSlugCore>("MetalSlug2", hInstance);
+	GameEngineCore::EngineStart<MetalSlugCore>("MetalSlug", hInstance);
 	return 0;
 }
