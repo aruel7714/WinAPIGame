@@ -21,9 +21,10 @@ void MetalSlugCore::Start()
 	// 640. 448
 	// 960, 672
 	// GameEngineWindow::MainWindow.SetPosAndScale({ 100, 100 }, { 1280, 720 });
+	GameEngineWindow::MainWindow.SetPosAndScale({ 100, 100 }, { 960, 672 });
 
-	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
-	GameEngineCore::CreateLevel<CharacterSelectLevel>("CharacterSelectLevel");
+	/*GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
+	GameEngineCore::CreateLevel<CharacterSelectLevel>("CharacterSelectLevel");*/
 	GameEngineCore::CreateLevel<Stage1>("Stage1");
 
 	// GameEngineCore::ChangeLevel("TitleLevel");

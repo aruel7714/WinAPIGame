@@ -7,6 +7,7 @@
 
 // Ό³Έν : 
 class GameEngineCamera;
+class GameEngineCollision;
 class GameEngineLevel : public GameEngineObject
 {
 	friend class GameEngineActor;
@@ -31,7 +32,7 @@ public:
 	template<typename ActorType>
 	ActorType* CreateActor(int _Order = 0)
 	{
-		std::list<GameEngineActor*>& GroupList = AllActor[_Order];
+		std::list<GameEngineActor*>& GroupList = AllActors[_Order];
 		GameEngineActor* NewActor = new ActorType();
 		ActorInit(NewActor, _Order);
 		GroupList.push_back(NewActor);

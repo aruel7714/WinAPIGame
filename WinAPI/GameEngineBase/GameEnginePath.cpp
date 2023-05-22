@@ -24,11 +24,13 @@ void GameEnginePath::SetCurrentPath()
 	Path = std::filesystem::current_path();
 }
 
+// 상위 폴더로 이동
 void GameEnginePath::MoveParent()
 {
 	Path = Path.parent_path();
 }
 
+// ChildPath가 있는 곳까지 MoveParent
 void GameEnginePath::MoveParentToExistsChild(const std::string& _ChildPath)
 {
 	while (true)
@@ -53,6 +55,7 @@ void GameEnginePath::MoveParentToExistsChild(const std::string& _ChildPath)
 	}
 }
 
+// 지정한 하위 경로로 이동
 void GameEnginePath::MoveChild(const std::string& _ChildPath)
 {
 	std::filesystem::path CheckPath = Path;

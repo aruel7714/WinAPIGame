@@ -14,12 +14,13 @@ BackGround::~BackGround()
 {
 }
 
-void Start() 
+void BackGround::Start()
 {
+
 }
-void Update(float _Delta) {}
-void Render() {}
-void Release() {}
+void BackGround::Update(float _Delta) {}
+void BackGround::Render() {}
+void BackGround::Release() {}
 
 void BackGround::Init(const std::string& _FileName)
 {

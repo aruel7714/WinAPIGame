@@ -16,10 +16,10 @@ public:
 	virtual ~GameEngineActor();
 
 	// delete Function
-	GameEngineActor(const GameEngineActor & _Other) = delete;
-	GameEngineActor(GameEngineActor && _Other) noexcept = delete;
-	GameEngineActor& operator=(const GameEngineActor & _Other) = delete;
-	GameEngineActor& operator=(GameEngineActor && _Other) noexcept = delete;
+	GameEngineActor(const GameEngineActor& _Other) = delete;
+	GameEngineActor(GameEngineActor&& _Other) noexcept = delete;
+	GameEngineActor& operator=(const GameEngineActor& _Other) = delete;
+	GameEngineActor& operator=(GameEngineActor&& _Other) noexcept = delete;
 
 	void SetPos(const float4& _Pos)
 	{
@@ -54,6 +54,8 @@ public:
 	}
 
 	GameEngineRenderer* CreateRenderer(const std::string _ImageName, int _Order);
+
+	GameEngineRenderer* CreateCollision(int _Order = 0);
 
 	GameEngineLevel* GetLevel()
 	{

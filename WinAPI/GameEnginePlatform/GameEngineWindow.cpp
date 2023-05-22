@@ -115,7 +115,7 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
-
+	return 0;
 }
 
 void GameEngineWindow::MyRegisterClass()
@@ -136,7 +136,7 @@ void GameEngineWindow::MyRegisterClass()
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = Instance;
 	wcex.hIcon = nullptr;
-	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	wcex.hCursor = LoadCursor(nullptr, IDC_CROSS);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
 	wcex.lpszMenuName = nullptr;
 	wcex.lpszClassName = "DefaultWindow";
@@ -163,10 +163,10 @@ void GameEngineWindow::MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), vo
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			if (nullptr != _Update)
-			{
-				_Update();
-			}
+			//if (nullptr != _Update)
+			//{
+			//	_Update();
+			//}
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 

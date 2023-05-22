@@ -49,9 +49,9 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string _ImageName
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
-	GetLevel()->MainCamera->PushRenderer(NewRenderer, _Order);
-
 	NewRenderer->Master = this;
+	NewRenderer->Start();
+	NewRenderer->SetOrder(_Order);
 
 	if (_ImageName != "")
 	{
@@ -61,4 +61,9 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string _ImageName
 	AllRenderer.push_back(NewRenderer);
 	
 	return NewRenderer;
+}
+
+GameEngineRenderer* CreateCollision(int _Order /*= 0*/)
+{
+	return nullptr;
 }

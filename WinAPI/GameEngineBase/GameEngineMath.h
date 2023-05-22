@@ -40,12 +40,12 @@ public:
 		return Y * 0.5f;
 	}
 
-	inline float ihX() const
+	inline int ihX() const
 	{
 		return static_cast<int>(hX());
 	}
 
-	inline float ihY() const
+	inline int ihY() const
 	{
 		return static_cast<int>(hY());
 	}

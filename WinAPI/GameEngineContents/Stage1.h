@@ -23,5 +23,6 @@ private:
 	void Render() override;
 	void Release() override;
 
+	class BackGround* BackGroundPtr;
 };
 
