@@ -18,17 +18,17 @@ void Stage1::Start()
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("ContentResource");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-		FilePath.MoveChild("ContentResource\\Texture\\Map");
+		FilePath.MoveChild("ContentsResources\\Texture\\Map\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1.bmp"));
 	}
 
 	BackGroundPtr = CreateActor<BackGround>();
 	BackGroundPtr->Init("Mission1.bmp");
 	
+	
 }
 
 void Stage1::Update(float _Delta) {}
-void Stage1::Render() {}
 void Stage1::Release() {}

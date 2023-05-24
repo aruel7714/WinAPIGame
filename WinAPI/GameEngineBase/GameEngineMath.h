@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEngineDebug.h"
 
-// 설명 : 수학 관련 클래스
+// 설명 :
 class GameEngineMath
 {
 };
@@ -15,6 +15,10 @@ public:
 	static const float4 UP;
 	static const float4 DOWN;
 
+	// 실수는 기본적으로 == 이 거의 불가능하다. 
+	// 해도 정확하지 않는다. 실수를 처리하는 방식이 애초에 정확하지 않기 때문이다.
+	// 부동소수점 계산방식은 기본적으로 오차를 가지고 있고
+	// + - 등을 할때 여러분들의 생각과는 다른 값이 존재할 가능성이 높다. 
 	float X = 0.0f;
 	float Y = 0.0f;
 	float Z = 0.0f;
@@ -40,6 +44,7 @@ public:
 		return Y * 0.5f;
 	}
 
+
 	inline int ihX() const
 	{
 		return static_cast<int>(hX());
@@ -62,7 +67,6 @@ public:
 		ReturnValue.X = -ReturnValue.X;
 		ReturnValue.Y = -ReturnValue.Y;
 		ReturnValue.Z = -ReturnValue.Z;
-
 		return ReturnValue;
 	}
 
@@ -76,6 +80,8 @@ public:
 
 		return ReturnValue;
 	}
+
+
 
 	float4 operator+(const float4& _Other) const
 	{
@@ -99,6 +105,7 @@ public:
 		return ReturnValue;
 	}
 
+
 	float4 operator*(const float _Value) const
 	{
 		float4 ReturnValue;
@@ -118,6 +125,7 @@ public:
 
 		return *this;
 	}
+
 
 	float4& operator-=(const float4& _Other)
 	{
@@ -155,10 +163,12 @@ public:
 
 	inline void Normalize()
 	{
+		// 길이를 1로 만드는 함수입니다.
 		float Len = Size();
 
 		if (0.0f == Len)
 		{
+			// MsgBoxAssert("0으로 나누려고 했습니다.");
 			return;
 		}
 
@@ -167,7 +177,7 @@ public:
 		Z /= Len;
 	}
 
-	inline float4 NomalizeReturn()
+	inline float4 NormalizeReturn()
 	{
 		float4 Result = *this;
 		Result.Normalize();
@@ -176,10 +186,19 @@ public:
 
 	inline float Size()
 	{
-		float Value = X * X + Y * Y;
+		float Value = X * X + Y * Y; // == 빗변 * 빗변
 
-		Value;
+		// 제곱수이다.
+		// 제곱을 풀어서 제곱근이라고 합니다.
+		Value; // 빗변 * 빗변 => 빗변
 
 		return sqrtf(Value);
 	}
+
+	float Max2D()
+	{
+		return X > Y ? X : Y;
+	}
+
 };
+

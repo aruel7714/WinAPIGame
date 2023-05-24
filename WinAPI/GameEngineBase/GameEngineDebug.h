@@ -1,9 +1,9 @@
 #pragma once
 #include <Windows.h>
-#include <assert.h>
 #include <string>
+#include <assert.h>
 
-// 설명 : 릭 체크, 오류 출력
+//// 설명 :
 class GameEngineDebug
 {
 public:

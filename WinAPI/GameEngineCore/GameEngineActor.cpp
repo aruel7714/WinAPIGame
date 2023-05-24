@@ -1,5 +1,6 @@
 #include "GameEngineActor.h"
 #include "GameEngineRenderer.h"
+#include "GameEngineCollision.h"
 #include "GameEngineLevel.h"
 #include "GameEngineCamera.h"
 #include <GameEngineBase/GameEngineDebug.h>
@@ -15,6 +16,13 @@ GameEngineActor::~GameEngineActor()
 		delete Render;
 		Render = nullptr;
 	}
+
+	for (GameEngineCollision* Collision : AllCollision)
+	{
+		delete Collision;
+		Collision = nullptr;
+	}
+
 }
 
 void GameEngineActor::ActorRelease()
@@ -25,12 +33,12 @@ void GameEngineActor::ActorRelease()
 	for (; ObjectStartIter != ObjectEndIter; )
 	{
 		GameEngineRenderer* Renderer = *ObjectStartIter;
-
 		if (false == Renderer->IsDeath())
 		{
 			++ObjectStartIter;
 			continue;
 		}
+
 
 		if (nullptr == Renderer)
 		{
@@ -41,29 +49,55 @@ void GameEngineActor::ActorRelease()
 		delete Renderer;
 		Renderer = nullptr;
 
+		// [s] [a] [a]     [a] [e]
 		ObjectStartIter = AllRenderer.erase(ObjectStartIter);
+
 	}
 }
 
-GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string _ImageName, int _Order)
+GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageName, int _Order)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
 	NewRenderer->Master = this;
-	NewRenderer->Start();
+	NewRenderer->MainCameraSetting();
 	NewRenderer->SetOrder(_Order);
 
 	if (_ImageName != "")
 	{
 		NewRenderer->SetTexture(_ImageName);
 	}
-
 	AllRenderer.push_back(NewRenderer);
-	
+
 	return NewRenderer;
 }
 
-GameEngineRenderer* CreateCollision(int _Order /*= 0*/)
+
+GameEngineRenderer* GameEngineActor::CreateUIRenderer(const std::string& _ImageName, int _Order)
 {
-	return nullptr;
+	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
+
+	NewRenderer->Master = this;
+	NewRenderer->UICameraSetting();
+	NewRenderer->SetOrder(_Order);
+
+	if (_ImageName != "")
+	{
+		NewRenderer->SetTexture(_ImageName);
+	}
+	AllRenderer.push_back(NewRenderer);
+
+	return NewRenderer;
+}
+
+GameEngineCollision* GameEngineActor::CreateCollision(int _Order/* = 0*/)
+{
+	GameEngineCollision* NewCollision = new GameEngineCollision();
+
+	NewCollision->Master = this;
+	NewCollision->Start();
+	NewCollision->SetOrder(_Order);
+	AllCollision.push_back(NewCollision);
+
+	return NewCollision;
 }

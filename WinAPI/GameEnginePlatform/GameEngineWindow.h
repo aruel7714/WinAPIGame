@@ -3,7 +3,7 @@
 #include <string>
 #include "GameEngineWindowTexture.h"
 
-// 설명 : 
+// 설명 :
 class GameEngineWindow
 {
 public:
@@ -14,14 +14,14 @@ public:
 	~GameEngineWindow();
 
 	// delete Function
-	GameEngineWindow(const GameEngineWindow & _Other) = delete;
-	GameEngineWindow(GameEngineWindow && _Other) noexcept = delete;
-	GameEngineWindow& operator=(const GameEngineWindow & _Other) = delete;
-	GameEngineWindow& operator=(GameEngineWindow && _Other) noexcept = delete;
+	GameEngineWindow(const GameEngineWindow& _Other) = delete;
+	GameEngineWindow(GameEngineWindow&& _Other) noexcept = delete;
+	GameEngineWindow& operator=(const GameEngineWindow& _Other) = delete;
+	GameEngineWindow& operator=(GameEngineWindow&& _Other) noexcept = delete;
 
 	void Open(const std::string& _Title, HINSTANCE _hInstance);
 
-	static void MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*Update)(), void(*End)());
+	static void MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*_Update)(), void(*_End)());
 
 	HDC GetHDC()
 	{
@@ -60,22 +60,34 @@ public:
 		return IsFocusValue;
 	}
 
+	void SetDoubleBufferingCopyScaleRatio(float _Ratio)
+	{
+		CopyRatio = _Ratio;
+	}
+
+	void AddDoubleBufferingCopyScaleRatio(float _Ratio)
+	{
+		CopyRatio += _Ratio;
+	}
+
 protected:
 
 private:
 	static bool IsWindowUpdate;
 	static bool IsFocusValue;
-
 	static HINSTANCE Instance;
 	std::string Title = "";
-
 	HWND hWnd = nullptr;
 
-	float4 Scale;
+	float CopyRatio = 1.0f;
 
+	float4 Scale;
 	GameEngineWindowTexture* WindowBuffer = nullptr;
+
 	GameEngineWindowTexture* BackBuffer = nullptr;
 
+	// 2차원 배열 형식의 색깔들의 집합이 존재하고
+	// 거기에 그림을 그리거나 수정할수 있는 권한을 HDC
 	HDC Hdc = nullptr;
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

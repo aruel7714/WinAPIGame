@@ -42,10 +42,10 @@ void Player::Update(float _Delta)
 
 }
 
-void Player::Render()
-{
-
-}
+//void Player::Render()
+//{
+//
+//}
 
 void Player::Release()
 {

@@ -3,23 +3,24 @@
 #include <map>
 #include <list>
 
-// 설명 : 
+// 설명 :
 class GameEngineRenderer;
 class GameEngineCamera
 {
 	friend class GameEngineRenderer;
 	friend class GameEngineActor;
 	friend class GameEngineLevel;
+
 public:
 	// constrcuter destructer
 	GameEngineCamera();
 	~GameEngineCamera();
 
 	// delete Function
-	GameEngineCamera(const GameEngineCamera & _Other) = delete;
-	GameEngineCamera(GameEngineCamera && _Other) noexcept = delete;
-	GameEngineCamera& operator=(const GameEngineCamera & _Other) = delete;
-	GameEngineCamera& operator=(GameEngineCamera && _Other) noexcept = delete;
+	GameEngineCamera(const GameEngineCamera& _Other) = delete;
+	GameEngineCamera(GameEngineCamera&& _Other) noexcept = delete;
+	GameEngineCamera& operator=(const GameEngineCamera& _Other) = delete;
+	GameEngineCamera& operator=(GameEngineCamera&& _Other) noexcept = delete;
 
 	float4 GetPos()
 	{

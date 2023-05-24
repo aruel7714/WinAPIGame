@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 
-// 설명 : 
+// 설명 :
 class GameEngineTime
 {
 public:
@@ -12,10 +12,10 @@ public:
 	~GameEngineTime();
 
 	// delete Function
-	GameEngineTime(const GameEngineTime & _Other) = delete;
-	GameEngineTime(GameEngineTime && _Other) noexcept = delete;
-	GameEngineTime& operator=(const GameEngineTime & _Other) = delete;
-	GameEngineTime& operator=(GameEngineTime && _Other) noexcept = delete;
+	GameEngineTime(const GameEngineTime& _Other) = delete;
+	GameEngineTime(GameEngineTime&& _Other) noexcept = delete;
+	GameEngineTime& operator=(const GameEngineTime& _Other) = delete;
+	GameEngineTime& operator=(GameEngineTime&& _Other) noexcept = delete;
 
 	float GetDeltaTime()
 	{
@@ -35,6 +35,5 @@ private:
 	__int64 Tick;
 	double DoubleDelta;
 	float FloatDelta;
-
 };
 

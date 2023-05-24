@@ -4,9 +4,11 @@
 #include <string>
 #include <list>
 
-// 설명 : 
+// 설명 : 화면안에 존재하는 플레이어 몬스터 총알 등등등 존재한다고 치고
+// 위치가 있다면 이 녀석으로 표현해야 합니다.
 class GameEngineLevel;
 class GameEngineRenderer;
+class GameEngineCollision;
 class GameEngineActor : public GameEngineObject
 {
 	friend GameEngineLevel;
@@ -31,6 +33,7 @@ public:
 		Pos += _Pos;
 	}
 
+
 	float4 GetPos()
 	{
 		return Pos;
@@ -48,14 +51,41 @@ public:
 	}
 
 	template<typename EnumType>
-	GameEngineRenderer* CreateRenderer(const std::string _ImageName, EnumType _Order)
+	GameEngineRenderer* CreateRenderer(const std::string& _ImageName, EnumType _Order)
 	{
 		return CreateRenderer(_ImageName, static_cast<int>(_Order));
 	}
 
-	GameEngineRenderer* CreateRenderer(const std::string _ImageName, int _Order);
+	GameEngineRenderer* CreateRenderer(const std::string& _ImageName, int _Order);
 
-	GameEngineRenderer* CreateCollision(int _Order = 0);
+	template<typename EnumType>
+	GameEngineRenderer* CreateUIRenderer(EnumType _Order)
+	{
+		return CreateUIRenderer("", static_cast<int>(_Order));
+	}
+
+	GameEngineRenderer* CreateUIRenderer(int _Order = 0)
+	{
+		return CreateUIRenderer("", static_cast<int>(_Order));
+	}
+
+	template<typename EnumType>
+	GameEngineRenderer* CreateUIRenderer(const std::string& _ImageName, EnumType _Order)
+	{
+		return CreateUIRenderer(_ImageName, static_cast<int>(_Order));
+	}
+
+	GameEngineRenderer* CreateUIRenderer(const std::string& _ImageName, int _Order);
+
+	template<typename EnumType>
+	GameEngineCollision* CreateCollision(EnumType _Order)
+	{
+		return CreateCollision(static_cast<int>(_Order));
+	}
+
+
+	GameEngineCollision* CreateCollision(int _Order = 0);
+
 
 	GameEngineLevel* GetLevel()
 	{
@@ -72,8 +102,9 @@ private:
 	float4 Pos = float4::ZERO;
 
 	std::list<GameEngineRenderer*> AllRenderer;
+	std::list<GameEngineCollision*> AllCollision;
 
-	void PushMainCameraRenderer(GameEngineRenderer*);
+
 
 	void ActorRelease();
 };

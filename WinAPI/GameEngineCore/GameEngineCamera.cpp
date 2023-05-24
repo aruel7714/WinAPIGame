@@ -11,6 +11,10 @@ GameEngineCamera::~GameEngineCamera()
 
 void GameEngineCamera::Render(float _Delta)
 {
+	//for (const std::pair<int, std::list<GameEngineRenderer*>>& Pair : Renderers)
+	//{
+	//}
+
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
 
@@ -19,8 +23,8 @@ void GameEngineCamera::Render(float _Delta)
 		std::list<GameEngineRenderer*>& List = GroupStartIter->second;
 
 		std::list<GameEngineRenderer*>::iterator RenderStartIter = List.begin();
-		
 		std::list<GameEngineRenderer*>::iterator RenderEndIter = List.end();
+
 
 		for (; RenderStartIter != RenderEndIter; ++RenderStartIter)
 		{
@@ -31,7 +35,7 @@ void GameEngineCamera::Render(float _Delta)
 				continue;
 			}
 
-			Render->Render(this, _Delta);
+			Render->Render(_Delta);
 		}
 	}
 }
@@ -49,8 +53,11 @@ void GameEngineCamera::PushRenderer(GameEngineRenderer* _Renderer, int _Order)
 
 void GameEngineCamera::Release()
 {
+
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
+
+	// 눈꼽 만큼이라도 연산을 줄이려는 거죠.
 
 	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 	{
@@ -62,7 +69,6 @@ void GameEngineCamera::Release()
 		for (; ActorStartIter != ActorEndIter; )
 		{
 			GameEngineRenderer* Object = *ActorStartIter;
-
 			if (false == Object->IsDeath())
 			{
 				++ActorStartIter;
@@ -74,8 +80,9 @@ void GameEngineCamera::Release()
 				MsgBoxAssert("nullptr인 랜더러가 레벨의 리스트에 들어가 있었습니다.");
 				continue;
 			}
-
+			// [s] [a] [a]     [a] [e]
 			ActorStartIter = Group.erase(ActorStartIter);
+
 		}
 	}
 }

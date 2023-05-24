@@ -4,7 +4,7 @@
 #include <string>
 #include <GameEngineBase/GameEngineMath.h>
 
-// 설명 : 
+// 설명 :
 class GameEngineInput
 {
 private:
@@ -17,6 +17,7 @@ private:
 		bool Up = false;
 		bool Free = true;
 
+		// 의미가 없다고 봐요.
 		float PressTime = 0.0f;
 
 		int Key = -1;
@@ -66,10 +67,10 @@ public:
 	~GameEngineInput();
 
 	// delete Function
-	GameEngineInput(const GameEngineInput & _Other) = delete;
-	GameEngineInput(GameEngineInput && _Other) noexcept = delete;
-	GameEngineInput& operator=(const GameEngineInput & _Other) = delete;
-	GameEngineInput& operator=(GameEngineInput && _Other) noexcept = delete;
+	GameEngineInput(const GameEngineInput& _Other) = delete;
+	GameEngineInput(GameEngineInput&& _Other) noexcept = delete;
+	GameEngineInput& operator=(const GameEngineInput& _Other) = delete;
+	GameEngineInput& operator=(GameEngineInput&& _Other) noexcept = delete;
 
 	static float4 MousePos();
 
@@ -87,5 +88,4 @@ protected:
 private:
 	static std::map<int, GameEngineKey> AllKeys;
 };
-
 
