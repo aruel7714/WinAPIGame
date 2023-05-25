@@ -27,6 +27,7 @@ void TitleLevel::Start()
 
 	BackGroundPtr = CreateActor<BackGround>();
 	BackGroundPtr->Init("TitleScreen.bmp");
+	// BackGroundPtr->SetPos
 }
 
 void TitleLevel::Update(float _DeltaTime)

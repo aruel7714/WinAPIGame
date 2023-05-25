@@ -44,8 +44,11 @@ void BackGround::Init(const std::string& _FileName)
 	float4 Scale = Texture->GetScale() * 3;
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderScale(Scale);
-	// SetPos({ Scale.hX(), Scale.hY() });
-	SetPos({ Scale.hX(), Scale.hY() - 120});
+	SetPos({ Scale.hX(), Scale.hY() });
+	// 카메라를 옮길것.
+	
+	// stage1 위치
+	// SetPos({ Scale.hX(), Scale.hY() - 120});
 }
 
 //void BackGround::Init(const std::string& _FileName, const std::string& _DebugFileName)

@@ -2,6 +2,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
 
+#include "Player.h"
 #include "BackGround.h"
 
 Stage1::Stage1()
@@ -26,6 +27,9 @@ void Stage1::Start()
 
 	BackGroundPtr = CreateActor<BackGround>();
 	BackGroundPtr->Init("Mission1.bmp");
+
+	LevelPlayer = CreateActor<Player>();
+	
 	
 	
 }
