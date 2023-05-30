@@ -15,6 +15,8 @@ public:
 	Stage1& operator=(const Stage1 & _Other) = delete;
 	Stage1& operator=(Stage1 && _Other) noexcept = delete;
 
+	void CameraFocus();
+
 protected:
 	//void LevelStart(GameEngineLevel* _PrevLevel) override;
 	//void LevelEnd(GameEngineLevel* _NextLevel) override;

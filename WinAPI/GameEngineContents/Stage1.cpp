@@ -1,6 +1,8 @@
 #include "Stage1.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 
 #include "Player.h"
 #include "BackGround.h"
@@ -29,10 +31,15 @@ void Stage1::Start()
 	BackGroundPtr->Init("Mission1.bmp");
 
 	LevelPlayer = CreateActor<Player>();
-	
-	
-	
+		
 }
+
+void Stage1::CameraFocus()
+{
+	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
+	BackGroundPtr->GetLevel()->GetMainCamera()->SetPos(BackGroundPtr->GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
+}
+
 
 void Stage1::Update(float _Delta) {}
 void Stage1::Release() {}

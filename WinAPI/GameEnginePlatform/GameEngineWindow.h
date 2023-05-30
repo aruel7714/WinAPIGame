@@ -55,9 +55,16 @@ public:
 	void ClearBackBuffer();
 	void DoubleBuffering();
 
+	void CursorOff();
+
 	static bool IsFocus()
 	{
 		return IsFocusValue;
+	}
+
+	float GetDoubleBuffringCopyScaleRatio() const
+	{
+		return CopyRatio;
 	}
 
 	void SetDoubleBufferingCopyScaleRatio(float _Ratio)
