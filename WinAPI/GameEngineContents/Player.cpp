@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "ContentsEnum.h"
 #include <Windows.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineBase/GameEnginePath.h>
@@ -35,7 +36,7 @@ void Player::LevelStart()
 
 void Player::Start()
 {
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_All_Idle_Test.bmp"))
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Lower.bmp"))
 	{
 		GameEnginePath FilePath;
 
@@ -45,43 +46,71 @@ void Player::Start()
 
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower_Idle.bmp"), 5, 1);
+		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower_Idle.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower.bmp"), 5, 4);
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower_Move.bmp"), 5, 3);
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Upper_Idle.bmp"), 5, 1);
+		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower_Move.bmp"), 5, 3);
+		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Upper_Idle.bmp"), 5, 1);
+		
 
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Player.bmp"), 5, 17);
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Player.bmp"), 5, 17);
 	}
 
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Upper.bmp"))
 	{
-		LowerRenderer = CreateRenderer(PlayerRenderOrder::Lower);
-		UpperRenderer = CreateRenderer(PlayerRenderOrder::Upper);
-		MainRenderer = CreateRenderer(1);
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Upper.bmp"), 5, 6);
+	}
+
+	{
+		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
+		UpperRenderer = CreateRenderer(RenderOrder::PlayerUpper);
+		// MainRenderer = CreateRenderer(1);
 		
 		//MainRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower_Idle.bmp", 0, 0, 0.1f, true);
-		MainRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.1f, true);
+		//MainRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.1f, true);
 		
 		//MainRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower_Move.bmp", 0, 10, 0.1f, true);
-		MainRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.1f, true);
+		//MainRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.1f, true);
 
 		// MainRenderer->CreateAnimation("Right_Lower", "Right_Lower.bmp", 0, 18, 0.1f, true);
-		LowerRenderer->CreateAnimation("Right_Lower", "Right_Lower.bmp", 0, 18, 0.1f, true);
+		// LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 1.0f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 1.0f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 1.0f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 1.0f, true);
+
+		UpperRenderer->CreateAnimation("Right_Upper_Idle", "Right_Upper.bmp", 0, 3, 1.0f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_Move", "Right_Upper.bmp", 3, 15, 1.0f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_IdleJump", "Right_Upper.bmp", 16, 21, 1.0f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_MoveJump", "Right_Upper.bmp", 22, 27, 1.0f, true);
 		// UpperRenderer->CreateAnimation("Right_Upper", "Right_Upper.bmp", )
 		
 		//MainRenderer->ChangeAnimation("Right_Lower_Idle");
-		MainRenderer->ChangeAnimation("Right_Lower");
+		//MainRenderer->ChangeAnimation("Right_Lower");
 
-		LowerRenderer->ChangeAnimation("Right_Lower_Idle");
-		MainRenderer->SetRenderScaleToTexture();
+		//LowerRenderer->ChangeAnimation("Right_Lower_Idle");
+		//UpperRenderer->ChangeAnimation("Right_Upper_Idle");
+		// MainRenderer->SetRenderScaleToTexture();
 
-		// UpperRenderer->GetActor()->SetPos() = { LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f };
-
+		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
+		LowerRenderer->GetActor()->SetPos({ 25, 25 });
+		
 	}
 	{
 		GameEngineRenderer* Ptr = CreateUIRenderer(300);
 		
 	}
+
+
+	ChangeState(PlayerState::Idle);
+	Dir = PlayerDir::Right;
 	
 }
 
@@ -100,6 +129,19 @@ void Player::Update(float _Delta)
 void Player::Release()
 {
 
+}
+
+void Player::ChangeState(PlayerState _State)
+{
+	if (_State != State)
+	{
+		switch (_State)
+		{
+		case PlayerState::Idle:
+			IdleStart();
+			break;
+		}
+	}
 }
 
 void Player::DirCheck()
@@ -152,3 +194,4 @@ void Player::ChangeAnimationState(const std::string & _State)
 	LowerRenderer->ChangeAnimation(LowerAnimationName);
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
 }
+

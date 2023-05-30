@@ -46,13 +46,16 @@ public:
 	Player& operator=(const Player & _Other) = delete;
 	Player& operator=(Player && _Other) noexcept = delete;
 
-	GameEngineRenderer* MainRenderer = nullptr;
+	// GameEngineRenderer* MainRenderer = nullptr;
 	GameEngineRenderer* LowerRenderer = nullptr;
 	GameEngineRenderer* UpperRenderer = nullptr;
 
 	void CameraFocus();
 
 protected:
+	PlayerState State = PlayerState::Max;
+	void ChangeState(PlayerState _State);
+
 	void IdleStart();
 	void IdleUpdate(float _Delta);
 
@@ -70,7 +73,6 @@ protected:
 
 	std::string CurState = "";
 	void ChangeAnimationState(const std::string& _State);
-
 
 private:
 	void LevelStart() override;

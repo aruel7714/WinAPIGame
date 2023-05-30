@@ -18,6 +18,7 @@ public:
 
 	void Init(const std::string& _FileName);
 	// void Init(const std::string& _FileName, const std::string& _DebugFileName);
+	void SecondInit(const std::string& _FileName);
 
 	void SwitchRender();
 
@@ -26,7 +27,8 @@ protected:
 private:
 	bool SwitchRenderValue = true;
 	std::string FileName;
-	class GameEngineRenderer* Renderer;
+	class GameEngineRenderer* FirstRenderer;
+	class GameEngineRenderer* SecondRenderer;
 	class GameEngineRenderer* DebugRenderer;
 
 	void Start() override;
