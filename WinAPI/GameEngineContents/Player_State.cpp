@@ -8,29 +8,52 @@ void Player::IdleStart()
 
 void Player::IdleUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown('A') ||
-		GameEngineInput::IsDown('D'))
+	if (true == GameEngineInput::IsDown('A') ||
+		true == GameEngineInput::IsDown('D'))
 	{
 		DirCheck();
-		ChangeAnimationState("Run");
+		ChangeState(PlayerState::Move);
 		return;
 	}
 
-	if (GameEngineInput::IsDown('W'))
+	/*if (GameEngineInput::IsDown('W'))
 	{
-		ChangeAnimationState("Jump");
+		ChangeState(PlayerState::Jump);
+		return;
+	}*/
+}
+
+void Player::MoveStart()
+{
+	ChangeAnimationState("Move");
+}
+
+void Player::MoveUpdate(float _Delta)
+{
+	DirCheck();
+
+	float Speed = 100.0f;
+
+	float4 MovePos = float4::ZERO;
+	
+
+	if (true == GameEngineInput::IsPress('A') && Dir == PlayerDir::Left)
+	{
+		MovePos = { -Speed * _Delta, 0.0f };
+	}
+	else if (true == GameEngineInput::IsPress('D') && Dir == PlayerDir::Right)
+	{
+		MovePos = { Speed * _Delta, 0.0f };
+	}
+	
+	if (MovePos == float4::ZERO)
+	{
+		DirCheck();
+		ChangeState(PlayerState::Idle);
 		return;
 	}
-}
 
-void Player::RunStart()
-{
-	ChangeAnimationState("Run");
-}
-
-void Player::RunUpdate(float _Delta)
-{
-
+	AddPos(MovePos);
 }
 
 void Player::IdleJumpStart()

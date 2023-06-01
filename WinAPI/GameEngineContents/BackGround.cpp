@@ -97,7 +97,7 @@ void BackGround::SecondInit(const std::string& _FileName)
 
 	//SetPos({ Scale.hX(), Scale.hY() });
 	
-	SetPos(FirstRenderer->GetActor()->GetPos());
+	SecondRenderer->SetRenderPos({ 0, 0 });
 	
 }
 
@@ -110,11 +110,13 @@ void BackGround::SwitchRender()
 	if (true == SwitchRenderValue)
 	{
 		FirstRenderer->On();
+		SecondRenderer->On();
 		DebugRenderer->Off();
 	}
 	else
 	{
 		FirstRenderer->Off();
+		SecondRenderer->Off();
 		DebugRenderer->On();
 	}
 }

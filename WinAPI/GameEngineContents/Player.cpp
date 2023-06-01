@@ -70,9 +70,11 @@ void Player::Start()
 	}
 
 	{
-		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
-		UpperRenderer = CreateRenderer(RenderOrder::PlayerUpper);
+		LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
+		UpperRenderer = CreateRenderer("Right_Upper.bmp", RenderOrder::PlayerUpper);
 		// MainRenderer = CreateRenderer(1);
+
+		
 		
 		//MainRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower_Idle.bmp", 0, 0, 0.1f, true);
 		//MainRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.1f, true);
@@ -82,14 +84,14 @@ void Player::Start()
 
 		// MainRenderer->CreateAnimation("Right_Lower", "Right_Lower.bmp", 0, 18, 0.1f, true);
 		// LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 1.0f, true);
-		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 1.0f, true);
-		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 1.0f, true);
-		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 1.0f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.5f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.5f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 0.5f, true);
 
-		UpperRenderer->CreateAnimation("Right_Upper_Idle", "Right_Upper.bmp", 0, 3, 1.0f, true);
-		UpperRenderer->CreateAnimation("Right_Upper_Move", "Right_Upper.bmp", 3, 15, 1.0f, true);
-		UpperRenderer->CreateAnimation("Right_Upper_IdleJump", "Right_Upper.bmp", 16, 21, 1.0f, true);
-		UpperRenderer->CreateAnimation("Right_Upper_MoveJump", "Right_Upper.bmp", 22, 27, 1.0f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_Idle", "Right_Upper.bmp", 0, 3, 0.5f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_Move", "Right_Upper.bmp", 3, 15, 0.5f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_IdleJump", "Right_Upper.bmp", 16, 21, 0.5f, true);
+		UpperRenderer->CreateAnimation("Right_Upper_MoveJump", "Right_Upper.bmp", 22, 27, 0.5f, true);
 		// UpperRenderer->CreateAnimation("Right_Upper", "Right_Upper.bmp", )
 		
 		//MainRenderer->ChangeAnimation("Right_Lower_Idle");
@@ -101,15 +103,21 @@ void Player::Start()
 
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
 		LowerRenderer->GetActor()->SetPos({ 25, 25 });
+
+		UpperRenderer->SetRenderPos({ 5, -20 });
+		
+
+		
 		
 	}
 	{
-		GameEngineRenderer* Ptr = CreateUIRenderer(300);
+	//	GameEngineRenderer* Ptr = CreateUIRenderer(300);
 		
 	}
 
 
 	ChangeState(PlayerState::Idle);
+	//ChangeState(PlayerState::Move);
 	Dir = PlayerDir::Right;
 	
 }
@@ -118,7 +126,7 @@ void Player::Update(float _Delta)
 {
 	//CameraFocus();
 
-	
+	StateUpdate(_Delta);
 }
 
 //void Player::Render()
@@ -140,7 +148,27 @@ void Player::ChangeState(PlayerState _State)
 		case PlayerState::Idle:
 			IdleStart();
 			break;
+		case PlayerState::Move:
+			MoveStart();
+			break;
+		default:
+			break;
 		}
+	}
+
+	State = _State;
+}
+
+void Player::StateUpdate(float _Delta)
+{
+	switch (State)
+	{
+	case PlayerState::Idle:
+		return IdleUpdate(_Delta);
+	case PlayerState::Move:
+		return MoveUpdate(_Delta);
+	default:
+		break;
 	}
 }
 
@@ -152,7 +180,7 @@ void Player::DirCheck()
 	}
 
 	// A가 눌렸을때 왼쪽을 바라보게
-	if (true == GameEngineInput::IsDown('A') && true == GameEngineInput::IsFree('D'))
+	if (true == GameEngineInput::IsDown('A') || true == GameEngineInput::IsFree('D'))
 	{
 		Dir = PlayerDir::Left;
 		ChangeAnimationState(CurState);
@@ -160,7 +188,7 @@ void Player::DirCheck()
 	}
 
 	// D가 눌렸을때 오른쪽을 바라보게
-	if (true == GameEngineInput::IsFree('A') && true == GameEngineInput::IsDown('D'))
+	if (true == GameEngineInput::IsFree('A') || true == GameEngineInput::IsDown('D'))
 	{
 		Dir = PlayerDir::Right;
 		ChangeAnimationState(CurState);

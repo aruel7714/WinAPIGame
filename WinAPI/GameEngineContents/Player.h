@@ -23,6 +23,7 @@ enum class PlayerDir
 	Max
 };
 
+class PlayerUpperRender;
 // Ό³Έν : 
 class Player : public GameEngineActor
 {
@@ -55,12 +56,13 @@ public:
 protected:
 	PlayerState State = PlayerState::Max;
 	void ChangeState(PlayerState _State);
+	void StateUpdate(float _Delta);
 
 	void IdleStart();
 	void IdleUpdate(float _Delta);
 
-	void RunStart();
-	void RunUpdate(float _Delta);
+	void MoveStart();
+	void MoveUpdate(float _Delta);
 
 	void IdleJumpStart();
 	void IdleJumpUpdate(float _Delta);
@@ -81,5 +83,6 @@ private:
 	void Update(float _Delta) override;
 	// void Render() override;
 	void Release() override;
+
 };
 
