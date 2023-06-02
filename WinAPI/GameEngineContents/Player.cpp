@@ -223,3 +223,14 @@ void Player::ChangeAnimationState(const std::string & _State)
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
 }
 
+void Player::Gravity(float _Delta)
+{
+	if (false == IsGravity)
+	{
+		return;
+	}
+
+	GravityVector += float4::DOWN * GravityPower * _Delta;
+
+	AddPos(GravityVector);
+}

@@ -53,6 +53,8 @@ public:
 
 	void CameraFocus();
 
+	
+
 protected:
 	PlayerState State = PlayerState::Max;
 	void ChangeState(PlayerState _State);
@@ -84,5 +86,33 @@ private:
 	// void Render() override;
 	void Release() override;
 
+	
+
+
+// gravity
+public:
+	void Gravity(float _Delta);
+
+	void GravityReset()
+	{
+		GravityVector = float4::ZERO;
+	}
+
+	// void SetGroundTexture(const std::string& _GroundTextureName);
+
+	// int GetGroundColor(unsigned int _DefaultColor, float4 _Pos = float4::ZERO);
+
+	void SetGravityVector(float4 _GravityVector)
+	{
+		GravityVector = _GravityVector;
+	}
+
+private:
+	class GameEngineWindowTexture* GroundTexture = nullptr;
+
+	bool IsGravity = true;
+
+	float GravityPower = 1.0f;
+	float4 GravityVector = float4::ZERO;
 };
 

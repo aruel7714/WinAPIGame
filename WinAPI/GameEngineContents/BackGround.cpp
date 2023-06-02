@@ -31,8 +31,6 @@ void BackGround::Release() {}
 
 void BackGround::Init(const std::string& _FileName)
 {
-	FileName = _FileName;
-
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;
@@ -47,7 +45,7 @@ void BackGround::Init(const std::string& _FileName)
 	FirstRenderer->SetTexture(_FileName);
 	FirstRenderer->SetRenderScale(Scale);
 	
-	SetPos({ Scale.hX(), Scale.hY() });
+	FirstRenderer->GetActor()->SetPos({ Scale.hX(), Scale.hY() });
 	// 카메라를 옮길것.
 	
 	// stage1 위치
@@ -77,10 +75,8 @@ void BackGround::Init(const std::string& _FileName)
 //	SetPos({ Scale.hX(), Scale.hY() });
 //}
 
-void BackGround::SecondInit(const std::string& _FileName)
+void BackGround::Init(const std::string& _FileName, const std::string& _SecondFileName)
 {
-	FileName = _FileName;
-
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;
@@ -90,9 +86,27 @@ void BackGround::SecondInit(const std::string& _FileName)
 
 		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_SecondFileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _SecondFileName);
+
+		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+	}
+
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	float4 Scale = Texture->GetScale();
-	SecondRenderer->SetTexture(_FileName);
+	FirstRenderer->SetTexture(_FileName);
+	FirstRenderer->SetRenderScale(Scale);
+
+	FirstRenderer->GetActor()->SetPos({ Scale.hX(), Scale.hY() });
+
+	Texture = ResourcesManager::GetInst().FindTexture(_SecondFileName);
+	Scale = Texture->GetScale();
+	SecondRenderer->SetTexture(_SecondFileName);
 	SecondRenderer->SetRenderScale(Scale);
 
 	//SetPos({ Scale.hX(), Scale.hY() });

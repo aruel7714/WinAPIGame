@@ -18,7 +18,7 @@ public:
 
 	void Init(const std::string& _FileName);
 	// void Init(const std::string& _FileName, const std::string& _DebugFileName);
-	void SecondInit(const std::string& _FileName);
+	void Init(const std::string& _FileName, const std::string& _SecondFileName);
 
 	void SwitchRender();
 

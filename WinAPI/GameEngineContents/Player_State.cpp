@@ -8,6 +8,8 @@ void Player::IdleStart()
 
 void Player::IdleUpdate(float _Delta)
 {
+	
+
 	if (true == GameEngineInput::IsDown('A') ||
 		true == GameEngineInput::IsDown('D'))
 	{

@@ -17,7 +17,7 @@ Stage1::~Stage1()
 
 void Stage1::Start()
 {
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Mission1.bmp"))
+	/*if (false == ResourcesManager::GetInst().IsLoadTexture("Mission1.bmp"))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
@@ -35,11 +35,11 @@ void Stage1::Start()
 
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1_SecondBackGround.bmp"));
-	}
+	}*/
 
 	BackGroundPtr = CreateActor<BackGround>();
-	BackGroundPtr->Init("Mission1.bmp");
-	BackGroundPtr->SecondInit("Mission1_SecondBackGround.bmp");
+	BackGroundPtr->Init("Mission1.bmp", "Mission1_SecondBackGround.bmp");
+	// BackGroundPtr->SecondInit("Mission1_SecondBackGround.bmp");
 
 	LevelPlayer = CreateActor<Player>();
 		
