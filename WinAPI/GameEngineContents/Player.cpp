@@ -36,6 +36,10 @@ void Player::LevelStart()
 
 void Player::Start()
 {
+	// Lower는 무기 종류 신경안씀
+	// Upper는 무기 종류 신경씀 -> Pistol, Rifle 둘 따로 해주거나 한파일에 둘다 넣어놔야함
+	// 따로 하는게 낫겠지?
+
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Lower.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -47,7 +51,7 @@ void Player::Start()
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower_Idle.bmp"), 5, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower.bmp"), 5, 4);
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower.bmp"), 5, 5);
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Lower_Move.bmp"), 5, 3);
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Upper_Idle.bmp"), 5, 1);
 		
@@ -55,6 +59,20 @@ void Player::Start()
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Player.bmp"), 5, 17);
 		//ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Player.bmp"), 5, 17);
 	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Lower.bmp"))
+	{
+		GameEnginePath FilePath;
+		
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Lower.bmp"), 5, 5);
+	}
+
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Upper.bmp"))
 	{
@@ -70,8 +88,10 @@ void Player::Start()
 	}
 
 	{
-		LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
-		UpperRenderer = CreateRenderer("Right_Upper.bmp", RenderOrder::PlayerUpper);
+		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
+		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
+		//UpperRenderer = CreateRenderer("Right_Upper.bmp", RenderOrder::PlayerUpper);
+		UpperRenderer = CreateRenderer(RenderOrder::PlayerUpper);
 		// MainRenderer = CreateRenderer(1);
 
 		
@@ -87,6 +107,12 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.5f, true);
 		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.5f, true);
 		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 0.5f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_MoveJump", "Right_Lower.bmp", 19, 24, 0.5f, true);
+
+		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.5f, true);
+		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.5f, true);
+		LowerRenderer->CreateAnimation("Left_Lower_IdleJump", "Left_Lower.bmp", 13, 18, 0.5f, true);
+		LowerRenderer->CreateAnimation("Left_Lower_MoveJump", "Left_Lower.bmp", 19, 24, 0.5f, true);
 
 		UpperRenderer->CreateAnimation("Right_Upper_Idle", "Right_Upper.bmp", 0, 3, 0.5f, true);
 		UpperRenderer->CreateAnimation("Right_Upper_Move", "Right_Upper.bmp", 3, 15, 0.5f, true);
@@ -105,9 +131,6 @@ void Player::Start()
 		LowerRenderer->GetActor()->SetPos({ 25, 25 });
 
 		UpperRenderer->SetRenderPos({ 5, -20 });
-		
-
-		
 		
 	}
 	{
@@ -151,6 +174,12 @@ void Player::ChangeState(PlayerState _State)
 		case PlayerState::Move:
 			MoveStart();
 			break;
+		case PlayerState::IdleJump:
+			IdleJumpStart();
+			break;
+		case PlayerState::MoveJump:
+			MoveJumpStart();
+			break;
 		default:
 			break;
 		}
@@ -167,6 +196,10 @@ void Player::StateUpdate(float _Delta)
 		return IdleUpdate(_Delta);
 	case PlayerState::Move:
 		return MoveUpdate(_Delta);
+	case PlayerState::IdleJump:
+		return IdleJumpUpdate(_Delta);
+	case PlayerState::MoveJump:
+		return MoveJumpUpdate(_Delta);
 	default:
 		break;
 	}
@@ -180,7 +213,9 @@ void Player::DirCheck()
 	}
 
 	// A가 눌렸을때 왼쪽을 바라보게
-	if (true == GameEngineInput::IsDown('A') || true == GameEngineInput::IsFree('D'))
+	// 왼쪽 방향키가 눌렸을때 왼쪽을 바라보게
+	// if (true == GameEngineInput::IsDown('A') || true == GameEngineInput::IsFree('D'))
+	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsFree(VK_RIGHT))
 	{
 		Dir = PlayerDir::Left;
 		ChangeAnimationState(CurState);
@@ -188,7 +223,9 @@ void Player::DirCheck()
 	}
 
 	// D가 눌렸을때 오른쪽을 바라보게
-	if (true == GameEngineInput::IsFree('A') || true == GameEngineInput::IsDown('D'))
+	// 오른쪽 방향키가 눌렸을때 오른쪽을 바라보게
+	// if (true == GameEngineInput::IsFree('A') || true == GameEngineInput::IsDown('D'))
+	if(true == GameEngineInput::IsFree(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
 		Dir = PlayerDir::Right;
 		ChangeAnimationState(CurState);
@@ -221,16 +258,4 @@ void Player::ChangeAnimationState(const std::string & _State)
 
 	LowerRenderer->ChangeAnimation(LowerAnimationName);
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
-}
-
-void Player::Gravity(float _Delta)
-{
-	if (false == IsGravity)
-	{
-		return;
-	}
-
-	GravityVector += float4::DOWN * GravityPower * _Delta;
-
-	AddPos(GravityVector);
 }

@@ -17,8 +17,10 @@ public:
 	BackGround& operator=(BackGround && _Other) noexcept = delete;
 
 	void Init(const std::string& _FileName);
-	// void Init(const std::string& _FileName, const std::string& _DebugFileName);
-	void Init(const std::string& _FileName, const std::string& _SecondFileName);
+	void Init(const std::string& _FileName, const std::string& _DebugFileName);
+	// void Init(const std::string& _FileName, const std::string& _SecondFileName);
+
+	// void InitDebug(const std::string& _DebugFileName);
 
 	void SwitchRender();
 

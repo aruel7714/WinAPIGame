@@ -1,11 +1,13 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "PlayActor.h"
 
 enum class PlayerState
 {
 	Idle,
 	Move,
-	Jump,
+	IdleJump,
+	MoveJump,
+	Fire,
 	Sit,
 	Max
 };
@@ -25,7 +27,7 @@ enum class PlayerDir
 
 class PlayerUpperRender;
 // Ό³Έν : 
-class Player : public GameEngineActor
+class Player : public PlayActor
 {
 private:
 	static Player* MainPlayer;
@@ -89,30 +91,5 @@ private:
 	
 
 
-// gravity
-public:
-	void Gravity(float _Delta);
-
-	void GravityReset()
-	{
-		GravityVector = float4::ZERO;
-	}
-
-	// void SetGroundTexture(const std::string& _GroundTextureName);
-
-	// int GetGroundColor(unsigned int _DefaultColor, float4 _Pos = float4::ZERO);
-
-	void SetGravityVector(float4 _GravityVector)
-	{
-		GravityVector = _GravityVector;
-	}
-
-private:
-	class GameEngineWindowTexture* GroundTexture = nullptr;
-
-	bool IsGravity = true;
-
-	float GravityPower = 1.0f;
-	float4 GravityVector = float4::ZERO;
 };
 
