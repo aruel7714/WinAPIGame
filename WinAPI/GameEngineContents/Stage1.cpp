@@ -47,7 +47,7 @@ void Stage1::Start()
 	LevelPlayer = CreateActor<Player>();
 	LevelPlayer->SetGroundTexture("Mission1_Debug.bmp");
 
-		
+
 }
 
 void Stage1::CameraFocus()
@@ -59,7 +59,7 @@ void Stage1::CameraFocus()
 
 void Stage1::Update(float _Delta) 
 {
-	if (true == GameEngineInput::IsDown(VK_F1)
+	if (true == GameEngineInput::IsDown(VK_F1))
 	{
 		BackGroundPtr->SwitchRender();
 	}

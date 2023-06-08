@@ -69,6 +69,8 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _DebugFileName);
+
+		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
 
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);

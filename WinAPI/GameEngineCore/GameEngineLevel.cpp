@@ -70,7 +70,7 @@ void GameEngineLevel::ActorRender(float _Delta)
 {
 	MainCamera->Render(_Delta);
 
-	// UICamera->Render(_Delta);
+	UICamera->Render(_Delta);
 
 
 	// for문을 돌리고 있습니다.

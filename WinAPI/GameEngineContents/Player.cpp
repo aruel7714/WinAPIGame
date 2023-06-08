@@ -83,7 +83,7 @@ void Player::Start()
 
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Upper.bmp"), 5, 6);
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Upper.bmp"), 5, 9);
 	}
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_Upper.bmp"))
@@ -96,7 +96,7 @@ void Player::Start()
 
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 6);
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 9);
 	}
 
 	{

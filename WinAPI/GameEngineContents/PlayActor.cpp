@@ -21,7 +21,7 @@ void PlayActor::SetGroundTexture(const std::string& _GroundTextureName)
 	}
 }
 
-int PlayActor::GetGroundColor(unsigned int _DefaultColor, float4 _Pos = float4::ZERO)
+int PlayActor::GetGroundColor(unsigned int _DefaultColor, float4 _Pos)
 {
 	if (nullptr == GroundTexture)
 	{
