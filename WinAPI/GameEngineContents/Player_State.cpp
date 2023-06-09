@@ -99,11 +99,11 @@ void Player::MoveUpdate(float _Delta)
 	float4 MovePos = float4::ZERO;
 	
 
-	if (true == GameEngineInput::IsPress('A') && Dir == PlayerDir::Left)
+	if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
 	{
 		MovePos = { -Speed * _Delta, 0.0f };
 	}
-	else if (true == GameEngineInput::IsPress('D') && Dir == PlayerDir::Right)
+	else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
 	{
 		MovePos = { Speed * _Delta, 0.0f };
 	}

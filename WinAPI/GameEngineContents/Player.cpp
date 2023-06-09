@@ -183,7 +183,7 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	//CameraFocus();
+	CameraFocus();
 
 	StateUpdate(_Delta);
 }
@@ -243,7 +243,7 @@ void Player::StateUpdate(float _Delta)
 
 void Player::DirCheck()
 {
-	if (true == GameEngineInput::IsFree('A') && true == GameEngineInput::IsFree('D'))
+	if (true == GameEngineInput::IsFree(VK_LEFT) && true == GameEngineInput::IsFree(VK_RIGHT))
 	{
 		return;
 	}

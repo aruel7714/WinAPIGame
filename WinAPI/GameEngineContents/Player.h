@@ -58,6 +58,7 @@ public:
 	
 
 protected:
+	// PlayerState°ü·Ã
 	PlayerState State = PlayerState::Max;
 	void ChangeState(PlayerState _State);
 	void StateUpdate(float _Delta);

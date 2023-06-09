@@ -81,8 +81,9 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 	DebugRenderer->SetTexture(_DebugFileName);
 	DebugRenderer->SetRenderScale(Scale);
 
+	// SetPos({ Scale.hX(), Scale.hY() - 120 });
 	SetPos({ Scale.hX(), Scale.hY() });
-	DebugRenderer->SetRenderPos({ 0, 0 });
+//	DebugRenderer->SetRenderPos({ 0, 0 });
 	
 }
 
