@@ -12,4 +12,31 @@
     <ClCompile Include="GameEngineInput.cpp" />
     <ClCompile Include="GameEngineSound.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="FMOD">
+      <UniqueIdentifier>{c87161fd-3d98-47f6-b404-b650d2090bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FMOD\Debug">
+      <UniqueIdentifier>{642b98a0-df10-4db1-9e0a-5b113875f396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FMOD\Release">
+      <UniqueIdentifier>{9343b958-dfdb-4ac5-aefc-8a1b6ee2498f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\FMOD\lib\x64\fmodL.dll">
+      <Filter>FMOD\Debug</Filter>
+    </None>
+    <None Include="ThirdParty\FMOD\lib\x64\fmod.dll">
+      <Filter>FMOD\Release</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ThirdParty\FMOD\lib\x64\fmodL_vc.lib">
+      <Filter>FMOD\Debug</Filter>
+    </Library>
+    <Library Include="ThirdParty\FMOD\lib\x64\fmod_vc.lib">
+      <Filter>FMOD\Release</Filter>
+    </Library>
+  </ItemGroup>
 </Project>

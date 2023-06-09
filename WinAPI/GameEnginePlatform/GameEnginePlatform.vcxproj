@@ -195,6 +195,14 @@
       <Project>{43e95582-82fc-46c5-a7ca-7d887cd0432b}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\FMOD\lib\x64\fmod.dll" />
+    <None Include="ThirdParty\FMOD\lib\x64\fmodL.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ThirdParty\FMOD\lib\x64\fmodL_vc.lib" />
+    <Library Include="ThirdParty\FMOD\lib\x64\fmod_vc.lib" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
