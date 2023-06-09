@@ -229,7 +229,7 @@ void GameEngineLevel::ActorLevelEnd()
 		}
 	}
 }
-void GameEngineLevel::ActorLevelStart() 
+void GameEngineLevel::ActorLevelStart()
 {
 	for (const std::pair<int, std::list<GameEngineActor*>>& _Pair : AllActors)
 	{
@@ -275,7 +275,7 @@ void GameEngineLevel::OverCheck(GameEngineLevel* _PrevLevel)
 
 			for (GameEngineRenderer* Render : Actor->AllRenderer)
 			{
-				if (Render->CameraTypeValue == CameraType::MAIN)
+				if (Render->GetCameraType() == CameraType::MAIN)
 				{
 					Render->MainCameraSetting();
 				}

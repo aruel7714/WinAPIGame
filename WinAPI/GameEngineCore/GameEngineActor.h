@@ -86,7 +86,6 @@ public:
 
 	GameEngineCollision* CreateCollision(int _Order = 0);
 
-
 	GameEngineLevel* GetLevel()
 	{
 		return Level;
@@ -112,7 +111,7 @@ protected:
 	virtual void LevelEnd() {}
 
 private:
-	// ture가 되는순간.
+	// ture가 되는순간. 
 	bool IsOverValue = false;
 
 	GameEngineLevel* Level;
@@ -121,8 +120,6 @@ private:
 
 	std::list<GameEngineRenderer*> AllRenderer;
 	std::list<GameEngineCollision*> AllCollision;
-
-
 
 	void ActorRelease();
 };

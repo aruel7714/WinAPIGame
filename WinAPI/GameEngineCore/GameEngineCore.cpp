@@ -53,6 +53,7 @@ void GameEngineCore::CoreUpdate()
 	}
 
 	// 업데이트를 
+	GameEngineSound::Update();
 	GameEngineTime::MainTimer.Update();
 	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
 
@@ -85,6 +86,8 @@ void GameEngineCore::CoreUpdate()
 
 void GameEngineCore::CoreEnd()
 {
+	GameEngineSound::Release();
+
 	Process->Release();
 
 	if (nullptr != Process)
