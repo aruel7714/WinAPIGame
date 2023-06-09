@@ -1,6 +1,9 @@
 #include "PlayActor.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
 
 
 PlayActor::PlayActor()
@@ -9,6 +12,12 @@ PlayActor::PlayActor()
 
 PlayActor::~PlayActor()
 {
+}
+
+void PlayActor::CameraFocus()
+{
+	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
+	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
 }
 
 void PlayActor::SetGroundTexture(const std::string& _GroundTextureName)

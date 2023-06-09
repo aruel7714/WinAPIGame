@@ -18,11 +18,11 @@ BackGround::~BackGround()
 void BackGround::Start()
 {
 	FirstRenderer = CreateRenderer(RenderOrder::FirstBackGround);
-	SecondRenderer = CreateRenderer(RenderOrder::SecondBackGround);
+	//SecondRenderer = CreateRenderer(RenderOrder::SecondBackGround);
 	DebugRenderer = CreateRenderer(RenderOrder::FirstBackGround);
 
 	FirstRenderer->On();
-	SecondRenderer->On();
+	//SecondRenderer->On();
 	DebugRenderer->Off();
 }
 void BackGround::Update(float _Delta) {}
@@ -45,8 +45,7 @@ void BackGround::Init(const std::string& _FileName)
 	FirstRenderer->SetTexture(_FileName);
 	FirstRenderer->SetRenderScale(Scale);
 	
-	FirstRenderer->GetActor()->SetPos({ Scale.hX(), Scale.hY() });
-	// 카메라를 옮길것.
+	SetPos({ Scale.hX(), Scale.hY() });
 	
 	// stage1 위치
 	// SetPos({ Scale.hX(), Scale.hY() - 120});
@@ -61,7 +60,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _FileName);
 
-		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_DebugFileName))
 	{
@@ -70,7 +69,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _DebugFileName);
 
-		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
 
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
@@ -83,6 +82,8 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 	DebugRenderer->SetRenderScale(Scale);
 
 	SetPos({ Scale.hX(), Scale.hY() });
+	DebugRenderer->SetRenderPos({ 0, 0 });
+	
 }
 
 //void BackGround::InitDebug(const std::string& _DebugFileName)
@@ -173,13 +174,13 @@ void BackGround::SwitchRender()
 	if (true == SwitchRenderValue)
 	{
 		FirstRenderer->On();
-		SecondRenderer->On();
+		//SecondRenderer->On();
 		DebugRenderer->Off();
 	}
 	else
 	{
 		FirstRenderer->Off();
-		SecondRenderer->Off();
+		//SecondRenderer->Off();
 		DebugRenderer->On();
 	}
 }

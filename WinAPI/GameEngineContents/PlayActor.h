@@ -20,6 +20,8 @@ public:
 
 	int GetGroundColor(unsigned int _DefaultColor, float4 _Pos = float4::ZERO);
 
+	void CameraFocus();
+
 protected:
 
 private:
@@ -43,7 +45,7 @@ public:
 private:
 	bool IsGravity = true;
 
-	float GravityPower = 1.0f;
+	float GravityPower = 5.0f;
 	float4 GravityVector = float4::ZERO;
 
 };

@@ -53,7 +53,7 @@ public:
 	GameEngineRenderer* LowerRenderer = nullptr;
 	GameEngineRenderer* UpperRenderer = nullptr;
 
-	void CameraFocus();
+	//void CameraFocus();
 
 	
 
@@ -88,6 +88,7 @@ private:
 	// void Render() override;
 	void Release() override;
 
+	// Debug
 	
 
 

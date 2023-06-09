@@ -10,6 +10,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Player* Player::MainPlayer = nullptr;
 
@@ -21,13 +22,13 @@ Player::~Player()
 {
 }
 
-void Player::CameraFocus()
-{
-	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
-	//GetLevel()->GetMainCamera()->SetPos(GetPos() + float4(-WindowScale.hX(), -WindowScale.hY()));
-	//GetLevel()->GetMainCamera()->SetPos({ GetPos().X - WindowScale.hX(), GetPos().Y - WindowScale.hY() - 240.0f });
-	//GetLevel()->GetMainCamera()->SetPos({0, 0});
-}
+//void Player::CameraFocus()
+//{
+//	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
+//	//GetLevel()->GetMainCamera()->SetPos(GetPos() + float4(-WindowScale.hX(), -WindowScale.hY()));
+//	//GetLevel()->GetMainCamera()->SetPos({ GetPos().X - WindowScale.hX(), GetPos().Y - WindowScale.hY() - 240.0f });
+//	//GetLevel()->GetMainCamera()->SetPos({0, 0});
+//}
 
 void Player::LevelStart()
 {
@@ -99,11 +100,25 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 9);
 	}
 
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Upper.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Upper.bmp"), 5, 6);
+	//}
+
 	{
 		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
 		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
-		//UpperRenderer = CreateRenderer("Right_Upper.bmp", RenderOrder::PlayerUpper);
-		UpperRenderer = CreateRenderer(RenderOrder::PlayerUpper);
+		UpperRenderer = CreateRenderer("Right_Pistol_Upper.bmp", RenderOrder::PlayerUpper);
+		//UpperRenderer = CreateRenderer(RenderOrder::PlayerUpper);
+		//UpperRenderer = CreateRenderer("Left_Pistol_Upper.bmp", RenderOrder::PlayerUpper);
 		// MainRenderer = CreateRenderer(1);
 
 		
@@ -135,6 +150,8 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Move", "Left_Pistol_Upper.bmp", 3, 15, 0.5f, true);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_IdleJump", "Left_Pistol_Upper.bmp", 16, 21, 0.5f, true);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MoveJump", "Left_Pistol_Upper.bmp", 22, 27, 0.5f, true);
+
+		// UpperRenderer->CreateAnimation("Right_Upper_Idle", "Right_Upper.bmp", 0, 3, 0.5f, true);
 		// UpperRenderer->CreateAnimation("Right_Upper", "Right_Upper.bmp", )
 		
 		//MainRenderer->ChangeAnimation("Right_Lower_Idle");
@@ -147,7 +164,8 @@ void Player::Start()
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
 		LowerRenderer->GetActor()->SetPos({ 25, 25 });
 
-		UpperRenderer->SetRenderPos({ 5, -20 });
+		UpperRenderer->SetRenderPos({ 20, -60 });
+		
 		
 	}
 	{
@@ -160,6 +178,7 @@ void Player::Start()
 	//ChangeState(PlayerState::Move);
 	Dir = PlayerDir::Right;
 	
+	int a = 0;
 }
 
 void Player::Update(float _Delta)
@@ -259,11 +278,11 @@ void Player::ChangeAnimationState(const std::string & _State)
 	{
 	case PlayerDir::Right:
 		LowerAnimationName = "Right_Lower_";
-		UpperAnimationName = "Right_Upper_";
+		UpperAnimationName = "Right_Pistol_Upper_";
 		break;
 	case PlayerDir::Left:
 		LowerAnimationName = "Left_Lower_";
-		UpperAnimationName = "Left_Upper_";
+		UpperAnimationName = "Left_Pistol_Upper_";
 		break;
 	default:
 		break;
