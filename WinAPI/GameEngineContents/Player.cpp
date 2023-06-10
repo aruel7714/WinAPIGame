@@ -131,8 +131,8 @@ void Player::Start()
 
 		// MainRenderer->CreateAnimation("Right_Lower", "Right_Lower.bmp", 0, 18, 0.1f, true);
 		// LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 1.0f, true);
-		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.5f, true);
-		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.5f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.1f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.1f, true);
 		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 0.5f, true);
 		LowerRenderer->CreateAnimation("Right_Lower_MoveJump", "Right_Lower.bmp", 19, 24, 0.5f, true);
 
@@ -141,8 +141,9 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Lower_IdleJump", "Left_Lower.bmp", 13, 18, 0.5f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_MoveJump", "Left_Lower.bmp", 19, 24, 0.5f, true);
 
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 0, 3, 0.5f, true);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 3, 15, 0.5f, true);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 0, 3, 0.1f, true);
+		//UpperRenderer->CreateAnimation("Right_Pistol_Upper_Idle_2", "Right_Pistol_Upper.bmp", 3, 0, 0.5f, true);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 4, 15, 0.1f, true);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_IdleJump", "Right_Pistol_Upper.bmp", 16, 21, 0.5f, true);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MoveJump", "Right_Pistol_Upper.bmp", 22, 27, 0.5f, true);
 

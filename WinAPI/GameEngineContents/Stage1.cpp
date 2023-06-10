@@ -24,7 +24,7 @@ void Stage1::Start()
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1_Test.bmp"));
 	}
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Mission1_Debug_Test.bmp"))
@@ -33,7 +33,7 @@ void Stage1::Start()
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1_Debug.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1_Debug_Test.bmp"));
 	}
 
 	//if (false == ResourcesManager::GetInst().IsLoadTexture("Mission1_SecondBackGround.bmp"))
@@ -56,16 +56,16 @@ void Stage1::Start()
 	
 
 	LevelPlayer = CreateActor<Player>();
-	LevelPlayer->SetGroundTexture("Mission1_Debug.bmp");
+	LevelPlayer->SetGroundTexture("Mission1_Debug_Test.bmp");
 	int a = 0;
 
 }
 
-void Stage1::CameraFocus()
-{
-	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
-	BackGroundPtr->GetLevel()->GetMainCamera()->SetPos(BackGroundPtr->GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
-}
+//void Stage1::CameraFocus()
+//{
+//	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
+//	BackGroundPtr->GetLevel()->GetMainCamera()->SetPos(BackGroundPtr->GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
+//}
 
 
 void Stage1::Update(float _Delta) 

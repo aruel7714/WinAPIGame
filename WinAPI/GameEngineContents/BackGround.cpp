@@ -62,7 +62,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
-	if (false == ResourcesManager::GetInst().IsLoadTexture(_DebugFileName))
+	/*if (false == ResourcesManager::GetInst().IsLoadTexture(_DebugFileName))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
@@ -70,7 +70,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _DebugFileName);
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
-	}
+	}*/
 
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	float4 Scale = Texture->GetScale();
@@ -81,7 +81,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 	DebugRenderer->SetTexture(_DebugFileName);
 	DebugRenderer->SetRenderScale(Scale);
 
-	// SetPos({ Scale.hX(), Scale.hY() - 120 });
+	// SetPos({ Scale.hX(), Scale.hY() - 124 });
 	SetPos({ Scale.hX(), Scale.hY() });
 //	DebugRenderer->SetRenderPos({ 0, 0 });
 	
