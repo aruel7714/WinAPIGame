@@ -83,6 +83,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 
 	// SetPos({ Scale.hX(), Scale.hY() - 124 });
 	SetPos({ Scale.hX(), Scale.hY() });
+	// SetRenderPos(GameEngineWindow::MainWindow.GetScale().Half())
 //	DebugRenderer->SetRenderPos({ 0, 0 });
 	
 }

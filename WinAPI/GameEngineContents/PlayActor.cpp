@@ -51,3 +51,8 @@ void PlayActor::Gravity(float _Delta)
 
 	AddPos(GravityVector * _Delta);
 }
+
+float4 PlayActor::ActorCameraPos()
+{
+	return GetPos() - GetLevel()->GetMainCamera()->GetPos();
+}

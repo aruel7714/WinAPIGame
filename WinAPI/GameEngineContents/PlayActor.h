@@ -22,6 +22,8 @@ public:
 
 	void CameraFocus();
 
+	float4 ActorCameraPos();
+
 protected:
 
 private:
