@@ -75,11 +75,18 @@ protected:
 	void MoveJumpStart();
 	void MoveJumpUpdate(float _Delta);
 
+	
+	//void FireUpdate(float _Delta);
+
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();
 
 	std::string CurState = "";
+	std::string PrevState = "";
 	void ChangeAnimationState(const std::string& _State);
+
+	void ChangeLowerAnimationState(const std::string& _State);
+	void ChangeUpperAnimationState(const std::string& _State);
 
 private:
 	void LevelStart() override;

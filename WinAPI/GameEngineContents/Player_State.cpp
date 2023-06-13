@@ -38,6 +38,13 @@ void Player::IdleUpdate(float _Delta)
 				AddPos(float4::UP);
 			}
 
+			if (true == GameEngineInput::IsPress('S'))
+			{
+				ChangeState(PlayerState::IdleJump);
+				return;
+			}
+
+
 			GravityReset();
 		}
 	}
@@ -50,11 +57,13 @@ void Player::IdleUpdate(float _Delta)
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown('S'))
-	{
-		ChangeState(PlayerState::IdleJump);
-		return;
-	}
+	
+	//if (true == GameEngineInput::IsDown('A'))
+	//{
+	//	PrevState = "Idle";
+	//	ChangeUpperAnimationState("Fire");
+	//	return FireUpdate(_Delta);
+	//}
 	
 }
 
@@ -82,7 +91,7 @@ void Player::MoveUpdate(float _Delta)
 				AddPos(float4::UP);
 			}
 
-			if (true == GameEngineInput::IsDown('S'))
+			if (true == GameEngineInput::IsPress('S'))
 			{
 				ChangeState(PlayerState::MoveJump);
 				return;
@@ -108,6 +117,13 @@ void Player::MoveUpdate(float _Delta)
 	{
 		MovePos = { Speed * _Delta, 0.0f };
 	}
+
+	//if (true == GameEngineInput::IsDown('A'))
+	//{
+	//	PrevState = "Move";
+	//	ChangeUpperAnimationState("Fire");
+	//	return FireUpdate(_Delta);
+	//}
 	
 	if (MovePos == float4::ZERO)
 	{
@@ -155,9 +171,15 @@ void Player::MoveJumpUpdate(float _Delta)
 
 		if (Color != RGB(255, 255, 255))
 		{
-			// 바로 Idle로 가는게 맞나? Move로 가는게 맞나?
-			// ChangeState(PlayerState::Move);
+			ChangeState(PlayerState::Move);
 			return;
 		}
 	}
 }
+
+
+//
+//void Player::FireUpdate(float _Delta)
+//{
+//	ChangeUpperAnimationState(PrevState);
+//}
