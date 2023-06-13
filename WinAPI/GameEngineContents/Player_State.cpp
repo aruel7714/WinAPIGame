@@ -175,6 +175,12 @@ void Player::MoveJumpUpdate(float _Delta)
 			return;
 		}
 	}
+
+	if (true == GameEngineInput::IsDown('T'))
+	{
+		ChangeState(PlayerState::Idle);
+		return;
+	}
 }
 
 
