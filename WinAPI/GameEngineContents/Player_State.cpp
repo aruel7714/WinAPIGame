@@ -103,8 +103,8 @@ void Player::MoveUpdate(float _Delta)
 
 	DirCheck();
 
-	// float Speed = 300.0f;
-	float Speed = 1.0f;
+	float Speed = 300.0f;
+	//float Speed = 1.0f;
 
 	float4 MovePos = float4::ZERO;
 	
