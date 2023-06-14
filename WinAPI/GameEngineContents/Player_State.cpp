@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineRenderer.h>
 
 // 왼쪽 방향키 : 왼쪽 바라보기, 왼쪽으로 이동
 // 오른쪽 방향키 : 오른쪽 바라보기, 오른쪽으로 이동
@@ -64,6 +65,15 @@ void Player::IdleUpdate(float _Delta)
 	//	ChangeUpperAnimationState("Fire");
 	//	return FireUpdate(_Delta);
 	//}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperAnimationState("Fire");
+		//if (UpperRenderer->GetCurFrame() >= UpperRenderer->FindAnimation("Right_Pistol_Upper_Fire")->EndFrame)
+		//{
+		//	ChangeUpperAnimationState("Idle");
+		//}
+	}
 	
 }
 
@@ -112,10 +122,18 @@ void Player::MoveUpdate(float _Delta)
 	if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
 	{
 		MovePos = { -Speed * _Delta, 0.0f };
+		//if (GameEngineInput::IsDown('A'))
+		//{
+		//	ChangeUpperAnimationState("Fire");
+		//}
 	}
 	else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
 	{
 		MovePos = { Speed * _Delta, 0.0f };
+		//if (GameEngineInput::IsDown('A'))
+		//{
+		//	ChangeUpperAnimationState("Fire");
+		//}
 	}
 
 	//if (true == GameEngineInput::IsDown('A'))
@@ -137,7 +155,7 @@ void Player::MoveUpdate(float _Delta)
 
 void Player::IdleJumpStart()
 {
-	SetGravityVector(float4::UP * 400.0f);
+	SetGravityVector(float4::UP * 1200.0f);
 	ChangeAnimationState("IdleJump");
 }
 
@@ -158,7 +176,7 @@ void Player::IdleJumpUpdate(float _Delta)
 
 void Player::MoveJumpStart()
 {
-	SetGravityVector(float4::UP * 400.0f);
+	SetGravityVector(float4::UP * 1200.0f);
 	ChangeAnimationState("MoveJump");
 }
 
@@ -175,6 +193,23 @@ void Player::MoveJumpUpdate(float _Delta)
 			return;
 		}
 	}
+
+	float Speed = 300.0f;
+	//float Speed = 1.0f;
+
+	float4 MovePos = float4::ZERO;
+
+
+	if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
+	{
+		MovePos = { -Speed * _Delta, 0.0f };
+	}
+	else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
+	{
+		MovePos = { Speed * _Delta, 0.0f };
+	}
+
+	AddPos(MovePos);
 
 	if (true == GameEngineInput::IsDown('T'))
 	{

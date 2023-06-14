@@ -7,6 +7,9 @@
     <Filter Include="Global">
       <UniqueIdentifier>{b2b0edfa-a5db-484d-bd05-1d6a8ca48840}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Global\Player">
+      <UniqueIdentifier>{276b6248-109a-4b4a-af62-4a59fcb1dba4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -19,20 +22,20 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="MetalSlugCore.h" />
-    <ClInclude Include="Player.h">
-      <Filter>Global</Filter>
-    </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
-    <ClInclude Include="PlayActor.h">
-      <Filter>Global</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Global\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayActor.h">
+      <Filter>Global\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -46,20 +49,20 @@
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="MetalSlugCore.cpp" />
-    <ClCompile Include="Player.cpp">
-      <Filter>Global</Filter>
-    </ClCompile>
     <ClCompile Include="BackGround.cpp">
-      <Filter>Global</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_State.cpp">
-      <Filter>Global</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayActor.cpp">
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Global\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Global\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayActor.cpp">
+      <Filter>Global\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
