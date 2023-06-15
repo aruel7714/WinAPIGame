@@ -83,6 +83,7 @@ protected:
 
 	std::string CurState = "";
 	std::string PrevState = "";
+	std::string AnimationName = "";
 	void ChangeAnimationState(const std::string& _State);
 
 	void ChangeLowerAnimationState(const std::string& _State);

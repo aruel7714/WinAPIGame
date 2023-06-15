@@ -351,5 +351,7 @@ void Player::ChangeUpperAnimationState(const std::string& _State)
 
 	UpperAnimationName += _State;
 
+	AnimationName = UpperAnimationName;
+
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
 }

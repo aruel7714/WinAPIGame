@@ -69,10 +69,12 @@ void Player::IdleUpdate(float _Delta)
 	if (true == GameEngineInput::IsDown('A'))
 	{
 		ChangeUpperAnimationState("Fire");
-		//if (UpperRenderer->GetCurFrame() >= UpperRenderer->FindAnimation("Right_Pistol_Upper_Fire")->EndFrame)
-		//{
-		//	ChangeUpperAnimationState("Idle");
-		//}
+		/*if (UpperRenderer->GetCurFrame() >= 
+			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) - 
+			(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+		{
+			ChangeUpperAnimationState("Idle");
+		}*/
 	}
 	
 }
