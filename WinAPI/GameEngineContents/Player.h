@@ -100,6 +100,7 @@ private:
 	void Render(float _Delta) override;
 	void Release() override;
 
+	float4 Pos = float4::ZERO;
 	// Debug
 	
 

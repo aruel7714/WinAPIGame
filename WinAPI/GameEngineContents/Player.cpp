@@ -202,11 +202,13 @@ void Player::Start()
 		// MainRenderer->SetRenderScaleToTexture();
 
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
-		LowerRenderer->GetActor()->SetPos({ 3000, 400 });
+		LowerRenderer->GetActor()->SetPos({ 3000, 800 });
+
 
 		// UpperRenderer->SetRenderPos({ 20, -60 });
 		// 33px
 		UpperRenderer->SetRenderPos( { -40, -92 } );
+		//UpperRenderer->SetRenderPos()
 		
 		
 	}
@@ -221,6 +223,7 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	
 	CameraFocus();
 
 	StateUpdate(_Delta);
@@ -300,7 +303,7 @@ void Player::DirCheck()
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsFree(VK_RIGHT))
 	{
 		Dir = PlayerDir::Left;
-		ChangeAnimationState(CurState);
+		//ChangeAnimationState(CurState);
 		return;
 	}
 
@@ -310,7 +313,7 @@ void Player::DirCheck()
 	if(true == GameEngineInput::IsFree(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
 		Dir = PlayerDir::Right;
-		ChangeAnimationState(CurState);
+		//ChangeAnimationState(CurState);
 		return;
 	}
 }
@@ -337,6 +340,8 @@ void Player::ChangeAnimationState(const std::string & _State)
 	LowerAnimationName += _State;
 	UpperAnimationName += _State;
 	CurState = _State;
+
+	//UpperRenderer->GetActor()->SetPos(LowerRenderer->GetActor()->GetPos());
 
 	LowerRenderer->ChangeAnimation(LowerAnimationName);
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
@@ -399,6 +404,6 @@ void Player::ChangeUpperAnimationState(const std::string& _State)
 	UpperAnimationName += _State;
 
 	AnimationName = UpperAnimationName;
-
+	
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
 }

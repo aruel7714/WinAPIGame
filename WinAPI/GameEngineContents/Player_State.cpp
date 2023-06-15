@@ -17,7 +17,7 @@ void Player::IdleStart()
 
 void Player::IdleUpdate(float _Delta)
 {
-	ChangeAnimationState("Idle");
+	//ChangeAnimationState("Idle");
 	// 중력
 	{
 		// 발밑의 색
@@ -123,7 +123,7 @@ void Player::MoveStart()
 
 void Player::MoveUpdate(float _Delta)
 {
-	ChangeAnimationState("Move");
+	//ChangeAnimationState("Move");
 	// 중력
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
@@ -190,22 +190,21 @@ void Player::MoveUpdate(float _Delta)
 		return;
 	}
 
-	//if (true == GameEngineInput::IsDown('A'))
-	//{
-	//	ChangeUpperAnimationState("FireStart");
-	//	ChangeUpperAnimationState("Fire");
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperAnimationState("FireStart");
+		ChangeUpperAnimationState("Fire");
+	}
 
-	//}
-
-	//if (true == UpperRenderer->IsAnimation(AnimationName))
-	//{
-	//	if (UpperRenderer->GetCurFrame() >=
-	//		(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
-	//		(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
-	//	{
-	//		ChangeUpperAnimationState("Idle");
-	//	}
-	//}
+	if (true == UpperRenderer->IsAnimation(AnimationName))
+	{
+		if (UpperRenderer->GetCurFrame() >=
+			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
+			(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+		{
+			ChangeUpperAnimationState("Move");
+		}
+	}
 
 
 
