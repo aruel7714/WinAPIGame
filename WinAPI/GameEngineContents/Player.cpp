@@ -74,6 +74,32 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Lower.bmp"), 5, 5);
 	}
 
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_All.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_All.bmp"), 5, 23);
+	//}
+
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_All.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_All.bmp"), 5, 23);
+	//}
+
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_Upper.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -84,7 +110,7 @@ void Player::Start()
 
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Upper.bmp"), 5, 15);
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Upper.bmp"), 5, 17);
 	}
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_Upper.bmp"))
@@ -97,21 +123,8 @@ void Player::Start()
 
 		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 15);
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 17);
 	}
-
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Upper.bmp"))
-	//{
-	//	GameEnginePath FilePath;
-
-	//	FilePath.SetCurrentPath();
-
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
-
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
-
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Upper.bmp"), 5, 6);
-	//}
 
 	{
 		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
@@ -142,6 +155,10 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Lower_IdleJump", "Left_Lower.bmp", 13, 18, 0.2f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_MoveJump", "Left_Lower.bmp", 19, 24, 0.2f, false);
 
+		
+
+		// RightUp
+		// RightDia ÇÊ¿ä
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 0, 5, 0.1f, true);
 		// UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.03f, true);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.03f, true);
@@ -149,6 +166,14 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MoveJump", "Right_Pistol_Upper.bmp", 24, 29, 0.2f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 30, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Granade", "Right_Pistol_Upper.bmp", 40, 45, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_UpDia", "Right_Pistol_Upper.bmp", 46, 47, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Up", "Right_Pistol_Upper.bmp", 48, 51, 0.5f, true);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_UpFire", "Right_Pistol_Upper.bmp", 52, 61, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_DownDia", "Right_Pistol_Upper.bmp", 62, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Down", "Right_Pistol_Upper.bmp", 64, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_DownFire", "Right_Pistol_Upper.bmp", 65, 70, 0.5f, false);
+
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_FireStart", "Right_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 0, 5, 0.1f, true);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Move", "Left_Pistol_Upper.bmp", 6, 17, 0.03f, true);
@@ -156,6 +181,14 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MoveJump", "Left_Pistol_Upper.bmp", 24, 29, 0.2f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 30, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Granade", "Left_Pistol_Upper.bmp", 40, 45, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_UpDia", "Left_Pistol_Upper.bmp", 46, 47, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Up", "Left_Pistol_Upper.bmp", 48, 51, 0.5f, true);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_UpFire", "Left_Pistol_Upper.bmp", 52, 61, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_DownDia", "Left_Pistol_Upper.bmp", 62, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Down", "Left_Pistol_Upper.bmp", 64, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_DownFire", "Left_Pistol_Upper.bmp", 65, 70, 0.5f, false);
+
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_FireStart", "Left_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 		
 
 		// UpperRenderer->CreateAnimation("Right_Upper_Idle", "Right_Upper.bmp", 0, 3, 0.5f, true);
@@ -175,10 +208,6 @@ void Player::Start()
 		// 33px
 		UpperRenderer->SetRenderPos( { -40, -92 } );
 		
-		
-	}
-	{
-	//	GameEngineRenderer* Ptr = CreateUIRenderer(300);
 		
 	}
 
@@ -337,16 +366,34 @@ void Player::ChangeUpperAnimationState(const std::string& _State)
 {
 	std::string UpperAnimationName;
 
-	switch (Dir)
+	if (false == IsWeapon)
 	{
-	case PlayerDir::Right:
-		UpperAnimationName = "Right_Pistol_Upper_";
-		break;
-	case PlayerDir::Left:
-		UpperAnimationName = "Left_Pistol_Upper_";
-		break;
-	default:
-		break;
+		switch (Dir)
+		{
+		case PlayerDir::Right:
+			UpperAnimationName = "Right_Pistol_Upper_";
+			break;
+		case PlayerDir::Left:
+			UpperAnimationName = "Left_Pistol_Upper_";
+			break;
+		default:
+			break;
+		}
+
+	}
+	else if (true == IsWeapon)
+	{
+		//switch (Dir)
+		//{
+		//case PlayerDir::Right:
+		//	UpperAnimationName = "Right_Pistol_Upper_";
+		//	break;
+		//case PlayerDir::Left:
+		//	UpperAnimationName = "Left_Pistol_Upper_";
+		//	break;
+		//default:
+		//	break;
+		//}
 	}
 
 	UpperAnimationName += _State;

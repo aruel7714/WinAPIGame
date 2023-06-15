@@ -89,6 +89,9 @@ protected:
 	void ChangeLowerAnimationState(const std::string& _State);
 	void ChangeUpperAnimationState(const std::string& _State);
 
+	bool IsWeapon = false;
+	bool IsKnife = false;
+
 private:
 	void LevelStart() override;
 

@@ -17,6 +17,7 @@ void Player::IdleStart()
 
 void Player::IdleUpdate(float _Delta)
 {
+	ChangeAnimationState("Idle");
 	// 중력
 	{
 		// 발밑의 색
@@ -51,13 +52,34 @@ void Player::IdleUpdate(float _Delta)
 	}
 
 	// if (true == GameEngineInput::IsDown('A') || true == GameEngineInput::IsDown('D'))
-	if(true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
+	if(true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
 	{
 		DirCheck();
 		ChangeState(PlayerState::Move);
 		return;
 	}
 
+	if (true == GameEngineInput::IsPress(VK_UP))
+	{
+		// UpDia, Up, UpFire
+
+		//ChangeUpperAnimationState("Dia");
+
+		//if (true == UpperRenderer->IsAnimation(AnimationName))
+		//{
+		//	if (UpperRenderer->GetCurFrame() >=
+		//		(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
+		//		(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+		//	{
+		//		ChangeUpperAnimationState("Up");
+		//	}
+		//}
+	}
+
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		// 
+	}
 	
 	//if (true == GameEngineInput::IsDown('A'))
 	//{
@@ -68,14 +90,29 @@ void Player::IdleUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{
+		//FireUpdate(_Delta);
+
+		ChangeUpperAnimationState("FireStart");
 		ChangeUpperAnimationState("Fire");
-		/*if (UpperRenderer->GetCurFrame() >= 
-			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) - 
+		
+	}
+
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		//Granade
+	}
+
+	if (true == UpperRenderer->IsAnimation(AnimationName))
+	{
+		if (UpperRenderer->GetCurFrame() >=
+			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
 			(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
 		{
 			ChangeUpperAnimationState("Idle");
-		}*/
+		}
 	}
+	
+
 	
 }
 
@@ -86,6 +123,7 @@ void Player::MoveStart()
 
 void Player::MoveUpdate(float _Delta)
 {
+	ChangeAnimationState("Move");
 	// 중력
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
@@ -151,6 +189,25 @@ void Player::MoveUpdate(float _Delta)
 		ChangeState(PlayerState::Idle);
 		return;
 	}
+
+	//if (true == GameEngineInput::IsDown('A'))
+	//{
+	//	ChangeUpperAnimationState("FireStart");
+	//	ChangeUpperAnimationState("Fire");
+
+	//}
+
+	//if (true == UpperRenderer->IsAnimation(AnimationName))
+	//{
+	//	if (UpperRenderer->GetCurFrame() >=
+	//		(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
+	//		(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+	//	{
+	//		ChangeUpperAnimationState("Idle");
+	//	}
+	//}
+
+
 
 	AddPos(MovePos);
 }
@@ -220,9 +277,21 @@ void Player::MoveJumpUpdate(float _Delta)
 	}
 }
 
-
-//
 //void Player::FireUpdate(float _Delta)
 //{
-//	ChangeUpperAnimationState(PrevState);
+//	ChangeUpperAnimationState("FireStart");
+//	ChangeUpperAnimationState("Fire");
+//
+//	if (true == UpperRenderer->IsAnimation(AnimationName))
+//	{
+//		if (UpperRenderer->GetCurFrame() >=
+//			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
+//			(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+//		{
+//			IdleUpdate(_Delta);
+//			//ChangeUpperAnimationState("Idle");
+//		}
+//	}
+//
+//	//ChangeUpperAnimationState(PrevState);
 //}
