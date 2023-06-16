@@ -10,6 +10,7 @@
 // S : Jump
 // D : Granade
 
+/*
 void Player::IdleStart() 
 {
 	ChangeAnimationState("Idle");
@@ -304,6 +305,294 @@ void Player::MoveJumpUpdate(float _Delta)
 //	//ChangeUpperAnimationState(PrevState);
 //}
 
+*/
+
+
+
+
+
+
+void Player::IdleLowerStart()
+{
+	ChangeLowerAnimationState("Idle");
+}
+
+void Player::IdleLowerUpdate(float _Delta)
+{
+	{
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			if (true == GameEngineInput::IsPress('S'))
+			{
+				ChangeLowerState(PlayerLowerState::IdleJump);
+				return;
+			}
+
+
+			GravityReset();
+		}
+	}
+
+	if (true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
+	{
+		DirCheck();
+		ChangeLowerState(PlayerLowerState::Move);
+		return;
+	}
+}
+
+void Player::IdleUpperStart()
+{
+	ChangeUpperAnimationState("Idle");
+}
+void Player::IdleUpperUpdate(float _Delta)
+{
+
+	if (true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
+	{
+		DirCheck();
+		ChangeUpperState(PlayerUpperState::Move);
+		return;
+	}
+
+	if (true == GameEngineInput::IsPress(VK_UP))
+	{
+
+	}
+
+	if (true == GameEngineInput::IsPress('S'))
+	{
+		ChangeUpperState(PlayerUpperState::IdleJump);
+		return;
+	}
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		//FireUpdate(_Delta);
+
+		PrevState = "Idle";
+
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		PrevState = "Idle";
+
+		ChangeUpperState(PlayerUpperState::Granade);
+	}
+
+}
+
+void Player::MoveLowerStart()
+{
+	ChangeLowerAnimationState("Move");
+}
+void Player::MoveLowerUpdate(float _Delta) 
+{
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		else
+		{
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			if (true == GameEngineInput::IsPress('S'))
+			{
+				ChangeLowerState(PlayerLowerState::MoveJump);
+				return;
+			}
+
+			GravityReset();
+		}
+	}
+	DirCheck();
+
+	float Speed = 300.0f;
+	//float Speed = 1.0f;
+
+	float4 MovePos = float4::ZERO;
+
+
+	if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
+	{
+		ChangeLowerAnimationState("Move");
+		MovePos = { -Speed * _Delta, 0.0f };
+	}
+	else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
+	{
+		ChangeLowerAnimationState("Move");
+		MovePos = { Speed * _Delta, 0.0f };
+	}
+
+	if (MovePos == float4::ZERO)
+	{
+		DirCheck();
+		ChangeLowerState(PlayerLowerState::Idle);
+		return;
+	}
+
+	AddPos(MovePos);
+}
+
+void Player::MoveUpperStart() 
+{
+	ChangeUpperAnimationState("Move");
+}
+void Player::MoveUpperUpdate(float _Delta) 
+{
+	float Speed = 300.0f;
+	float4 MovePos = float4::ZERO;
+
+	if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
+	{
+		ChangeUpperAnimationState("Move");
+		MovePos = { -Speed * _Delta, 0.0f };
+	}
+	else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
+	{
+		ChangeUpperAnimationState("Move");
+		MovePos = { Speed * _Delta, 0.0f };
+	}
+
+	if (MovePos == float4::ZERO)
+	{
+		DirCheck();
+		ChangeUpperState(PlayerUpperState::Idle);
+		return;
+	}
+
+	if (true == GameEngineInput::IsPress('S'))
+	{
+		ChangeUpperState(PlayerUpperState::MoveJump);
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		PrevState = "Move";
+		//ChangeUpperAnimationState("FireStart");
+		//ChangeUpperAnimationState("Fire");
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+}
+
+void Player::IdleJumpLowerStart()
+{
+	SetGravityVector(float4::UP * 1200.0f);
+	ChangeLowerAnimationState("IdleJump");
+}
+void Player::IdleJumpLowerUpdate(float _Delta)
+{
+	Gravity(_Delta);
+
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+
+		if (Color != RGB(255, 255, 255))
+		{
+			ChangeLowerState(PlayerLowerState::Idle);
+			return;
+		}
+	}
+}
+
+void Player::IdleJumpUpperStart()
+{
+	ChangeUpperAnimationState("IdleJump");
+}
+void Player::IdleJumpUpperUpdate(float _Delta)
+{
+	if (LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
+	{
+		ChangeUpperState(PlayerUpperState::Idle);
+	}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		PrevState = "IdleJump";
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+}
+
+void Player::MoveJumpLowerStart()
+{
+	SetGravityVector(float4::UP * 1200.0f);
+	ChangeLowerAnimationState("MoveJump");
+}
+void Player::MoveJumpLowerUpdate(float _Delta)
+{
+	Gravity(_Delta);
+
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+
+		if (Color != RGB(255, 255, 255))
+		{
+			ChangeLowerState(PlayerLowerState::Idle);
+			return;
+		}
+	}
+
+	float Speed = 300.0f;
+
+	float4 MovePos = float4::ZERO;
+
+
+	if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
+	{
+		MovePos = { -Speed * _Delta, 0.0f };
+	}
+	else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
+	{
+		MovePos = { Speed * _Delta, 0.0f };
+	}
+
+	AddPos(MovePos);
+}
+
+void Player::MoveJumpUpperStart()
+{
+	ChangeUpperAnimationState("MoveJump");
+}
+void Player::MoveJumpUpperUpdate(float _Delta)
+{
+	if (LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
+	{
+		ChangeUpperState(PlayerUpperState::Idle);
+	}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		PrevState = "IdleJump";
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+}
 
 void Player::FireStart()
 {
@@ -320,15 +609,29 @@ void Player::FireUpdate(float _Delta)
 	{
 		if (PrevState == "Idle")
 		{
-			ChangeState(PlayerState::Idle);
+			ChangeUpperState(PlayerUpperState::Idle);
 		}
 		else if (PrevState == "Move")
 		{
-			ChangeState(PlayerState::Move);
+			ChangeUpperState(PlayerUpperState::Move);
 		}
 		else if (PrevState == "IdleJump")
 		{
-			ChangeState(PlayerState::IdleJump);
+			ChangeUpperState(PlayerUpperState::IdleJump);
 		}
+	}
+	
+}
+
+void Player::GranadeStart()
+{
+	ChangeUpperAnimationState("Granade");
+}
+
+void Player::GranadeUpdate(float _Delta)
+{
+	if(true == UpperRenderer->IsAnimationEnd())
+	{
+		ChangeUpperState(PlayerUpperState::Idle);
 	}
 }

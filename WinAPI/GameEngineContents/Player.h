@@ -12,14 +12,27 @@ enum class PlayerState
 	Max
 };
 
+enum class PlayerLowerState
+{
+	Idle,
+	Move,
+	IdleJump,
+	MoveJump,
+	Sit,
+	Max
+};
+
 enum class PlayerUpperState
 {
 	Idle,
 	Move,
 	IdleJump,
 	MoveJump,
-	FIre,
+	Fire,
 	Granade,
+	Dia,
+	Up,
+	UpFire,
 	Max
 };
 
@@ -70,34 +83,68 @@ public:
 
 protected:
 	// PlayerState°ü·Ã
-	PlayerState State = PlayerState::Max;
-	void ChangeState(PlayerState _State);
-	void StateUpdate(float _Delta);
+	//PlayerState State = PlayerState::Max;
+	PlayerLowerState LowerState = PlayerLowerState::Max;
+	PlayerUpperState UpperState = PlayerUpperState::Max;
+	//void ChangeState(PlayerState _State);
+	//void StateUpdate(float _Delta);
 
-	void IdleStart();
-	void IdleUpdate(float _Delta);
+	void ChangeLowerState(PlayerLowerState _LowerState);
+	void StateLowerUpdate(float _Delta);
+
+	void ChangeUpperState(PlayerUpperState _UpperState);
+	void StateUpperUpdate(float _Delta);
+
+	//void IdleStart();
+	//void IdleUpdate(float _Delta);
+
+	void IdleLowerStart();
+	void IdleLowerUpdate(float _Delta);
+
+	void IdleUpperStart();
+	void IdleUpperUpdate(float _Delta);
+
+	
+
+	//void MoveStart();
+	//void MoveUpdate(float _Delta);
+
+	//void IdleJumpStart();
+	//void IdleJumpUpdate(float _Delta);
+
+	//void MoveJumpStart();
+	//void MoveJumpUpdate(float _Delta);
+
+	void MoveLowerStart();
+	void MoveLowerUpdate(float _Delta);
+
+	void MoveUpperStart();
+	void MoveUpperUpdate(float _Delta);
+
+	void IdleJumpLowerStart();
+	void IdleJumpLowerUpdate(float _Delta);
+
+	void IdleJumpUpperStart();
+	void IdleJumpUpperUpdate(float _Delta);
+
+	void MoveJumpLowerStart();
+	void MoveJumpLowerUpdate(float _Delta);
+
+	void MoveJumpUpperStart();
+	void MoveJumpUpperUpdate(float _Delta);
 
 	void FireStart();
 	void FireUpdate(float _Delta);
 
-	void MoveStart();
-	void MoveUpdate(float _Delta);
+	void GranadeStart();
+	void GranadeUpdate(float _Delta);
 
-	void IdleJumpStart();
-	void IdleJumpUpdate(float _Delta);
-
-	void MoveJumpStart();
-	void MoveJumpUpdate(float _Delta);
-
-	
-	//void FireUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();
 
 	std::string CurState = "";
 	std::string PrevState = "";
-	std::string AnimationName = "";
 	void ChangeAnimationState(const std::string& _State);
 
 	void ChangeLowerAnimationState(const std::string& _State, bool _IsForce = false);

@@ -207,7 +207,7 @@ void Player::Start()
 
 		// UpperRenderer->SetRenderPos({ 20, -60 });
 		// 33px
-		//UpperRenderer->SetRenderPos( { 0, -92 } );
+		UpperRenderer->SetRenderPos( { 0, -92 } );
 		
 		//UpperRenderer->SetRenderPos()
 		
@@ -216,8 +216,11 @@ void Player::Start()
 
 	WeaponName = "Pistol_";
 
-	ChangeState(PlayerState::Idle);
+	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
+
+	ChangeLowerState(PlayerLowerState::Idle);
+	ChangeUpperState(PlayerUpperState::Idle);
 	Dir = PlayerDir::Right;
 	
 	int a = 0;
@@ -228,7 +231,8 @@ void Player::Update(float _Delta)
 	
 	CameraFocus();
 
-	StateUpdate(_Delta);
+	StateLowerUpdate(_Delta);
+	StateUpperUpdate(_Delta);
 }
 
 void Player::Render(float _Delta)
@@ -248,7 +252,7 @@ void Player::Release()
 {
 
 }
-
+/*
 void Player::ChangeState(PlayerState _State)
 {
 	if (_State != State)
@@ -296,6 +300,99 @@ void Player::StateUpdate(float _Delta)
 		break;
 	}
 }
+*/
+
+void Player::ChangeLowerState(PlayerLowerState _LowerState)
+{
+	if (_LowerState != LowerState)
+	{
+		switch (_LowerState)
+		{
+		case PlayerLowerState::Idle:
+			IdleLowerStart();
+			break;
+		case PlayerLowerState::Move:
+			MoveLowerStart();
+			break;
+		case PlayerLowerState::IdleJump:
+			IdleJumpLowerStart();
+			break;
+		case PlayerLowerState::MoveJump:
+			MoveJumpLowerStart();
+			break;
+		default:
+			break;
+		}
+	}
+	LowerState = _LowerState;
+}
+void Player::StateLowerUpdate(float _Delta)
+{
+	switch (LowerState)
+	{
+	case PlayerLowerState::Idle:
+		return IdleLowerUpdate(_Delta);
+	case PlayerLowerState::Move:
+		return MoveLowerUpdate(_Delta);
+	case PlayerLowerState::IdleJump:
+		return IdleJumpLowerUpdate(_Delta);
+	case PlayerLowerState::MoveJump:
+		return MoveJumpLowerUpdate(_Delta);
+	default:
+		break;
+	}
+}
+
+void Player::ChangeUpperState(PlayerUpperState _UpperState)
+{
+	if (_UpperState != UpperState)
+	{
+		switch (_UpperState)
+		{
+		case PlayerUpperState::Idle:
+			IdleUpperStart();
+			break;
+		case PlayerUpperState::Move:
+			MoveUpperStart();
+			break;
+		case PlayerUpperState::IdleJump:
+			IdleJumpUpperStart();
+			break;
+		case PlayerUpperState::MoveJump:
+			MoveJumpUpperStart();
+			break;
+		case PlayerUpperState::Fire:
+			FireStart();
+			break;
+		case PlayerUpperState::Granade:
+			GranadeStart();
+			break;
+		default:
+			break;
+		}
+	}
+	UpperState = _UpperState;
+}
+void Player::StateUpperUpdate(float _Delta)
+{
+	switch (UpperState)
+	{
+	case PlayerUpperState::Idle:
+		return IdleUpperUpdate(_Delta);
+	case PlayerUpperState::Move:
+		return MoveUpperUpdate(_Delta);
+	case PlayerUpperState::IdleJump:
+		return IdleJumpUpperUpdate(_Delta);
+	case PlayerUpperState::MoveJump:
+		return MoveJumpUpperUpdate(_Delta);
+	case PlayerUpperState::Fire:
+		return FireUpdate(_Delta);
+	case PlayerUpperState::Granade:
+		return GranadeUpdate(_Delta);
+	default:
+		break;
+	}
+}
 
 void Player::DirCheck()
 {
@@ -310,7 +407,7 @@ void Player::DirCheck()
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsFree(VK_RIGHT))
 	{
 		Dir = PlayerDir::Left;
-		//ChangeAnimationState(CurState);
+		//ChangeLowerAnimationState(CurState);
 		return;
 	}
 
@@ -372,6 +469,8 @@ void Player::ChangeLowerAnimationState(const std::string& _State, bool _IsForce)
 
 	LowerAnimationName += _State;
 
+
+
 	LowerRenderer->ChangeAnimation(LowerAnimationName, _IsForce);
 }
 void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
@@ -423,8 +522,5 @@ void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
 			UpperAnimationName = CheckAnimation;
 		}
 	}
-	
-	AnimationName = UpperAnimationName;
-
 	UpperRenderer->ChangeAnimation(UpperAnimationName, 0, _IsForce);
 }
