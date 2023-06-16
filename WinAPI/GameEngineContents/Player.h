@@ -66,6 +66,9 @@ protected:
 	void IdleStart();
 	void IdleUpdate(float _Delta);
 
+	void FireStart();
+	void FireUpdate(float _Delta);
+
 	void MoveStart();
 	void MoveUpdate(float _Delta);
 
@@ -86,8 +89,10 @@ protected:
 	std::string AnimationName = "";
 	void ChangeAnimationState(const std::string& _State);
 
-	void ChangeLowerAnimationState(const std::string& _State);
-	void ChangeUpperAnimationState(const std::string& _State);
+	void ChangeLowerAnimationState(const std::string& _State, bool _IsForce = false);
+	void ChangeUpperAnimationState(const std::string& _State, bool _IsForce = false);
+
+	std::string WeaponName;
 
 	bool IsWeapon = false;
 	bool IsKnife = false;

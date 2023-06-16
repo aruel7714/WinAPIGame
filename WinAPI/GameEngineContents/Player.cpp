@@ -168,7 +168,7 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Granade", "Right_Pistol_Upper.bmp", 40, 45, 0.5f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_UpDia", "Right_Pistol_Upper.bmp", 46, 47, 0.5f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Up", "Right_Pistol_Upper.bmp", 48, 51, 0.5f, true);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_UpFire", "Right_Pistol_Upper.bmp", 52, 61, 0.5f, false);
+		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 52, 61, 0.5f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_DownDia", "Right_Pistol_Upper.bmp", 62, 64, 0.5f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Down", "Right_Pistol_Upper.bmp", 64, 64, 0.5f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_DownFire", "Right_Pistol_Upper.bmp", 65, 70, 0.5f, false);
@@ -183,7 +183,7 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Granade", "Left_Pistol_Upper.bmp", 40, 45, 0.5f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_UpDia", "Left_Pistol_Upper.bmp", 46, 47, 0.5f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Up", "Left_Pistol_Upper.bmp", 48, 51, 0.5f, true);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_UpFire", "Left_Pistol_Upper.bmp", 52, 61, 0.5f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 52, 61, 0.5f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_DownDia", "Left_Pistol_Upper.bmp", 62, 64, 0.5f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Down", "Left_Pistol_Upper.bmp", 64, 64, 0.5f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_DownFire", "Left_Pistol_Upper.bmp", 65, 70, 0.5f, false);
@@ -213,6 +213,7 @@ void Player::Start()
 		
 	}
 
+	WeaponName = "Pistol_";
 
 	ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
@@ -259,6 +260,9 @@ void Player::ChangeState(PlayerState _State)
 		case PlayerState::Move:
 			MoveStart();
 			break;
+		case PlayerState::Fire:
+			FireStart();
+			break;
 		case PlayerState::IdleJump:
 			IdleJumpStart();
 			break;
@@ -281,6 +285,8 @@ void Player::StateUpdate(float _Delta)
 		return IdleUpdate(_Delta);
 	case PlayerState::Move:
 		return MoveUpdate(_Delta);
+	case PlayerState::Fire:
+		return FireUpdate(_Delta);
 	case PlayerState::IdleJump:
 		return IdleJumpUpdate(_Delta);
 	case PlayerState::MoveJump:
@@ -347,7 +353,7 @@ void Player::ChangeAnimationState(const std::string & _State)
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
 }
 
-void Player::ChangeLowerAnimationState(const std::string& _State)
+void Player::ChangeLowerAnimationState(const std::string& _State, bool _IsForce)
 {
 	std::string LowerAnimationName;
 
@@ -365,45 +371,59 @@ void Player::ChangeLowerAnimationState(const std::string& _State)
 
 	LowerAnimationName += _State;
 
-	LowerRenderer->ChangeAnimation(LowerAnimationName);
+	LowerRenderer->ChangeAnimation(LowerAnimationName, _IsForce);
 }
-void Player::ChangeUpperAnimationState(const std::string& _State)
+void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
 {
 	std::string UpperAnimationName;
 
-	if (false == IsWeapon)
+	switch (Dir)
 	{
+	case PlayerDir::Right:
+		UpperAnimationName = "Right_";
+		break;
+	case PlayerDir::Left:
+		UpperAnimationName = "Left_";
+		break;
+	default:
+		break;
+	}
+
+	UpperAnimationName += WeaponName;
+
+	UpperAnimationName += "Upper_";
+
+	UpperAnimationName += _State;
+
+
+	if (true == GameEngineInput::IsPress(VK_UP))
+	{
+		std::string CheckAnimation = "";
 		switch (Dir)
 		{
 		case PlayerDir::Right:
-			UpperAnimationName = "Right_Pistol_Upper_";
+			CheckAnimation = "RightUp_";
 			break;
 		case PlayerDir::Left:
-			UpperAnimationName = "Left_Pistol_Upper_";
+			CheckAnimation = "LeftUp_";
 			break;
 		default:
 			break;
 		}
 
-	}
-	else if (true == IsWeapon)
-	{
-		//switch (Dir)
-		//{
-		//case PlayerDir::Right:
-		//	UpperAnimationName = "Right_Pistol_Upper_";
-		//	break;
-		//case PlayerDir::Left:
-		//	UpperAnimationName = "Left_Pistol_Upper_";
-		//	break;
-		//default:
-		//	break;
-		//}
-	}
+		CheckAnimation += WeaponName;
 
-	UpperAnimationName += _State;
+		CheckAnimation += "Upper_";
 
-	AnimationName = UpperAnimationName;
+		CheckAnimation += _State;
+
+		if (nullptr != UpperRenderer->FindAnimation(CheckAnimation))
+		{
+			UpperAnimationName = CheckAnimation;
+		}
+	}
 	
-	UpperRenderer->ChangeAnimation(UpperAnimationName);
+	AnimationName = UpperAnimationName;
+
+	UpperRenderer->ChangeAnimation(UpperAnimationName, 0, _IsForce);
 }

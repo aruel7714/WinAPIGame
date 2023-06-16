@@ -92,8 +92,7 @@ void Player::IdleUpdate(float _Delta)
 	{
 		//FireUpdate(_Delta);
 
-		ChangeUpperAnimationState("FireStart");
-		ChangeUpperAnimationState("Fire");
+		ChangeState(PlayerState::Fire);
 		
 	}
 
@@ -294,3 +293,21 @@ void Player::MoveJumpUpdate(float _Delta)
 //
 //	//ChangeUpperAnimationState(PrevState);
 //}
+
+
+void Player::FireStart()
+{
+	ChangeUpperAnimationState("Fire");
+}
+void Player::FireUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperAnimationState("Fire", true);
+	}
+
+	if (true == UpperRenderer->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::Idle);
+	}
+}
