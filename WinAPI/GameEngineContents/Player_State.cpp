@@ -652,3 +652,15 @@ void Player::GranadeUpdate(float _Delta)
 		}
 	}
 }
+
+void Player::LookUpStart()
+{
+	ChangeUpperAnimationState("LookUp");
+}
+void Player::LookUpUpdate(float _Delta)
+{
+	if (true == UpperRenderer->IsAnimationEnd())
+	{
+		return;
+	}
+}
