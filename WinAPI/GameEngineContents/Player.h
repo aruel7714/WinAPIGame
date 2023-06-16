@@ -12,6 +12,17 @@ enum class PlayerState
 	Max
 };
 
+enum class PlayerUpperState
+{
+	Idle,
+	Move,
+	IdleJump,
+	MoveJump,
+	FIre,
+	Granade,
+	Max
+};
+
 enum class PlayerRenderOrder
 {
 	Lower,

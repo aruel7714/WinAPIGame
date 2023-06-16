@@ -207,7 +207,8 @@ void Player::Start()
 
 		// UpperRenderer->SetRenderPos({ 20, -60 });
 		// 33px
-		UpperRenderer->SetRenderPos( { -40, -92 } );
+		//UpperRenderer->SetRenderPos( { 0, -92 } );
+		
 		//UpperRenderer->SetRenderPos()
 		
 		

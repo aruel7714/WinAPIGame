@@ -50,6 +50,7 @@ void Player::IdleUpdate(float _Delta)
 			GravityReset();
 		}
 	}
+	UpperRenderer->SetRenderPos({ 0, -92 });
 
 	// if (true == GameEngineInput::IsDown('A') || true == GameEngineInput::IsDown('D'))
 	if(true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
@@ -91,6 +92,7 @@ void Player::IdleUpdate(float _Delta)
 	if (true == GameEngineInput::IsDown('A'))
 	{
 		//FireUpdate(_Delta);
+		PrevState = "Idle";
 
 		ChangeState(PlayerState::Fire);
 		
@@ -101,15 +103,15 @@ void Player::IdleUpdate(float _Delta)
 		//Granade
 	}
 
-	if (true == UpperRenderer->IsAnimation(AnimationName))
-	{
-		if (UpperRenderer->GetCurFrame() >=
-			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
-			(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
-		{
-			ChangeUpperAnimationState("Idle");
-		}
-	}
+	//if (true == UpperRenderer->IsAnimation(AnimationName))
+	//{
+	//	if (UpperRenderer->GetCurFrame() >=
+	//		(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
+	//		(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+	//	{
+	//		ChangeUpperAnimationState("Idle");
+	//	}
+	//}
 	
 
 	
@@ -122,7 +124,6 @@ void Player::MoveStart()
 
 void Player::MoveUpdate(float _Delta)
 {
-	//ChangeAnimationState("Move");
 	// ม฿ทย
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
@@ -149,6 +150,7 @@ void Player::MoveUpdate(float _Delta)
 			GravityReset();
 		}
 	}
+	//UpperRenderer->SetRenderPos({ 0, -96 });
 
 	DirCheck();
 
@@ -191,19 +193,21 @@ void Player::MoveUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{
-		ChangeUpperAnimationState("FireStart");
-		ChangeUpperAnimationState("Fire");
+		PrevState = "Move";
+		//ChangeUpperAnimationState("FireStart");
+		//ChangeUpperAnimationState("Fire");
+		ChangeState(PlayerState::Fire);
 	}
 
-	if (true == UpperRenderer->IsAnimation(AnimationName))
-	{
-		if (UpperRenderer->GetCurFrame() >=
-			(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
-			(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
-		{
-			ChangeUpperAnimationState("Move");
-		}
-	}
+	//if (true == UpperRenderer->IsAnimation(AnimationName))
+	//{
+	//	if (UpperRenderer->GetCurFrame() >=
+	//		(UpperRenderer->FindAnimation(AnimationName)->EndFrame) -
+	//		(UpperRenderer->FindAnimation(AnimationName)->StartFrame))
+	//	{
+	//		ChangeUpperAnimationState("Move");
+	//	}
+	//}
 
 
 
@@ -228,6 +232,12 @@ void Player::IdleJumpUpdate(float _Delta)
 			ChangeState(PlayerState::Idle);
 			return;
 		}
+	}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		PrevState = "IdleJump";
+		ChangeState(PlayerState::Fire);
 	}
 }
 
@@ -308,6 +318,17 @@ void Player::FireUpdate(float _Delta)
 
 	if (true == UpperRenderer->IsAnimationEnd())
 	{
-		ChangeState(PlayerState::Idle);
+		if (PrevState == "Idle")
+		{
+			ChangeState(PlayerState::Idle);
+		}
+		else if (PrevState == "Move")
+		{
+			ChangeState(PlayerState::Move);
+		}
+		else if (PrevState == "IdleJump")
+		{
+			ChangeState(PlayerState::IdleJump);
+		}
 	}
 }
