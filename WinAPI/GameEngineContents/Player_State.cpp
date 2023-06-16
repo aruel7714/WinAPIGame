@@ -314,6 +314,7 @@ void Player::MoveJumpUpdate(float _Delta)
 
 void Player::IdleLowerStart()
 {
+	UpperRenderer->SetRenderPos({ 0, -92 });
 	ChangeLowerAnimationState("Idle");
 }
 
@@ -496,9 +497,17 @@ void Player::MoveUpperUpdate(float _Delta)
 	if (true == GameEngineInput::IsDown('A'))
 	{
 		PrevState = "Move";
-		//ChangeUpperAnimationState("FireStart");
-		//ChangeUpperAnimationState("Fire");
+
+		DirCheck();
+
 		ChangeUpperState(PlayerUpperState::Fire);
+	}
+
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		PrevState = "Move";
+
+		ChangeUpperState(PlayerUpperState::Granade);
 	}
 }
 
@@ -600,6 +609,7 @@ void Player::FireStart()
 }
 void Player::FireUpdate(float _Delta)
 {
+	DirCheck();
 	if (true == GameEngineInput::IsDown('A'))
 	{
 		ChangeUpperAnimationState("Fire", true);
@@ -632,6 +642,13 @@ void Player::GranadeUpdate(float _Delta)
 {
 	if(true == UpperRenderer->IsAnimationEnd())
 	{
-		ChangeUpperState(PlayerUpperState::Idle);
+		if (PrevState == "Idle")
+		{
+			ChangeUpperState(PlayerUpperState::Idle);
+		}
+		else if (PrevState == "Move")
+		{
+			ChangeUpperState(PlayerUpperState::Move);
+		}
 	}
 }
