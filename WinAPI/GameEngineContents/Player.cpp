@@ -74,7 +74,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Lower.bmp"), 5, 5);
 	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_All.bmp"))
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Death.bmp"))
 	//{
 	//	GameEnginePath FilePath;
 
@@ -84,7 +84,20 @@ void Player::Start()
 
 	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_All.bmp"), 5, 23);
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Death.bmp"), 5, 12);
+	//}
+
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Death.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Death.bmp"), 5, 12);
 	//}
 
 	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_All.bmp"))
@@ -97,7 +110,46 @@ void Player::Start()
 
 	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_All.bmp"), 5, 23);
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_All.bmp"), 5, 2);
+	//}
+
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_All.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_All.bmp"), 5, 2);
+	//}
+
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_Sit.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Sit.bmp"), 5, 10);
+	//}
+
+	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_Sit.bmp"))
+	//{
+	//	GameEnginePath FilePath;
+
+	//	FilePath.SetCurrentPath();
+
+	//	FilePath.MoveParentToExistsChild("ContentsResources");
+
+	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Sit.bmp"), 5, 10);
 	//}
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_Upper.bmp"))
@@ -125,6 +177,8 @@ void Player::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 17);
 	}
+
+	
 
 	{
 		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
@@ -166,12 +220,15 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MoveJump", "Right_Pistol_Upper.bmp", 24, 29, 0.2f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 30, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Granade", "Right_Pistol_Upper.bmp", 40, 45, 0.05f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_LookUp", "Right_Pistol_Upper.bmp", 46, 47, 0.5f, false);
-		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 48, 51, 0.5f, true);
-		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 52, 61, 0.5f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_DownDia", "Right_Pistol_Upper.bmp", 62, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Down", "Right_Pistol_Upper.bmp", 64, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_DownFire", "Right_Pistol_Upper.bmp", 65, 70, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_LookUp", "Right_Pistol_Upper.bmp", 46, 47, 0.05f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_LookDown", "Right_Pistol_Upper.bmp", 47, 46, 0.05f, false);
+		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle1", "Right_Pistol_Upper.bmp", 48, 51, 0.1f, true);
+		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle2", "Right_Pistol_Upper.bmp", 51, 49, 0.1f, true);
+		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 52, 61, 0.05f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookDown", "Right_Pistol_Upper.bmp", 62, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookUp", "Right_Pistol_Upper.bmp", 64, 62, 0.5f, false);
+		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 64, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 65, 70, 0.5f, false);
 
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_FireStart", "Right_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 
@@ -181,12 +238,15 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MoveJump", "Left_Pistol_Upper.bmp", 24, 29, 0.2f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 30, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Granade", "Left_Pistol_Upper.bmp", 40, 45, 0.05f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_LookUp", "Left_Pistol_Upper.bmp", 46, 47, 0.5f, false);
-		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 48, 51, 0.5f, true);
-		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 52, 61, 0.5f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_DownDia", "Left_Pistol_Upper.bmp", 62, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Down", "Left_Pistol_Upper.bmp", 64, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_DownFire", "Left_Pistol_Upper.bmp", 65, 70, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_LookUp", "Left_Pistol_Upper.bmp", 46, 47, 0.05f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_LookDown", "Left_Pistol_Upper.bmp", 47, 46, 0.05f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Idle1", "Left_Pistol_Upper.bmp", 48, 51, 0.1f, true);
+		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Idle2", "Left_Pistol_Upper.bmp", 51, 49, 0.1f, true);
+		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 52, 61, 0.05f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookDown", "Left_Pistol_Upper.bmp", 62, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookUp", "Left_Pistol_Upper.bmp", 64, 62, 0.5f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 64, 64, 0.5f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 65, 70, 0.5f, false);
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_FireStart", "Left_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 		
@@ -367,9 +427,24 @@ void Player::ChangeUpperState(PlayerUpperState _UpperState)
 		case PlayerUpperState::Granade:
 			GranadeStart();
 			break;
-		//case PlayerUpperState::Up:
-		//	LookUpStart();
-		//	break;
+		case PlayerUpperState::LookUp:
+			LookUpStart();
+			break;
+		case PlayerUpperState::UpIdle:
+			UpIdleStart();
+			break;
+		case PlayerUpperState::LookDown:
+			LookDownStart();
+			break;
+		case PlayerUpperState::JumpLookDown:
+			JumpLookDownStart();
+			break;
+		case PlayerUpperState::DownIdle:
+			DownIdleStart();
+			break;
+		case PlayerUpperState::JumpLookUp:
+			JumpLookUpStart();
+			break;
 		default:
 			break;
 		}
@@ -392,8 +467,18 @@ void Player::StateUpperUpdate(float _Delta)
 		return FireUpdate(_Delta);
 	case PlayerUpperState::Granade:
 		return GranadeUpdate(_Delta);
-	//case PlayerUpperState::Up:
-	//	return LookUpUpdate(_Delta);
+	case PlayerUpperState::LookUp:
+		return LookUpUpdate(_Delta);
+	case PlayerUpperState::UpIdle:
+		return UpIdleUpdate(_Delta);
+	case PlayerUpperState::LookDown:
+		return LookDownUpdate(_Delta);
+	case PlayerUpperState::JumpLookDown:
+		return JumpLookDownUpdate(_Delta);
+	case PlayerUpperState::DownIdle:
+		return DownIdleUpdate(_Delta);
+	case PlayerUpperState::JumpLookUp:
+		return JumpLookUpUpdate(_Delta);
 	default:
 		break;
 	}
@@ -527,5 +612,31 @@ void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
 			UpperAnimationName = CheckAnimation;
 		}
 	}
+
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		std::string CheckAnimation = "";
+		switch (Dir)
+		{
+		case PlayerDir::Right:
+			CheckAnimation = "RightDown_";
+			break;
+		case PlayerDir::Left:
+			CheckAnimation = "LeftDown_";
+			break;
+		default:
+			break;
+		}
+
+		CheckAnimation += WeaponName;
+		CheckAnimation += "Upper_";
+		CheckAnimation += _State;
+
+		if (nullptr != UpperRenderer->FindAnimation(CheckAnimation))
+		{
+			UpperAnimationName = CheckAnimation;
+		}
+	}
+
 	UpperRenderer->ChangeAnimation(UpperAnimationName, 0, _IsForce);
 }

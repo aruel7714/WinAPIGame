@@ -314,7 +314,7 @@ void Player::MoveJumpUpdate(float _Delta)
 
 void Player::IdleLowerStart()
 {
-	UpperRenderer->SetRenderPos({ 0, -92 });
+	//UpperRenderer->SetRenderPos({ 0, -92 });
 	ChangeLowerAnimationState("Idle");
 }
 
@@ -376,13 +376,13 @@ void Player::IdleUpperUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsPress(VK_UP))
 	{
-
+		ChangeUpperState(PlayerUpperState::LookUp);
 	}
 
 	if (true == GameEngineInput::IsPress('S'))
 	{
 		ChangeUpperState(PlayerUpperState::IdleJump);
-		return;
+		
 	}
 	if (true == GameEngineInput::IsDown('A'))
 	{
@@ -488,6 +488,11 @@ void Player::MoveUpperUpdate(float _Delta)
 		return;
 	}
 
+	if (true == GameEngineInput::IsPress(VK_UP))
+	{
+		ChangeUpperState(PlayerUpperState::LookUp);
+	}
+
 	if (true == GameEngineInput::IsPress('S'))
 	{
 		ChangeUpperState(PlayerUpperState::MoveJump);
@@ -518,6 +523,7 @@ void Player::IdleJumpLowerStart()
 }
 void Player::IdleJumpLowerUpdate(float _Delta)
 {
+	DirCheck();
 	Gravity(_Delta);
 
 	{
@@ -544,8 +550,12 @@ void Player::IdleJumpUpperUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{
-		PrevState = "IdleJump";
 		ChangeUpperState(PlayerUpperState::Fire);
+	}
+
+	if (true == GameEngineInput::IsDown(VK_DOWN))
+	{
+		ChangeUpperState(PlayerUpperState::JumpLookDown);
 	}
 }
 
@@ -556,6 +566,7 @@ void Player::MoveJumpLowerStart()
 }
 void Player::MoveJumpLowerUpdate(float _Delta)
 {
+	DirCheck();
 	Gravity(_Delta);
 
 	{
@@ -598,8 +609,12 @@ void Player::MoveJumpUpperUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{
-		PrevState = "IdleJump";
 		ChangeUpperState(PlayerUpperState::Fire);
+	}
+
+	if (true == GameEngineInput::IsDown(VK_DOWN))
+	{
+		ChangeUpperState(PlayerUpperState::JumpLookDown);
 	}
 }
 
@@ -617,18 +632,24 @@ void Player::FireUpdate(float _Delta)
 
 	if (true == UpperRenderer->IsAnimationEnd())
 	{
-		if (PrevState == "Idle")
+		//if (PrevState == "Idle")
+		if(LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
 		{
-			ChangeUpperState(PlayerUpperState::Idle);
+			if (true == GameEngineInput::IsPress(VK_UP))
+			{
+				ChangeUpperState(PlayerUpperState::UpIdle);
+			}
+			else
+			{
+				ChangeUpperState(PlayerUpperState::Idle);
+			}
 		}
-		else if (PrevState == "Move")
+		//else if (PrevState == "Move")
+		else if (LowerRenderer->IsAnimation("Right_Lower_Move") || LowerRenderer->IsAnimation("Left_Lower_Move"))
 		{
 			ChangeUpperState(PlayerUpperState::Move);
 		}
-		else if (PrevState == "IdleJump")
-		{
-			ChangeUpperState(PlayerUpperState::IdleJump);
-		}
+		
 	}
 	
 }
@@ -640,16 +661,19 @@ void Player::GranadeStart()
 
 void Player::GranadeUpdate(float _Delta)
 {
-	if(true == UpperRenderer->IsAnimationEnd())
+	if (true == UpperRenderer->IsAnimationEnd())
 	{
-		if (PrevState == "Idle")
+		//if (PrevState == "Idle")
+		if (LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
 		{
 			ChangeUpperState(PlayerUpperState::Idle);
 		}
-		else if (PrevState == "Move")
+		//else if (PrevState == "Move")
+		else if (LowerRenderer->IsAnimation("Right_Lower_Move") || LowerRenderer->IsAnimation("Left_Lower_Move"))
 		{
 			ChangeUpperState(PlayerUpperState::Move);
 		}
+
 	}
 }
 
@@ -659,8 +683,117 @@ void Player::LookUpStart()
 }
 void Player::LookUpUpdate(float _Delta)
 {
+	if (true == UpperRenderer->IsAnimationEnd() && true == GameEngineInput::IsPress(VK_UP))
+	{
+		ChangeUpperState(PlayerUpperState::UpIdle);
+	}
+	if (true == GameEngineInput::IsFree(VK_UP))
+	{
+		ChangeUpperState(PlayerUpperState::LookDown);
+	}
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+}
+
+void Player::UpIdleStart()
+{
+	ChangeUpperAnimationState("Idle1");
+}
+void Player::UpIdleUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsFree(VK_UP))
+	{
+		ChangeUpperState(PlayerUpperState::LookDown);
+	}
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
 	if (true == UpperRenderer->IsAnimationEnd())
 	{
-		return;
+		if (UpperRenderer->IsAnimation("RightUp_Pistol_Upper_Idle1") || UpperRenderer->IsAnimation("LeftUp_Pistol_Upper_Idle1"))
+		{
+			ChangeUpperAnimationState("Idle2");
+		}
+		else if (UpperRenderer->IsAnimation("RightUp_Pistol_Upper_Idle2") || UpperRenderer->IsAnimation("LeftUp_Pistol_Upper_Idle2"))
+		{
+			ChangeUpperAnimationState("Idle1");
+		}
+	}
+}
+
+void Player::LookDownStart()
+{
+	ChangeUpperAnimationState("LookDown");
+}
+void Player::LookDownUpdate(float _Delta)
+{
+	if (true == UpperRenderer->IsAnimationEnd())
+	{
+		if (LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
+		{
+			ChangeUpperState(PlayerUpperState::Idle);
+		}
+		else if (LowerRenderer->IsAnimation("Right_Lower_Move") || LowerRenderer->IsAnimation("Left_Lower_Move"))
+		{
+			ChangeUpperState(PlayerUpperState::Move);
+		}
+	}
+}
+
+void Player::JumpLookDownStart()
+{
+	ChangeUpperAnimationState("JumpLookDown");
+}
+void Player::JumpLookDownUpdate(float _Delta)
+{
+	if (true == UpperRenderer->IsAnimationEnd() && true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		ChangeUpperState(PlayerUpperState::DownIdle);
+	}
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeUpperState(PlayerUpperState::JumpLookUp);
+	}
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+}
+
+void Player::DownIdleStart()
+{
+	ChangeUpperAnimationState("Idle");
+}
+void Player::DownIdleUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeUpperState(PlayerUpperState::JumpLookUp);
+	}
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+}
+
+void Player::JumpLookUpStart()
+{
+	ChangeUpperAnimationState("JumpLookUp");
+}
+void Player::JumpLookUpUpdate(float _Delta)
+{
+	if (true == UpperRenderer->IsAnimationEnd())
+	{
+		if (LowerRenderer->IsAnimation("Right_Lower_IdleJump") || LowerRenderer->IsAnimation("Left_Lower_IdleJump"))
+		{
+			ChangeUpperState(PlayerUpperState::IdleJump);
+		}
+		else if (LowerRenderer->IsAnimation("Right_Lower_MoveJump") || LowerRenderer->IsAnimation("Left_Lower_MoveJump"))
+		{
+			ChangeUpperState(PlayerUpperState::MoveJump);
+		}
 	}
 }

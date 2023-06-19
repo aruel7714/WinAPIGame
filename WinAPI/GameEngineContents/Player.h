@@ -30,9 +30,14 @@ enum class PlayerUpperState
 	MoveJump,
 	Fire,
 	Granade,
-	Dia,
-	Up,
+	LookUp,
+	UpIdle,
+	LookDown,
 	UpFire,
+	JumpLookDown,
+	DownIdle,
+	JumpLookUp,
+	DownFire,
 	Max
 };
 
@@ -139,13 +144,23 @@ protected:
 	void GranadeStart();
 	void GranadeUpdate(float _Delta);
 
-	//UpperRenderer->CreateAnimation("Right_Pistol_Upper_LookUp", "Right_Pistol_Upper.bmp", 46, 47, 0.5f, false);
-	//UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 48, 51, 0.5f, true);
-	//UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 52, 61, 0.5f, false);
-
 	void LookUpStart();
 	void LookUpUpdate(float _Delta);
 
+	void UpIdleStart();
+	void UpIdleUpdate(float _Delta);
+
+	void LookDownStart();
+	void LookDownUpdate(float _Delta);
+
+	void JumpLookDownStart();
+	void JumpLookDownUpdate(float _Delta);
+
+	void DownIdleStart();
+	void DownIdleUpdate(float _Delta);
+
+	void JumpLookUpStart();
+	void JumpLookUpUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();
