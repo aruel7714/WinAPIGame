@@ -314,7 +314,7 @@ void Player::MoveJumpUpdate(float _Delta)
 
 void Player::IdleLowerStart()
 {
-	//UpperRenderer->SetRenderPos({ 0, -92 });
+	//UpperRenderer->On();
 	ChangeLowerAnimationState("Idle");
 }
 
@@ -357,6 +357,11 @@ void Player::IdleLowerUpdate(float _Delta)
 		DirCheck();
 		ChangeLowerState(PlayerLowerState::Move);
 		return;
+	}
+
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitIdle);
 	}
 }
 
@@ -454,7 +459,8 @@ void Player::MoveLowerUpdate(float _Delta)
 	if (MovePos == float4::ZERO)
 	{
 		DirCheck();
-		ChangeLowerState(PlayerLowerState::Idle);
+		//ChangeLowerState(PlayerLowerState::Idle);
+		ChangeLowerState(PlayerLowerState::MoveStop);
 		return;
 	}
 
@@ -795,5 +801,32 @@ void Player::JumpLookUpUpdate(float _Delta)
 		{
 			ChangeUpperState(PlayerUpperState::MoveJump);
 		}
+	}
+}
+
+void Player::MoveStopStart()
+{
+	UpperRenderer->Off();
+	ChangeLowerAnimationState("MoveStop", true);
+	
+}
+void Player::MoveStopUpdate(float _Delta)
+{
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
+	}
+}
+
+void Player::SitIdleStart()
+{
+	UpperRenderer->Off();
+	ChangeLowerAnimationState("SitIdle", true);
+}
+void Player::SitIdleUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
 	}
 }

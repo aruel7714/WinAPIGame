@@ -18,7 +18,15 @@ enum class PlayerLowerState
 	Move,
 	IdleJump,
 	MoveJump,
-	Sit,
+	MoveStop,
+	SitStart,
+	SitEnd,
+	SitIdle,
+	SitMove,
+	SitFire,
+	SitFireIdle,
+	SitGranade,
+	SitGranadeIdle,
 	Max
 };
 
@@ -162,6 +170,12 @@ protected:
 	void JumpLookUpStart();
 	void JumpLookUpUpdate(float _Delta);
 
+	void MoveStopStart();
+	void MoveStopUpdate(float _Delta);
+
+	void SitIdleStart();
+	void SitIdleUpdate(float _Delta);
+
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();
 
@@ -169,7 +183,7 @@ protected:
 	std::string PrevState = "";
 	void ChangeAnimationState(const std::string& _State);
 
-	void ChangeLowerAnimationState(const std::string& _State, bool _IsForce = false);
+	void ChangeLowerAnimationState(const std::string& _State, bool _IsWeapon = false, bool _IsForce = false);
 	void ChangeUpperAnimationState(const std::string& _State, bool _IsForce = false);
 
 	std::string WeaponName;

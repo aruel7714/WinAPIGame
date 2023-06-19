@@ -74,83 +74,85 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Lower.bmp"), 5, 5);
 	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Death.bmp"))
-	//{
-	//	GameEnginePath FilePath;
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Death.bmp"))
+	{
+		GameEnginePath FilePath;
 
-	//	FilePath.SetCurrentPath();
+		FilePath.SetCurrentPath();
 
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Death.bmp"), 5, 12);
-	//}
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Death.bmp"), 5, 12);
+	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Death.bmp"))
-	//{
-	//	GameEnginePath FilePath;
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Death.bmp"))
+	{
+		GameEnginePath FilePath;
 
-	//	FilePath.SetCurrentPath();
+		FilePath.SetCurrentPath();
 
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Death.bmp"), 5, 12);
-	//}
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Death.bmp"), 5, 12);
+	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_All.bmp"))
-	//{
-	//	GameEnginePath FilePath;
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_All.bmp"))
+	{
+		GameEnginePath FilePath;
 
-	//	FilePath.SetCurrentPath();
+		FilePath.SetCurrentPath();
 
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_All.bmp"), 5, 2);
-	//}
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_All.bmp"), 5, 2);
+	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_All.bmp"))
-	//{
-	//	GameEnginePath FilePath;
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_All.bmp"))
+	{
+		GameEnginePath FilePath;
 
-	//	FilePath.SetCurrentPath();
+		FilePath.SetCurrentPath();
 
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_All.bmp"), 5, 2);
-	//}
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_All.bmp"), 5, 2);
+	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_Sit.bmp"))
-	//{
-	//	GameEnginePath FilePath;
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_Sit.bmp"))
+	{
+		GameEnginePath FilePath;
 
-	//	FilePath.SetCurrentPath();
+		FilePath.SetCurrentPath();
 
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Sit.bmp"), 5, 10);
-	//}
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Sit.bmp"), 5, 10);
+	}
 
-	//if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_Sit.bmp"))
-	//{
-	//	GameEnginePath FilePath;
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Pistol_Sit.bmp"))
+	{
+		GameEnginePath FilePath;
 
-	//	FilePath.SetCurrentPath();
+		FilePath.SetCurrentPath();
 
-	//	FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveParentToExistsChild("ContentsResources");
 
-	//	FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
 
-	//	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Pistol_Sit.bmp"), 5, 10);
-	//}
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Sit.bmp"), 5, 10);
+	}
+
+
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Pistol_Upper.bmp"))
 	{
@@ -204,10 +206,30 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 0.2f, false);
 		LowerRenderer->CreateAnimation("Right_Lower_MoveJump", "Right_Lower.bmp", 19, 24, 0.2f, false);
 
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_MoveStop", "Right_Pistol_All.bmp", 0, 3, 0.5f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitStart", "Right_Pistol_All.bmp", 4, 6, 0.5f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitEnd", "Right_Pistol_All.bmp", 6, 6, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitIdle", "Right_Pistol_Sit.bmp", 0, 3, true);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitMove", "Right_Pistol_Sit.bmp", 4, 10, true);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFire", "Right_Pistol_Sit.bmp", 11, 20, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFireIdle", "Right_Pistol_Sit.bmp", 21, 24, true);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranade", "Right_Pistol_Sit.bmp", 25, 30, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle", "Right_Pistol_Sit.bmp", 31, 34, false);
+
 		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.1f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.03f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_IdleJump", "Left_Lower.bmp", 13, 18, 0.2f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_MoveJump", "Left_Lower.bmp", 19, 24, 0.2f, false);
+
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_MoveStop", "Left_Pistol_All.bmp", 0, 3, 0.5f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitStart", "Left_Pistol_All.bmp", 4, 6, 0.5f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitEnd", "Left_Pistol_All.bmp", 6, 6, false);
+		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Idle", "Left_Pistol_Sit.bmp", 0, 3, true);
+		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Move", "Left_Pistol_Sit.bmp", 4, 10, true);
+		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Fire", "Left_Pistol_Sit.bmp", 11, 20, false);
+		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_FireIdle", "Left_Pistol_Sit.bmp", 21, 24, true);
+		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Granade", "Left_Pistol_Sit.bmp", 25, 30, false);
+		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_GranadeIdle", "Left_Pistol_Sit.bmp", 31, 34, false);
 
 		
 
@@ -264,13 +286,14 @@ void Player::Start()
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
 		LowerRenderer->GetActor()->SetPos({ 3000, 800 });
 
-
+		
 		// UpperRenderer->SetRenderPos({ 20, -60 });
 		// 33px
 		UpperRenderer->SetRenderPos( { 0, -92 } );
 		
 		//UpperRenderer->SetRenderPos()
 		
+		LowerRenderer->SetRenderScaleToTexture();
 		
 	}
 
@@ -290,7 +313,7 @@ void Player::Update(float _Delta)
 {
 	
 	CameraFocus();
-
+	LowerRenderer->SetRenderScaleToTexture();
 	StateLowerUpdate(_Delta);
 	StateUpperUpdate(_Delta);
 }
@@ -380,6 +403,12 @@ void Player::ChangeLowerState(PlayerLowerState _LowerState)
 		case PlayerLowerState::MoveJump:
 			MoveJumpLowerStart();
 			break;
+		case PlayerLowerState::MoveStop:
+			MoveStopStart();
+			break;
+		case PlayerLowerState::SitIdle:
+			SitIdleStart();
+			break;
 		default:
 			break;
 		}
@@ -398,6 +427,10 @@ void Player::StateLowerUpdate(float _Delta)
 		return IdleJumpLowerUpdate(_Delta);
 	case PlayerLowerState::MoveJump:
 		return MoveJumpLowerUpdate(_Delta);
+	case PlayerLowerState::MoveStop:
+		return MoveStopUpdate(_Delta);
+	case PlayerLowerState::SitIdle:
+		return SitIdleUpdate(_Delta);
 	default:
 		break;
 	}
@@ -541,26 +574,79 @@ void Player::ChangeAnimationState(const std::string & _State)
 	UpperRenderer->ChangeAnimation(UpperAnimationName);
 }
 
-void Player::ChangeLowerAnimationState(const std::string& _State, bool _IsForce)
+void Player::ChangeLowerAnimationState(const std::string& _State, bool _IsWeapon, bool _IsForce)
 {
 	std::string LowerAnimationName;
 
-	switch (Dir)
+	if (false == _IsWeapon)
 	{
-	case PlayerDir::Right:
-		LowerAnimationName = "Right_Lower_";
-		break;
-	case PlayerDir::Left:
-		LowerAnimationName = "Left_Lower_";
-		break;
-	default:
-		break;
+		switch (Dir)
+		{
+		case PlayerDir::Right:
+			LowerAnimationName = "Right_Lower_";
+			break;
+		case PlayerDir::Left:
+			LowerAnimationName = "Left_Lower_";
+			break;
+		default:
+			break;
+		}
+		LowerAnimationName += _State;
 	}
+	else if (true == _IsWeapon)
+	{
+		switch (Dir)
+		{
+		case PlayerDir::Right:
+			LowerAnimationName = "Right_";
+			break;
+		case PlayerDir::Left:
+			LowerAnimationName = "Left_";
+			break;
+		default:
+			break;
+		}
 
-	LowerAnimationName += _State;
+		LowerAnimationName += WeaponName;
 
+		LowerAnimationName += "Lower_";
 
+		LowerAnimationName += _State;
 
+		if (nullptr == LowerRenderer->FindAnimation(LowerAnimationName))
+		{
+			MsgBoxAssert(LowerAnimationName + "의 애니메이션이 없습니다");
+		}
+
+		//if (true == GameEngineInput::IsPress(VK_DOWN))
+		//{
+		//	std::string CheckAnimation = "";
+		//	
+		//	switch (Dir)
+		//	{
+		//	case PlayerDir::Right:
+		//		LowerAnimationName = "RightSit_";
+		//		break;
+		//	case PlayerDir::Left:
+		//		LowerAnimationName = "LeftSit_";
+		//		break;
+		//	default:
+		//		break;
+		//	}
+
+		//	CheckAnimation += WeaponName;
+
+		//	CheckAnimation += "Lower_";
+
+		//	CheckAnimation += _State;
+
+		//	if (nullptr != LowerRenderer->FindAnimation(CheckAnimation))
+		//	{
+		//		LowerAnimationName = CheckAnimation;
+		//	}
+		//}
+	}
+	
 	LowerRenderer->ChangeAnimation(LowerAnimationName, _IsForce);
 }
 void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
