@@ -33,7 +33,7 @@ void Arabian::Start()
 	{
 		ArabianRenderer = CreateRenderer(RenderOrder::Enemy);
 		
-		ArabianRenderer->CreateAnimation("Left_Arabian_Idle", "Left_Arabian_All.bmp", 0, 5, 0.5f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Idle", "Left_Arabian_All.bmp", 0, 5, 0.5f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_Ready", "Left_Arabian_All.bmp", 6, 9, 0.5f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_Move", "Left_Arabian_All.bmp", 10, 21, 0.5f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_Jump", "Left_Arabian_All.bmp", 22, 30, 0.5f, false);
