@@ -201,35 +201,43 @@ void Player::Start()
 		// MainRenderer->CreateAnimation("Right_Lower", "Right_Lower.bmp", 0, 18, 0.1f, true);
 		// LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 1.0f, true);
 		LowerRenderer->CreateAnimation("Right_Lower_Idle", "Right_Lower.bmp", 0, 0, 0.1f, true);
-		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.03f, true);
+		LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.04f, true);
 		//LowerRenderer->CreateAnimation("Right_Lower_Move", "Right_Lower.bmp", 1, 12, 0.5f, true);
 		LowerRenderer->CreateAnimation("Right_Lower_IdleJump", "Right_Lower.bmp", 13, 18, 0.2f, false);
 		LowerRenderer->CreateAnimation("Right_Lower_MoveJump", "Right_Lower.bmp", 19, 24, 0.2f, false);
 
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_MoveStop", "Right_Pistol_All.bmp", 0, 3, 0.5f, false);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitStart", "Right_Pistol_All.bmp", 4, 6, 0.5f, false);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitEnd", "Right_Pistol_All.bmp", 6, 6, false);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitIdle", "Right_Pistol_Sit.bmp", 0, 3, true);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitMove", "Right_Pistol_Sit.bmp", 4, 10, true);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFire", "Right_Pistol_Sit.bmp", 11, 20, false);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFireIdle", "Right_Pistol_Sit.bmp", 21, 24, true);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranade", "Right_Pistol_Sit.bmp", 25, 30, false);
-		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle", "Right_Pistol_Sit.bmp", 31, 34, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_MoveStop1", "Right_Pistol_All.bmp", 0, 3, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_MoveStop2", "Right_Pistol_All.bmp", 3, 0, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitDown", "Right_Pistol_All.bmp", 4, 6, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitUp", "Right_Pistol_All.bmp", 5, 4, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitIdle1", "Right_Pistol_Sit.bmp", 0, 3, 0.1f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitIdle2", "Right_Pistol_Sit.bmp", 3, 1, 0.1f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitMove", "Right_Pistol_Sit.bmp", 4, 10, 0.08f, true);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFire", "Right_Pistol_Sit.bmp", 11, 20, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFireIdle1", "Right_Pistol_Sit.bmp", 21, 24, 0.15f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitFireIdle2", "Right_Pistol_Sit.bmp", 24, 22, 0.15f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranade", "Right_Pistol_Sit.bmp", 25, 30, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle1", "Right_Pistol_Sit.bmp", 31, 34, 0.1f, false);
+		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle2", "Right_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
 		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.1f, true);
-		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.03f, true);
+		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.04f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_IdleJump", "Left_Lower.bmp", 13, 18, 0.2f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_MoveJump", "Left_Lower.bmp", 19, 24, 0.2f, false);
 
-		LowerRenderer->CreateAnimation("Left_Pistol_Lower_MoveStop", "Left_Pistol_All.bmp", 0, 3, 0.5f, false);
-		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitStart", "Left_Pistol_All.bmp", 4, 6, 0.5f, false);
-		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitEnd", "Left_Pistol_All.bmp", 6, 6, false);
-		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Idle", "Left_Pistol_Sit.bmp", 0, 3, true);
-		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Move", "Left_Pistol_Sit.bmp", 4, 10, true);
-		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Fire", "Left_Pistol_Sit.bmp", 11, 20, false);
-		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_FireIdle", "Left_Pistol_Sit.bmp", 21, 24, true);
-		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_Granade", "Left_Pistol_Sit.bmp", 25, 30, false);
-		LowerRenderer->CreateAnimation("LeftSit_Pistol_Lower_GranadeIdle", "Left_Pistol_Sit.bmp", 31, 34, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_MoveStop1", "Left_Pistol_All.bmp", 0, 3, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_MoveStop2", "Left_Pistol_All.bmp", 3, 0, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitDown", "Left_Pistol_All.bmp", 4, 6, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitUp", "Left_Pistol_All.bmp", 5, 4, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitIdle1", "Left_Pistol_Sit.bmp", 0, 3, 0.1f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitIdle2", "Left_Pistol_Sit.bmp", 3, 1, 0.1f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitMove", "Left_Pistol_Sit.bmp", 4, 10, 0.08f, true);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitFire", "Left_Pistol_Sit.bmp", 11, 20, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitFireIdle1", "Left_Pistol_Sit.bmp", 21, 24, 0.15f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitFireIdle2", "Left_Pistol_Sit.bmp", 24, 22, 0.15f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranade", "Left_Pistol_Sit.bmp", 25, 30, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle1", "Left_Pistol_Sit.bmp", 31, 34, 0.1f, false);
+		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle2", "Left_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
 		
 
@@ -237,25 +245,25 @@ void Player::Start()
 		// RightDia ÇÊ¿ä
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 0, 5, 0.1f, true);
 		// UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.03f, true);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.03f, true);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.04f, true);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_IdleJump", "Right_Pistol_Upper.bmp", 18, 23, 0.2f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MoveJump", "Right_Pistol_Upper.bmp", 24, 29, 0.2f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 30, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Granade", "Right_Pistol_Upper.bmp", 40, 45, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_LookUp", "Right_Pistol_Upper.bmp", 46, 47, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_LookDown", "Right_Pistol_Upper.bmp", 47, 46, 0.05f, false);
-		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle1", "Right_Pistol_Upper.bmp", 48, 51, 0.1f, true);
-		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle2", "Right_Pistol_Upper.bmp", 51, 49, 0.1f, true);
+		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle1", "Right_Pistol_Upper.bmp", 48, 51, 0.1f, false);
+		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Idle2", "Right_Pistol_Upper.bmp", 51, 49, 0.1f, false);
 		UpperRenderer->CreateAnimation("RightUp_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 52, 61, 0.05f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookDown", "Right_Pistol_Upper.bmp", 62, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookUp", "Right_Pistol_Upper.bmp", 64, 62, 0.5f, false);
-		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 64, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 65, 70, 0.5f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookDown", "Right_Pistol_Upper.bmp", 62, 64, 0.05f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookUp", "Right_Pistol_Upper.bmp", 64, 62, 0.05f, false);
+		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 64, 64, 0.1f, false);
+		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 65, 70, 0.05f, false);
 
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_FireStart", "Right_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 0, 5, 0.1f, true);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Move", "Left_Pistol_Upper.bmp", 6, 17, 0.03f, true);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Move", "Left_Pistol_Upper.bmp", 6, 17, 0.04f, true);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_IdleJump", "Left_Pistol_Upper.bmp", 18, 23, 0.2f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MoveJump", "Left_Pistol_Upper.bmp", 24, 29, 0.2f, false);
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 30, 39, 0.05f, false);
@@ -265,10 +273,10 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Idle1", "Left_Pistol_Upper.bmp", 48, 51, 0.1f, true);
 		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Idle2", "Left_Pistol_Upper.bmp", 51, 49, 0.1f, true);
 		UpperRenderer->CreateAnimation("LeftUp_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 52, 61, 0.05f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookDown", "Left_Pistol_Upper.bmp", 62, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookUp", "Left_Pistol_Upper.bmp", 64, 62, 0.5f, false);
-		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 64, 64, 0.5f, false);
-		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 65, 70, 0.5f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookDown", "Left_Pistol_Upper.bmp", 62, 64, 0.05f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookUp", "Left_Pistol_Upper.bmp", 64, 62, 0.05f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 64, 64, 0.1f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 65, 70, 0.05f, false);
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_FireStart", "Left_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 		
@@ -406,8 +414,29 @@ void Player::ChangeLowerState(PlayerLowerState _LowerState)
 		case PlayerLowerState::MoveStop:
 			MoveStopStart();
 			break;
+		case PlayerLowerState::SitDown:
+			SitDownStart();
+			break;
+		case PlayerLowerState::SitUp:
+			SitUpStart();
+			break;
 		case PlayerLowerState::SitIdle:
 			SitIdleStart();
+			break;
+		case PlayerLowerState::SitMove:
+			SitMoveStart();
+			break;
+		case PlayerLowerState::SitFire:
+			SitFireStart();
+			break;
+		case PlayerLowerState::SitFireIdle:
+			SitFireIdleStart();
+			break;
+		case PlayerLowerState::SitGranade:
+			SitGranadeStart();
+			break;
+		case PlayerLowerState::SitGranadeIdle:
+			SitGranadeIdleStart();
 			break;
 		default:
 			break;
@@ -429,8 +458,22 @@ void Player::StateLowerUpdate(float _Delta)
 		return MoveJumpLowerUpdate(_Delta);
 	case PlayerLowerState::MoveStop:
 		return MoveStopUpdate(_Delta);
+	case PlayerLowerState::SitDown:
+		return SitDownUpdate(_Delta);
+	case PlayerLowerState::SitUp:
+		return SitUpUpdate(_Delta);
 	case PlayerLowerState::SitIdle:
 		return SitIdleUpdate(_Delta);
+	case PlayerLowerState::SitMove:
+		return SitMoveUpdate(_Delta);
+	case PlayerLowerState::SitFire:
+		return SitFireUpdate(_Delta);
+	case PlayerLowerState::SitFireIdle:
+		return SitFireIdleUpdate(_Delta);
+	case PlayerLowerState::SitGranade:
+		return SitGranadeUpdate(_Delta);
+	case PlayerLowerState::SitGranadeIdle:
+		return SitGranadeIdleUpdate(_Delta);
 	default:
 		break;
 	}
@@ -647,7 +690,7 @@ void Player::ChangeLowerAnimationState(const std::string& _State, bool _IsWeapon
 		//}
 	}
 	
-	LowerRenderer->ChangeAnimation(LowerAnimationName, _IsForce);
+	LowerRenderer->ChangeAnimation(LowerAnimationName, 0, _IsForce);
 }
 void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
 {

@@ -361,7 +361,7 @@ void Player::IdleLowerUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsPress(VK_DOWN))
 	{
-		ChangeLowerState(PlayerLowerState::SitIdle);
+		ChangeLowerState(PlayerLowerState::SitDown);
 	}
 }
 
@@ -381,7 +381,13 @@ void Player::IdleUpperUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsPress(VK_UP))
 	{
-		ChangeUpperState(PlayerUpperState::LookUp);
+		if (true != LowerRenderer->IsAnimation("Right_Lower_IdleJump") ||
+			true != LowerRenderer->IsAnimation("Left_Lower_IdleJump") ||
+			true != LowerRenderer->IsAnimation("Right_Lower_MoveJump") ||
+			true != LowerRenderer->IsAnimation("Left_Lower_MoveJump"))
+		{
+			ChangeUpperState(PlayerUpperState::LookUp);
+		}
 	}
 
 	if (true == GameEngineInput::IsPress('S'))
@@ -559,6 +565,11 @@ void Player::IdleJumpUpperUpdate(float _Delta)
 		ChangeUpperState(PlayerUpperState::Fire);
 	}
 
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		ChangeUpperState(PlayerUpperState::Granade);
+	}
+
 	if (true == GameEngineInput::IsDown(VK_DOWN))
 	{
 		ChangeUpperState(PlayerUpperState::JumpLookDown);
@@ -618,6 +629,11 @@ void Player::MoveJumpUpperUpdate(float _Delta)
 		ChangeUpperState(PlayerUpperState::Fire);
 	}
 
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		ChangeUpperState(PlayerUpperState::Granade);
+	}
+
 	if (true == GameEngineInput::IsDown(VK_DOWN))
 	{
 		ChangeUpperState(PlayerUpperState::JumpLookDown);
@@ -631,9 +647,21 @@ void Player::FireStart()
 void Player::FireUpdate(float _Delta)
 {
 	DirCheck();
-	if (true == GameEngineInput::IsDown('A'))
+
+	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
+		DirCheck();
+		ChangeUpperState(PlayerUpperState::Move);
+	}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{	
 		ChangeUpperAnimationState("Fire", true);
+	}
+
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		ChangeUpperState(PlayerUpperState::Granade);
 	}
 
 	if (true == UpperRenderer->IsAnimationEnd())
@@ -667,8 +695,14 @@ void Player::GranadeStart()
 
 void Player::GranadeUpdate(float _Delta)
 {
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+
 	if (true == UpperRenderer->IsAnimationEnd())
 	{
+		
 		//if (PrevState == "Idle")
 		if (LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
 		{
@@ -701,6 +735,10 @@ void Player::LookUpUpdate(float _Delta)
 	{
 		ChangeUpperState(PlayerUpperState::Fire);
 	}
+	if (true == GameEngineInput::IsDown('S'))
+	{
+		ChangeUpperState(PlayerUpperState::LookDown);
+	}
 }
 
 void Player::UpIdleStart()
@@ -710,6 +748,10 @@ void Player::UpIdleStart()
 void Player::UpIdleUpdate(float _Delta)
 {
 	if (true == GameEngineInput::IsFree(VK_UP))
+	{
+		ChangeUpperState(PlayerUpperState::LookDown);
+	}
+	if (true == GameEngineInput::IsDown('S'))
 	{
 		ChangeUpperState(PlayerUpperState::LookDown);
 	}
@@ -745,6 +787,14 @@ void Player::LookDownUpdate(float _Delta)
 		else if (LowerRenderer->IsAnimation("Right_Lower_Move") || LowerRenderer->IsAnimation("Left_Lower_Move"))
 		{
 			ChangeUpperState(PlayerUpperState::Move);
+		}
+
+		if (LowerRenderer->IsAnimation("Right_Lower_IdleJump") ||
+			LowerRenderer->IsAnimation("Left_Lower_IdleJump") ||
+			LowerRenderer->IsAnimation("Right_Lower_MoveJump") ||
+			LowerRenderer->IsAnimation("Left_Lower_MoveJump"))
+		{
+			ChangeUpperAnimationState("Idle");
 		}
 	}
 }
@@ -807,26 +857,329 @@ void Player::JumpLookUpUpdate(float _Delta)
 void Player::MoveStopStart()
 {
 	UpperRenderer->Off();
-	ChangeLowerAnimationState("MoveStop", true);
-	
+	ChangeLowerAnimationState("MoveStop1", true);
 }
 void Player::MoveStopUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
+	{
+		DirCheck();
+		ChangeLowerState(PlayerLowerState::Move);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Move);
+	}
+
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_MoveStop1") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_MoveStop1"))
+		{
+			ChangeLowerAnimationState("MoveStop2", true);
+		}
+		else if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_MoveStop2") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_MoveStop2"))
+		{
+			ChangeLowerState(PlayerLowerState::Idle);
+			UpperRenderer->On();
+			ChangeUpperState(PlayerUpperState::Idle);
+		}
+	}
+}
+
+void Player::SitDownStart()
+{
+	UpperRenderer->Off();
+	ChangeLowerAnimationState("SitDown", true);
+}
+void Player::SitDownUpdate(float _Delta)
+{
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		if (true == GameEngineInput::IsPress(VK_DOWN))
+		{
+			ChangeLowerState(PlayerLowerState::SitIdle);
+		}
+	}
+	if (true == GameEngineInput::IsUp(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitUp);
+	}
+}
+
+void Player::SitUpStart()
+{
+	ChangeLowerAnimationState("SitUp", true);
+}
+void Player::SitUpUpdate(float _Delta)
 {
 	if (true == LowerRenderer->IsAnimationEnd())
 	{
 		ChangeLowerState(PlayerLowerState::Idle);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Idle);
 	}
 }
 
 void Player::SitIdleStart()
 {
-	UpperRenderer->Off();
-	ChangeLowerAnimationState("SitIdle", true);
+	ChangeLowerAnimationState("SitIdle1", true);
 }
 void Player::SitIdleUpdate(float _Delta)
 {
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_SitIdle1") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_SitIdle1"))
+		{
+			ChangeLowerAnimationState("SitIdle2", true);
+		}
+		else if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_SitIdle2") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_SitIdle2"))
+		{
+			ChangeLowerAnimationState("SitIdle1", true);
+		}
+	}
+
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		if (true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
+		{
+			DirCheck();
+			ChangeLowerState(PlayerLowerState::SitMove);
+		}
+		
+		if (true == GameEngineInput::IsDown('A'))
+		{
+			ChangeLowerState(PlayerLowerState::SitFire);
+		}
+
+		if (true == GameEngineInput::IsDown('D'))
+		{
+			ChangeLowerState(PlayerLowerState::SitGranade);
+		}
+	}
+
 	if (true == GameEngineInput::IsFree(VK_DOWN))
 	{
-		ChangeLowerState(PlayerLowerState::Idle);
+		ChangeLowerState(PlayerLowerState::SitUp);
+	}
+}
+
+void Player::SitMoveStart()
+{
+	ChangeLowerAnimationState("SitMove", true);
+}
+void Player::SitMoveUpdate(float _Delta)
+{
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		else
+		{
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
+
+	DirCheck();
+
+	float Speed = 120.0f;
+	//float Speed = 1.0f;
+
+	float4 MovePos = float4::ZERO;
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		if (true == GameEngineInput::IsPress(VK_LEFT) && Dir == PlayerDir::Left)
+		{
+			ChangeLowerAnimationState("SitMove", true);
+			MovePos = { -Speed * _Delta, 0.0f };
+		}
+		else if (true == GameEngineInput::IsPress(VK_RIGHT) && Dir == PlayerDir::Right)
+		{
+			ChangeLowerAnimationState("SitMove", true);
+			MovePos = { Speed * _Delta, 0.0f };
+		}
+
+		if (true == GameEngineInput::IsDown('A'))
+		{
+			ChangeLowerState(PlayerLowerState::SitFire);
+		}
+
+		if (true == GameEngineInput::IsDown('D'))
+		{
+			ChangeLowerState(PlayerLowerState::SitGranade);
+		}
+	}
+
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitUp);
+	}
+
+	if (MovePos == float4::ZERO)
+	{
+		ChangeLowerState(PlayerLowerState::SitIdle);
+	}
+
+	AddPos(MovePos);
+
+	
+	
+
+	
+	
+}
+
+void Player::SitFireStart()
+{
+	ChangeLowerAnimationState("SitFire", true);
+}
+void Player::SitFireUpdate(float _Delta)
+{
+	DirCheck();
+
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		if (true == GameEngineInput::IsDown('A'))
+		{
+			ChangeLowerAnimationState("SitFire", true, true);
+		}
+
+		if (true == GameEngineInput::IsDown('D'))
+		{
+			ChangeLowerState(PlayerLowerState::SitGranade);
+		}
+
+		if (true == LowerRenderer->IsAnimationEnd())
+		{
+			ChangeLowerState(PlayerLowerState::SitFireIdle);
+		}
+	}
+
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitUp);
+	}
+}
+
+void Player::SitFireIdleStart()
+{
+	ChangeLowerAnimationState("SitFireIdle1", true);
+}
+void Player::SitFireIdleUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		if (true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
+		{
+			DirCheck();
+			ChangeLowerState(PlayerLowerState::SitMove);
+		}
+
+		if (true == GameEngineInput::IsDown('A'))
+		{
+			ChangeLowerState(PlayerLowerState::SitFire);
+		}
+
+		if (true == GameEngineInput::IsDown('D'))
+		{
+			ChangeLowerState(PlayerLowerState::SitGranade);
+		}
+
+		if (true == LowerRenderer->IsAnimationEnd())
+		{
+			if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_SitFireIdle1") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_SitFireIdle1"))
+			{
+				ChangeLowerAnimationState("SitFireIdle2", true);
+			}
+			else if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_SitFireIdle2") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_SitFireIdle2"))
+			{
+				ChangeLowerAnimationState("SitFireIdle1", true);
+			}
+		}
+	}
+
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitUp);
+	}
+}
+
+void Player::SitGranadeStart()
+{
+	ChangeLowerAnimationState("SitGranade", true);
+}
+void Player::SitGranadeUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		if (true == GameEngineInput::IsDown('A'))
+		{
+			ChangeLowerState(PlayerLowerState::SitFire);
+		}
+
+		if (true == GameEngineInput::IsDown('D'))
+		{
+			ChangeLowerState(PlayerLowerState::SitGranade);
+		}
+
+		if (true == LowerRenderer->IsAnimationEnd())
+		{
+			ChangeLowerState(PlayerLowerState::SitGranadeIdle);
+		}
+	}
+
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitUp);
+	}
+}
+
+void Player::SitGranadeIdleStart()
+{
+	ChangeLowerAnimationState("SitGranadeIdle1", true);
+}
+void Player::SitGranadeIdleUpdate(float _Delta)
+{
+	if (true == GameEngineInput::IsPress(VK_DOWN))
+	{
+		if (true == GameEngineInput::IsPress(VK_LEFT) || true == GameEngineInput::IsPress(VK_RIGHT))
+		{
+			DirCheck();
+			ChangeLowerState(PlayerLowerState::SitMove);
+		}
+
+		if (true == GameEngineInput::IsDown('A'))
+		{
+			ChangeLowerState(PlayerLowerState::SitFire);
+		}
+
+		if (true == GameEngineInput::IsDown('D'))
+		{
+			ChangeLowerState(PlayerLowerState::SitGranade);
+		}
+
+		if (true == LowerRenderer->IsAnimationEnd())
+		{
+			if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_SitGranadeIdle1") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_SitGranadeIdle1"))
+			{
+				ChangeLowerAnimationState("SitGranadeIdle2", true);
+			}
+			else if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_SitGranadeIdle2") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_SitGranadeIdle2"))
+			{
+				ChangeLowerAnimationState("SitGranadeIdle1", true);
+			}
+		}
+	}
+
+	if (true == GameEngineInput::IsFree(VK_DOWN))
+	{
+		ChangeLowerState(PlayerLowerState::SitUp);
 	}
 }

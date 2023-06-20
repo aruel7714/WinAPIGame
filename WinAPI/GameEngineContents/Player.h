@@ -19,8 +19,8 @@ enum class PlayerLowerState
 	IdleJump,
 	MoveJump,
 	MoveStop,
-	SitStart,
-	SitEnd,
+	SitDown,
+	SitUp,
 	SitIdle,
 	SitMove,
 	SitFire,
@@ -173,8 +173,29 @@ protected:
 	void MoveStopStart();
 	void MoveStopUpdate(float _Delta);
 
+	void SitDownStart();
+	void SitDownUpdate(float _Delta);
+
+	void SitUpStart();
+	void SitUpUpdate(float _Delta);
+
 	void SitIdleStart();
 	void SitIdleUpdate(float _Delta);
+
+	void SitMoveStart();
+	void SitMoveUpdate(float _Delta);
+
+	void SitFireStart();
+	void SitFireUpdate(float _Delta);
+
+	void SitFireIdleStart();
+	void SitFireIdleUpdate(float _Delta);
+
+	void SitGranadeStart();
+	void SitGranadeUpdate(float _Delta);
+
+	void SitGranadeIdleStart();
+	void SitGranadeIdleUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();
