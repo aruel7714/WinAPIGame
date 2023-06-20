@@ -7,6 +7,8 @@
 
 #include "Player.h"
 #include "BackGround.h"
+#include "Arabian.h"
+#include "ContentsEnum.h"
 
 Stage1::Stage1()
 {
@@ -59,6 +61,10 @@ void Stage1::Start()
 	LevelPlayer->SetGroundTexture("Mission1_Debug_Test.bmp");
 	int a = 0;
 
+	
+	//EnemyArabian = CreateActor<Arabian>();
+	Arabian* NewArabian = CreateActor<Arabian>(RenderOrder::Enemy);
+
 }
 
 //void Stage1::CameraFocus()
@@ -74,6 +80,14 @@ void Stage1::Update(float _Delta)
 	{
 		BackGroundPtr->SwitchRender();
 	}
+
+	
+
+	//if (1.0f <= GetLiveTime())
+	//{
+	//	Monster* NewMonster = CreateActor<Monster>(UpdateOrder::Monster);
+	//	ResetLiveTime();
+	//}
 }
 void Stage1::Release() {}
 
@@ -83,6 +97,11 @@ void Stage1::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다.");
 	}
+
+	/*if (nullptr == EnemyArabian)
+	{
+		MsgBoxAssert("적군을 세팅해주지 않았습니다.");
+	}*/
 
 	//LevelPlayer->SetGroundTexture("Mission1_Debug.bmp");
 }

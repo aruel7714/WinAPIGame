@@ -4,6 +4,7 @@ enum class RenderOrder
 {
 	SecondBackGround,
 	FirstBackGround,
+	Enemy,
 	PlayerLower,
 	PlayerUpper,
 	PlayUI

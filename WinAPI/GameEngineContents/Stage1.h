@@ -28,6 +28,8 @@ private:
 
 	class BackGround* BackGroundPtr;
 	class Player* LevelPlayer = nullptr;
+
+	//class Arabian* EnemyArabian = nullptr;
 	
 };
 
