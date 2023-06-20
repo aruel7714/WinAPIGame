@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEngineObject.h"
 
-// 설명 : 
+// 설명 :
 class GameEngineActor;
 class GameEngineActorSubObject : public GameEngineObject
 {
@@ -14,17 +14,19 @@ public:
 	~GameEngineActorSubObject();
 
 	// delete Function
-	GameEngineActorSubObject(const GameEngineActorSubObject & _Other) = delete;
-	GameEngineActorSubObject(GameEngineActorSubObject && _Other) noexcept = delete;
-	GameEngineActorSubObject& operator=(const GameEngineActorSubObject & _Other) = delete;
-	GameEngineActorSubObject& operator=(GameEngineActorSubObject && _Other) noexcept = delete;
+	GameEngineActorSubObject(const GameEngineActorSubObject& _Other) = delete;
+	GameEngineActorSubObject(GameEngineActorSubObject&& _Other) noexcept = delete;
+	GameEngineActorSubObject& operator=(const GameEngineActorSubObject& _Other) = delete;
+	GameEngineActorSubObject& operator=(GameEngineActorSubObject&& _Other) noexcept = delete;
 
 	bool IsDeath() override;
+	bool IsUpdate() override;
 
-	GameEngineActor* GetActor()
+	GameEngineActor* GetActor() 
 	{
 		return Master;
 	}
+
 
 protected:
 
