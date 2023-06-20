@@ -62,7 +62,6 @@ enum class PlayerDir
 	Max
 };
 
-class PlayerUpperRender;
 // Ό³Έν : 
 class Player : public PlayActor
 {

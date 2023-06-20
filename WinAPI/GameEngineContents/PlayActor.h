@@ -33,7 +33,7 @@ private:
 // gravity
 public:
 	void Gravity(float _Delta);
-	void UpperGravity(float _Delta);
+	
 
 	void GravityReset()
 	{

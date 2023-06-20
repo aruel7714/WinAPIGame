@@ -10,6 +10,9 @@
     <Filter Include="Global\Player">
       <UniqueIdentifier>{276b6248-109a-4b4a-af62-4a59fcb1dba4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Global\Arabian">
+      <UniqueIdentifier>{cf9eccd3-0c82-4d85-a5bf-f9c159048efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -34,8 +37,11 @@
     <ClInclude Include="Player.h">
       <Filter>Global\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Arabian.h">
+      <Filter>Global\Arabian</Filter>
+    </ClInclude>
     <ClInclude Include="PlayActor.h">
-      <Filter>Global\Player</Filter>
+      <Filter>Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,8 +67,11 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Global\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Arabian.cpp">
+      <Filter>Global\Arabian</Filter>
+    </ClCompile>
     <ClCompile Include="PlayActor.cpp">
-      <Filter>Global\Player</Filter>
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
