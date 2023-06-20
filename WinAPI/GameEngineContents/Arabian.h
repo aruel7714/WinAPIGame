@@ -21,7 +21,7 @@ enum class ArabianDir
 	Max
 };
 
-// ¼³¸í : 
+// Â¼Â³Â¸Ã­ : 
 class Arabian : public PlayActor
 {
 public:
@@ -56,6 +56,17 @@ protected:
 	//void JumpStart();
 	//void JumpUpdate(float _Delta);
 
+// void BackStepStart();
+// void BackStepUpdate(float _Delta);
+
+// void AttackReadyStart();
+// void AttackReadyUpdate(float _Delta);
+
+// void MeleeAttackStart();
+// void MeleeAttackUpdate(float _Delta);
+
+// void RangeAttackStart();
+// void RangeAttackUpdate(float _Delta);
 private:
 	static std::list<Arabian*> AllArabian;
 
