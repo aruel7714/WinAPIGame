@@ -1,6 +1,8 @@
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include "Bullet.h"
+#include <GameEngineCore/GameEngineLevel.h>
 
 // 왼쪽 방향키 : 왼쪽 바라보기, 왼쪽으로 이동
 // 오른쪽 방향키 : 오른쪽 바라보기, 오른쪽으로 이동
@@ -640,6 +642,15 @@ void Player::MoveJumpUpperUpdate(float _Delta)
 	}
 }
 
+//if (0 != GetAsyncKeyState('F'))
+//{
+//	Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+//	NewBullet->Renderer->SetTexture("Test.Bmp");
+//	// 방향을 표현하는 xy는 크기가 1이어야 합니다.
+//	NewBullet->SetDir(float4::RIGHT);
+//	NewBullet->SetPos(GetPos());
+//}
+
 void Player::FireStart()
 {
 	ChangeUpperAnimationState("Fire");
@@ -647,6 +658,10 @@ void Player::FireStart()
 void Player::FireUpdate(float _Delta)
 {
 	DirCheck();
+	/*Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+	NewBullet->SetDir(float4::RIGHT);
+	*/
+	
 
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
@@ -867,6 +882,20 @@ void Player::MoveStopUpdate(float _Delta)
 		ChangeLowerState(PlayerLowerState::Move);
 		UpperRenderer->On();
 		ChangeUpperState(PlayerUpperState::Move);
+	}
+
+	if (true == GameEngineInput::IsDown('A'))
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Fire);
+	}
+
+	if (true == GameEngineInput::IsDown('D'))
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Granade);
 	}
 
 	if (true == LowerRenderer->IsAnimationEnd())

@@ -77,10 +77,13 @@ void Arabian::ChangeState(ArabianState _State)
 			IdleStart();
 			break;
 		case ArabianState::Ready:
+			//ReadyStart();
 			break;
 		case ArabianState::Move:
+			//MoveStart();
 			break;
 		case ArabianState::Jump:
+			//JumpStart();
 			break;
 		case ArabianState::BackStep:
 			break;
@@ -152,3 +155,24 @@ void Arabian::IdleUpdate(float _Delta)
 {
 
 }
+
+//void Arabian::ReadyStart();
+//void Arabian::ReadyUpdate(float _Delta);
+
+//void Arabian::Movestart();
+//void Arabian::MoveUpdate(float _Delta);
+
+//void Arabian::JumpStart();
+//void Arabian::JumpUpdate(float _Delta);
+
+//void Arabian::BackStepStart();
+//void Arabian::BackStepUpdate(float _Delta);
+
+//void Arabian::AttackReadyStart();
+//void Arabian::AttackReadyUpdate(float _Delta);
+
+//void Arabian::MeleeAttackStart();
+//void Arabian::MeleeAttackUpdate(float _Delta);
+
+//void Arabian::RangeAttackStart();
+//void Arabian::RangeAttackUpdate(float _Delta);

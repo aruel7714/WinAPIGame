@@ -63,7 +63,7 @@ void Stage1::Start()
 
 	
 	//EnemyArabian = CreateActor<Arabian>();
-	Arabian* NewArabian = CreateActor<Arabian>(RenderOrder::Enemy);
+	//Arabian* NewArabian = CreateActor<Arabian>(RenderOrder::Enemy);
 
 }
 
