@@ -179,7 +179,6 @@ void Player::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Pistol_Upper.bmp"), 5, 17);
 	}
-
 	
 
 	{

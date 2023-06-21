@@ -2,7 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 
 // Ό³Έν : 
-class Bullet : GameEngineActor
+class Bullet : public GameEngineActor
 {
 public:
 	// constrcuter destructer
@@ -31,7 +31,7 @@ protected:
 
 private:
 	float4 Dir;
-	float Speed = 500.0f;
+	float Speed = 100.0f;
 
 	void Start() override;
 	void Update(float _Delta) override;

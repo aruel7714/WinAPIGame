@@ -24,6 +24,8 @@ public:
 
 	void SwitchRender();
 
+	class GameEngineWindowTexture* MapTexture = nullptr;
+
 protected:
 
 private:
@@ -32,6 +34,8 @@ private:
 	class GameEngineRenderer* FirstRenderer;
 	class GameEngineRenderer* SecondRenderer;
 	class GameEngineRenderer* DebugRenderer;
+
+	
 
 	void Start() override;
 	void Update(float _Delta) override;

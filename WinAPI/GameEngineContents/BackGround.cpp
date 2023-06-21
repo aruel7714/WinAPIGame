@@ -81,6 +81,8 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 	DebugRenderer->SetTexture(_DebugFileName);
 	DebugRenderer->SetRenderScale(Scale);
 
+	//MapTexture = ResourcesManager::GetInst().FindTexture(_FileName);
+
 	// SetPos({ Scale.hX(), Scale.hY() - 124 });
 	SetPos({ Scale.hX(), Scale.hY() });
 	// SetRenderPos(GameEngineWindow::MainWindow.GetScale().Half())

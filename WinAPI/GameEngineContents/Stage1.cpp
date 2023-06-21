@@ -67,10 +67,14 @@ void Stage1::Start()
 
 }
 
-//void Stage1::CameraFocus()
+//int Stage1::GetColor(unsigned int _DefaultColor, float4 _Pos)
 //{
-//	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
-//	BackGroundPtr->GetLevel()->GetMainCamera()->SetPos(BackGroundPtr->GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
+//	if (nullptr == BackGroundPtr)
+//	{
+//		MsgBoxAssert("맵 텍스처가 존재하지 않습니다.");
+//	}
+//
+//	return BackGroundPtr->MapTexture->GetColor(_DefaultColor, _Pos);
 //}
 
 
@@ -81,6 +85,7 @@ void Stage1::Update(float _Delta)
 		BackGroundPtr->SwitchRender();
 	}
 
+	//CameraFocus();
 	
 
 	//if (1.0f <= GetLiveTime())

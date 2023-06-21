@@ -654,14 +654,22 @@ void Player::MoveJumpUpperUpdate(float _Delta)
 void Player::FireStart()
 {
 	ChangeUpperAnimationState("Fire");
+	{
+		Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+
+		NewBullet->SetDir(float4::RIGHT);
+
+		NewBullet->SetPos(GetPos());
+	}
+	
 }
 void Player::FireUpdate(float _Delta)
 {
 	DirCheck();
-	/*Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
-	NewBullet->SetDir(float4::RIGHT);
-	*/
 	
+	
+	
+	int a = 0;
 
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
@@ -671,11 +679,19 @@ void Player::FireUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{	
+		{
+			Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+
+			NewBullet->SetDir(float4::RIGHT);
+
+			NewBullet->SetPos(GetPos());
+		}
 		ChangeUpperAnimationState("Fire", true);
 	}
 
 	if (true == GameEngineInput::IsDown('D'))
 	{
+
 		ChangeUpperState(PlayerUpperState::Granade);
 	}
 

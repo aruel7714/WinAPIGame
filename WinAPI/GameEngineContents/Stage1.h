@@ -15,7 +15,7 @@ public:
 	Stage1& operator=(const Stage1 & _Other) = delete;
 	Stage1& operator=(Stage1 && _Other) noexcept = delete;
 
-	//void CameraFocus();
+	//int GetColor(unsigned int _DefaultColor, float4 _Pos);
 
 protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
@@ -28,6 +28,8 @@ private:
 
 	class BackGround* BackGroundPtr;
 	class Player* LevelPlayer = nullptr;
+
+
 
 	//class Arabian* EnemyArabian = nullptr;
 	

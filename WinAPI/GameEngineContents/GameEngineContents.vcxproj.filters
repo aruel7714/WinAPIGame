@@ -13,6 +13,9 @@
     <Filter Include="Global\Arabian">
       <UniqueIdentifier>{cf9eccd3-0c82-4d85-a5bf-f9c159048efc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Global\WeaponSFX">
+      <UniqueIdentifier>{680d164d-d45e-40a7-ac28-387125e677b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -31,9 +34,6 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Global</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Global\Player</Filter>
     </ClInclude>
@@ -42,6 +42,12 @@
     </ClInclude>
     <ClInclude Include="PlayActor.h">
       <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Global\WeaponSFX</Filter>
+    </ClInclude>
+    <ClInclude Include="Granade.h">
+      <Filter>Global\WeaponSFX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -58,9 +64,6 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Global</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Global</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Global\Player</Filter>
     </ClCompile>
@@ -72,6 +75,12 @@
     </ClCompile>
     <ClCompile Include="PlayActor.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Global\WeaponSFX</Filter>
+    </ClCompile>
+    <ClCompile Include="Granade.cpp">
+      <Filter>Global\WeaponSFX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

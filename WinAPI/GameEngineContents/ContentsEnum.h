@@ -7,5 +7,6 @@ enum class RenderOrder
 	Enemy,
 	PlayerLower,
 	PlayerUpper,
+	WeaponSFX,
 	PlayUI
 };
