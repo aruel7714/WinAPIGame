@@ -26,6 +26,11 @@ public:
 
 	class GameEngineWindowTexture* MapTexture = nullptr;
 
+	GameEngineRenderer* GetDebugRenderer()
+	{
+		return DebugRenderer;
+	}
+
 protected:
 
 private:

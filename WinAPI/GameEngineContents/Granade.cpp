@@ -67,15 +67,16 @@ void Granade::Start()
 
 	GranadeRenderer = CreateRenderer("OneGranade.bmp", RenderOrder::Granade);
 
-	SetGroundTexture("Mission1_Debug_Test.bmp");
+	
 
-	GranadeRenderer->CreateAnimation("Right_GranadeFire", "RGranade.bmp", 0, 15, 0.05f, false);
-	GranadeRenderer->CreateAnimation("Right_GranadeBound", "LGranade.bmp", 14, 7, 0.5f, false);
+	GranadeRenderer->CreateAnimation("Right_GranadeFire", "RGranade.bmp", 0, 15, 0.04f, false);
+	GranadeRenderer->CreateAnimation("Right_GranadeBound", "LGranade.bmp", 14, 7, 0.04f, false);
 
-	GranadeRenderer->CreateAnimation("Left_GranadeFire", "LGranade.bmp", 0, 15, 0.5f, false);
-	GranadeRenderer->CreateAnimation("Left_GranadeBound", "RGranade.bmp", 14, 7, 0.5f, false);
+	GranadeRenderer->CreateAnimation("Left_GranadeFire", "LGranade.bmp", 0, 15, 0.01f, false);
+	GranadeRenderer->CreateAnimation("Left_GranadeBound", "RGranade.bmp", 14, 7, 0.01f, false);
 
-	GranadeRenderer->CreateAnimation("Right_GranadeExplosion", "GranadeExplosion.bmp", 0, 26, 0.5f, false);
+	GranadeRenderer->CreateAnimation("Right_GranadeExplosion", "GranadeExplosion.bmp", 0, 25, 0.1f, false);
+	GranadeRenderer->CreateAnimation("Right_GranadeEnd", "GranadeExplosion.bmp", 26, 26, 0.1f, false);
 	GranadeRenderer->CreateAnimation("Left_GranadeExplosion", "GranadeExplosion.bmp", 0, 26, 0.5f, false);
 
 	
@@ -85,7 +86,18 @@ void Granade::Start()
 }
 void Granade::Update(float _Delta)
 {
+
 	StateUpdate(_Delta);
+}
+
+void Granade::Release()
+{
+	if (nullptr != GranadeRenderer)
+	{
+		// Death();
+		GranadeRenderer->Death();
+		GranadeRenderer = nullptr;
+	}
 }
 
 
@@ -179,26 +191,72 @@ void Granade::FireUpdate(float _Delta)
 
 		if (Color != RGB(255, 255, 255))
 		{
-			//ChangeState(GranadeState::Bound);
-			return;
+			ChangeState(GranadeState::Bound);
 		}
 	}
 
 }
 
+//unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+//// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+//if (RGB(255, 255, 255) == Color)
+//{
+//	Gravity(_Delta);
+//}
+//// 그게 아니라면
+//else
+//{
+//	// 내 발 위의 색 조사
+//	unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+//
+//	// 발 위의 색이 흰색이 아니라면 위로 이동
+//	while (CheckColor != RGB(255, 255, 255))
+//	{
+//		CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+//		AddPos(float4::UP);
+//	}
+//
+//	if (true == GameEngineInput::IsPress('S'))
+//	{
+//		ChangeLowerState(PlayerLowerState::IdleJump);
+//		return;
+//	}
+//
+//
+//	GravityReset();
+//}
+
 void Granade::BoundStart()
 {
+	float4 GravityDir = (float4::UP);
+	GravityDir += (float4::RIGHT);
+	SetGravityVector(GravityDir * 500.0f);
 	ChangeAnimationState("Bound");
 }
 void Granade::BoundUpdate(float _Delta)
 {
+	Gravity(_Delta);
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+
+		if (Color != RGB(255, 255, 255))
+		{
+			ChangeState(GranadeState::Explosion);
+		}
+	}
 }
 
 void Granade::ExplosionStart()
 {
+
 	ChangeAnimationState("Explosion");
+	GranadeRenderer->SetRenderScaleToTexture();
+
 }
 void Granade::ExplosionUpdate(float _Delta)
 {
-
+	if (true == GranadeRenderer->IsAnimationEnd())
+	{
+		Release();
+	}
 }

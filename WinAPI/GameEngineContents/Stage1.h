@@ -28,6 +28,7 @@ private:
 
 	class BackGround* BackGroundPtr;
 	class Player* LevelPlayer = nullptr;
+	class Arabian* NewArabian = nullptr;
 
 
 

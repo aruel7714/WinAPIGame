@@ -51,7 +51,7 @@ void Arabian::Start()
 
 void Arabian::Update(float _Delta)
 {
-
+	StateUpdate(_Delta);
 }
 
 void Arabian::Render(float _Delta)
@@ -97,6 +97,7 @@ void Arabian::ChangeState(ArabianState _State)
 			break;
 		}
 	}
+	State = _State;
 }
 
 void Arabian::StateUpdate(float _Delta)
@@ -153,7 +154,30 @@ void Arabian::IdleStart()
 }
 void Arabian::IdleUpdate(float _Delta)
 {
+	{
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
 
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
 }
 
 //void Arabian::ReadyStart();

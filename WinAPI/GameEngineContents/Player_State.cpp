@@ -735,6 +735,8 @@ void Player::GranadeStart()
 
 	{
 		Granade* NewGranade = GetLevel()->CreateActor<Granade>();
+
+		NewGranade->SetGroundTexture("Mission1_Debug_Test.bmp");
 		
 
 		float4 Pos = GetPos();
