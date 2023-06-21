@@ -59,7 +59,6 @@ void Stage1::Start()
 
 	LevelPlayer = CreateActor<Player>();
 	LevelPlayer->SetGroundTexture("Mission1_Debug_Test.bmp");
-	int a = 0;
 
 	
 	//EnemyArabian = CreateActor<Arabian>();

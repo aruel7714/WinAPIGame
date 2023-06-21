@@ -1,7 +1,21 @@
 #pragma once
 #include "PlayActor.h"
 
-// Ό³Έν : 
+enum class GranadeState
+{
+	Fire,
+	Bound,
+	Explosion,
+	Max
+};
+
+enum class GranadeDir
+{
+	Right,
+	Left,
+	Max
+};
+
 class Granade : public PlayActor
 {
 public:
@@ -17,7 +31,24 @@ public:
 
 	GameEngineRenderer* GranadeRenderer = nullptr;
 
+	
+
 protected:
+	GranadeState State = GranadeState::Max;
+	GranadeDir Dir = GranadeDir::Right;
+
+	void ChangeState(GranadeState _State);
+	void StateUpdate(float _Delta);
+	void ChangeAnimationState(const std::string& _State);
+
+	void FireStart();
+	void FireUpdate(float _Delta);
+
+	void BoundStart();
+	void BoundUpdate(float _Delta);
+
+	void ExplosionStart();
+	void ExplosionUpdate(float _Delta);
 
 private:
 	void Start() override;

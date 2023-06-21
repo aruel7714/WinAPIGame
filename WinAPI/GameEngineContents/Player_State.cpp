@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include "Bullet.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include "Granade.h"
 
 // 왼쪽 방향키 : 왼쪽 바라보기, 왼쪽으로 이동
 // 오른쪽 방향키 : 오른쪽 바라보기, 오른쪽으로 이동
@@ -659,7 +660,12 @@ void Player::FireStart()
 
 		NewBullet->SetDir(float4::RIGHT);
 
-		NewBullet->SetPos(GetPos());
+		float4 Pos = GetPos();
+
+		Pos.X += 132;
+		Pos.Y -= 112;
+
+		NewBullet->SetPos(Pos);
 	}
 	
 }
@@ -684,14 +690,18 @@ void Player::FireUpdate(float _Delta)
 
 			NewBullet->SetDir(float4::RIGHT);
 
-			NewBullet->SetPos(GetPos());
+			float4 Pos = GetPos();
+
+			Pos.X += 132;
+			Pos.Y -= 112;
+
+			NewBullet->SetPos(Pos);
 		}
 		ChangeUpperAnimationState("Fire", true);
 	}
 
 	if (true == GameEngineInput::IsDown('D'))
 	{
-
 		ChangeUpperState(PlayerUpperState::Granade);
 	}
 
@@ -722,6 +732,18 @@ void Player::FireUpdate(float _Delta)
 void Player::GranadeStart()
 {
 	ChangeUpperAnimationState("Granade");
+
+	{
+		Granade* NewGranade = GetLevel()->CreateActor<Granade>();
+		
+
+		float4 Pos = GetPos();
+
+		//Pos.X += 132;
+		Pos.Y -= 92;
+
+		NewGranade->SetPos(Pos);
+	}
 }
 
 void Player::GranadeUpdate(float _Delta)
