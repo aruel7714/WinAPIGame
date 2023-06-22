@@ -1245,3 +1245,10 @@ void Player::SitGranadeIdleUpdate(float _Delta)
 		ChangeLowerState(PlayerLowerState::SitUp);
 	}
 }
+
+void Player::MeleeAttStart()
+{
+}
+void Player::MeleeAttUpdate(float _Delta)
+{
+}

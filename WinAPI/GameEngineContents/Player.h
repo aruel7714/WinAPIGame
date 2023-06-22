@@ -49,6 +49,7 @@ enum class PlayerUpperState
 	DownIdle,
 	JumpLookUp,
 	DownFire,
+	MeleeAtt,
 	Max
 };
 
@@ -200,6 +201,9 @@ protected:
 
 	void SitGranadeIdleStart();
 	void SitGranadeIdleUpdate(float _Delta);
+
+	void MeleeAttStart();
+	void MeleeAttUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();
