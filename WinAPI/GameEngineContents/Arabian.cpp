@@ -1,10 +1,10 @@
 #include "Arabian.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineBase/GameEnginePath.h>
-#include "ContentsEnum.h"
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "ContentsEnum.h"
 
 std::list<Arabian*> Arabian::AllArabian;
 
@@ -48,6 +48,14 @@ void Arabian::Start()
 
 
 		ArabianRenderer->GetActor()->SetPos({ 3200, 850 });
+	}
+
+	{
+		ArabianCollision = CreateCollision(CollisionOrder::EnemyCollision);
+
+		ArabianCollision->SetCollisionScale({ 80, 140 });
+		ArabianCollision->SetCollisionType(CollisionType::Rect);
+		ArabianCollision->SetCollisionPos({ 0, -70 });
 	}
 
 	ChangeState(ArabianState::Idle);
@@ -202,7 +210,7 @@ void Arabian::IdleUpdate(float _Delta)
 		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
 		{
 			//ChangeAnimationState("Idle1");
-			ChangeState(ArabianState::AttackReady);
+			ChangeState(ArabianState::JumpReady);
 		}
 	}
 }

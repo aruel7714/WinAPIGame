@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnum.h"
 
 
@@ -30,6 +31,14 @@ void Bullet::Start()
 	ResourcesManager::GetInst().FindTexture("PistolBullet.bmp");
 	Renderer->SetTexture("PistolBullet.bmp");
 	Renderer->SetRenderScaleToTexture();
+
+	{
+		BulletCollision = CreateCollision(CollisionOrder::BulletCollision);
+
+		BulletCollision->SetCollisionScale({ 15, 15 });
+		BulletCollision->SetCollisionType(CollisionType::Rect);
+
+	}
 }
 
 void Bullet::Update(float _Delta)
@@ -42,6 +51,22 @@ void Bullet::Update(float _Delta)
 		{
 			Renderer->Death();
 			Renderer = nullptr;
+		}
+	}
+
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == BulletCollision->Collision(CollisionOrder::EnemyCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+
+			Actor->Death();
 		}
 	}
 }

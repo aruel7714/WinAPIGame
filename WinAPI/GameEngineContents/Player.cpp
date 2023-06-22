@@ -304,6 +304,17 @@ void Player::Start()
 		
 	}
 
+	{
+		
+		
+		BodyCollision = CreateCollision(CollisionOrder::PlayerCollision);
+		
+		BodyCollision->SetCollisionScale({ 80, 140 });
+		BodyCollision->SetCollisionType(CollisionType::Rect);
+		BodyCollision->SetCollisionPos({ 0, -70 });
+	}
+
+
 	WeaponName = "Pistol_";
 
 	//ChangeState(PlayerState::Idle);
@@ -319,6 +330,14 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	
+
+	if (true == GameEngineInput::IsDown(VK_F2))
+	{
+		GameEngineLevel::CollisionDebugRenderSwitch();
+	}
+
+
+
 	CameraFocus();
 	LowerRenderer->SetRenderScaleToTexture();
 	StateLowerUpdate(_Delta);

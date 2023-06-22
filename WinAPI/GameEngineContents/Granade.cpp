@@ -2,6 +2,7 @@
 #include "ContentsEnum.h"
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Granade::Granade()
 {
@@ -79,7 +80,13 @@ void Granade::Start()
 	GranadeRenderer->CreateAnimation("Right_GranadeEnd", "GranadeExplosion.bmp", 26, 26, 0.03f, false);
 	GranadeRenderer->CreateAnimation("Left_GranadeExplosion", "GranadeExplosion.bmp", 0, 26, 0.5f, false);
 
-	
+	{
+		GranadeCollision = CreateCollision(CollisionOrder::BulletCollision);
+
+		GranadeCollision->SetCollisionScale({ 20, 20 });
+		GranadeCollision->SetCollisionType(CollisionType::Rect);
+		
+	}
 
 	ChangeState(GranadeState::Fire);
 
@@ -234,5 +241,7 @@ void Granade::ExplosionEnd()
 	{
 		GranadeRenderer->Death();
 		GranadeRenderer = nullptr;
+		GranadeCollision->Death();
+		GranadeCollision = nullptr;
 	}
 }

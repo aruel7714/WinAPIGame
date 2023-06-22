@@ -76,6 +76,8 @@ private:
 
 	GameEngineRenderer* ArabianRenderer = nullptr;
 
+	GameEngineCollision* ArabianCollision = nullptr;
+
 	void Start() override;
 
 	void Update(float _Delta) override;

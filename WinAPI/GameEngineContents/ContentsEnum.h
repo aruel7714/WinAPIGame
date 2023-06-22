@@ -11,3 +11,10 @@ enum class RenderOrder
 	WeaponSFX,
 	PlayUI
 };
+
+enum class CollisionOrder
+{
+	PlayerCollision,
+	BulletCollision,
+	EnemyCollision
+};

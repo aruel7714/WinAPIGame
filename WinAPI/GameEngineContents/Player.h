@@ -213,6 +213,9 @@ protected:
 	bool IsWeapon = false;
 	bool IsKnife = false;
 
+	// Collision
+	GameEngineCollision* BodyCollision = nullptr;
+
 private:
 	void LevelStart() override;
 

@@ -28,6 +28,7 @@ public:
 	}
 
 protected:
+	
 
 private:
 	float4 Dir;
@@ -35,5 +36,8 @@ private:
 
 	void Start() override;
 	void Update(float _Delta) override;
+
+	// Collision
+	GameEngineCollision* BulletCollision = nullptr;
 };
 

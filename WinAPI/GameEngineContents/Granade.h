@@ -32,8 +32,6 @@ public:
 
 	GameEngineRenderer* GranadeRenderer = nullptr;
 
-	
-
 protected:
 	GranadeState State = GranadeState::Max;
 	GranadeDir Dir = GranadeDir::Right;
@@ -56,5 +54,7 @@ protected:
 private:
 	void Start() override;
 	void Update(float _Delta) override;
+
+	GameEngineCollision* GranadeCollision = nullptr;
 };
 
