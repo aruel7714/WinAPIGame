@@ -5,6 +5,8 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 
+#include "GlobalValue.h"
+
 
 PlayActor::PlayActor()
 {
@@ -18,6 +20,30 @@ void PlayActor::CameraFocus()
 {
 	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
+
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
+
+	if (0 >= CameraPos.X)
+	{
+		CameraPos.X = 0.0f;
+	}
+
+	if (0 >= CameraPos.Y)
+	{
+		CameraPos.Y = 0.0f;
+	}
+
+	if (GlobalValue::MapScale.X <= CameraPos.X + WindowScale.X)
+	{
+		CameraPos.X = GlobalValue::MapScale.X - WindowScale.X;
+	}
+
+	if (GlobalValue::MapScale.Y <= CameraPos.Y + WindowScale.Y)
+	{
+		CameraPos.Y = GlobalValue::MapScale.Y - WindowScale.Y;
+	}
+
+	GetLevel()->GetMainCamera()->SetPos(CameraPos);
 }
 
 void PlayActor::SetGroundTexture(const std::string& _GroundTextureName)

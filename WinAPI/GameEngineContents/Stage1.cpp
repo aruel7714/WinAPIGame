@@ -9,6 +9,7 @@
 #include "BackGround.h"
 #include "Arabian.h"
 #include "ContentsEnum.h"
+#include "GlobalValue.h"
 
 Stage1::Stage1()
 {
@@ -53,6 +54,15 @@ void Stage1::Start()
 	BackGroundPtr->Init("Mission1_Test.bmp", "Mission1_Debug_Test.bmp");
 	//BackGroundPtr->Init("Mission1.bmp");
 	// BackGroundPtr->SecondInit("Mission1_SecondBackGround.bmp");
+
+	GameEngineWindowTexture* Ptr = ResourcesManager::GetInst().FindTexture("Mission1_Test.bmp");
+
+	if (nullptr == Ptr)
+	{
+		MsgBoxAssert("맵 텍스처를 찾을수 없습니다.");
+	}
+
+	GlobalValue::MapScale = Ptr->GetScale();
 
 	
 	
