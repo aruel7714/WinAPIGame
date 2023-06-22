@@ -585,6 +585,8 @@ void Player::DirCheck()
 		//ChangeAnimationState(CurState);
 		return;
 	}
+
+	
 }
 
 void Player::ChangeAnimationState(const std::string & _State)

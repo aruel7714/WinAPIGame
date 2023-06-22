@@ -59,6 +59,8 @@ enum class PlayerDir
 {
 	Left,
 	Right,
+	Up,
+	Down,
 	Max
 };
 

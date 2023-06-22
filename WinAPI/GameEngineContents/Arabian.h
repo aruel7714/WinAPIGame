@@ -6,6 +6,7 @@ enum class ArabianState
 	Idle,
 	Ready,
 	Move,
+	JumpReady,
 	Jump,
 	BackStep,
 	AttackReady,
@@ -47,26 +48,29 @@ protected:
 	void IdleStart();
 	void IdleUpdate(float _Delta);
 
-	//void ReadyStart();
-	//void ReadyUpdate(float _Delta);
+	void ReadyStart();
+	void ReadyUpdate(float _Delta);
 
-	//void Movestart();
-	//void MoveUpdate(float _Delta);
+	void MoveStart();
+	void MoveUpdate(float _Delta);
 
-	//void JumpStart();
-	//void JumpUpdate(float _Delta);
+	void JumpReadyStart();
+	void JumpReadyUpdate(float _Delta);
 
-	// void BackStepStart();
-	// void BackStepUpdate(float _Delta);
+	void JumpStart();
+	void JumpUpdate(float _Delta);
 
-	// void AttackReadyStart();
-	// void AttackReadyUpdate(float _Delta);
+	 void BackStepStart();
+	 void BackStepUpdate(float _Delta);
+
+	 void AttackReadyStart();
+	 void AttackReadyUpdate(float _Delta);
 	
-	// void MeleeAttackStart();
-	// void MeleeAttackUpdate(float _Delta);
+	 void MeleeAttackStart();
+	 void MeleeAttackUpdate(float _Delta);
 	
-	// void RangeAttackStart();
-	// void RangeAttackUpdate(float _Delta);
+	 void RangeAttackStart();
+	 void RangeAttackUpdate(float _Delta);
 private:
 	static std::list<Arabian*> AllArabian;
 

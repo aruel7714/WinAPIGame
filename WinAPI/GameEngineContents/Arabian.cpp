@@ -33,20 +33,25 @@ void Arabian::Start()
 	{
 		ArabianRenderer = CreateRenderer(RenderOrder::Enemy);
 		
-		ArabianRenderer->CreateAnimation("Left_Arabian_Idle", "Left_Arabian_All.bmp", 0, 5, 0.5f, true);
-		ArabianRenderer->CreateAnimation("Left_Arabian_Ready", "Left_Arabian_All.bmp", 6, 9, 0.5f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_Move", "Left_Arabian_All.bmp", 10, 21, 0.5f, true);
-		ArabianRenderer->CreateAnimation("Left_Arabian_Jump", "Left_Arabian_All.bmp", 22, 30, 0.5f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_BackStep", "Left_Arabian_All.bmp", 31, 34, 0.5f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_AttackReady", "Left_Arabian_All.bmp", 35, 38, 0.5f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeAttack", "Left_Arabian_All.bmp", 39, 46, 0.5f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 47, 65, 0.5f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Idle1", "Left_Arabian_All.bmp", 0, 5, 0.1f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Idle2", "Left_Arabian_All.bmp", 4, 1, 0.1f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Ready1", "Left_Arabian_All.bmp", 6, 9, 0.08f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Ready2", "Left_Arabian_All.bmp", 8, 7, 0.08f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Move", "Left_Arabian_All.bmp", 10, 21, 1.0f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_JumpReady", "Left_Arabian_All.bmp", 22, 26, 0.05f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Jump", "Left_Arabian_All.bmp", 27, 30, 0.05f, false);
+		
+		ArabianRenderer->CreateAnimation("Left_Arabian_BackStep", "Left_Arabian_All.bmp", 31, 34, 0.1f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_AttackReady", "Left_Arabian_All.bmp", 35, 38, 0.1f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeAttack", "Left_Arabian_All.bmp", 39, 45, 0.05f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 0.5f, true);
 
 
 		ArabianRenderer->GetActor()->SetPos({ 3200, 850 });
 	}
 
 	ChangeState(ArabianState::Idle);
+	//ChangeState(ArabianState::Ready);
 }
 
 void Arabian::Update(float _Delta)
@@ -77,21 +82,28 @@ void Arabian::ChangeState(ArabianState _State)
 			IdleStart();
 			break;
 		case ArabianState::Ready:
-			//ReadyStart();
+			ReadyStart();
 			break;
 		case ArabianState::Move:
-			//MoveStart();
+			MoveStart();
+			break;
+		case ArabianState::JumpReady:
+			JumpReadyStart();
 			break;
 		case ArabianState::Jump:
-			//JumpStart();
+			JumpStart();
 			break;
 		case ArabianState::BackStep:
+			BackStepStart();
 			break;
 		case ArabianState::AttackReady:
+			AttackReadyStart();
 			break;
 		case ArabianState::MeleeAttack:
+			MeleeAttackStart();
 			break;
 		case ArabianState::RangeAttack:
+			RangeAttackStart();
 			break;
 		default:
 			break;
@@ -107,19 +119,21 @@ void Arabian::StateUpdate(float _Delta)
 	case ArabianState::Idle:
 		return IdleUpdate(_Delta);
 	case ArabianState::Ready:
-		break;
+		return ReadyUpdate(_Delta);
 	case ArabianState::Move:
-		break;
+		return MoveUpdate(_Delta);
+	case ArabianState::JumpReady:
+		return JumpReadyUpdate(_Delta);
 	case ArabianState::Jump:
-		break;
+		return JumpUpdate(_Delta);
 	case ArabianState::BackStep:
-		break;
+		return BackStepUpdate(_Delta);
 	case ArabianState::AttackReady:
-		break;
+		return AttackReadyUpdate(_Delta);
 	case ArabianState::MeleeAttack:
-		break;
+		return MeleeAttackUpdate(_Delta);
 	case ArabianState::RangeAttack:
-		break;
+		return RangeAttackUpdate(_Delta);
 	default:
 		break;
 	}
@@ -150,7 +164,7 @@ void Arabian::ChangeAnimationState(const std::string& _State)
 ////////////// Arabian State Function ///////////////
 void Arabian::IdleStart()
 {
-	ChangeAnimationState("Idle");
+	ChangeAnimationState("Idle1");
 }
 void Arabian::IdleUpdate(float _Delta)
 {
@@ -178,25 +192,167 @@ void Arabian::IdleUpdate(float _Delta)
 			GravityReset();
 		}
 	}
+
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		if (ArabianRenderer->IsAnimation("Left_Arabian_Idle1") || ArabianRenderer->IsAnimation("Right_Arabian_Idle1"))
+		{
+			ChangeAnimationState("Idle2");
+		}
+		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
+		{
+			//ChangeAnimationState("Idle1");
+			ChangeState(ArabianState::AttackReady);
+		}
+	}
 }
 
-//void Arabian::ReadyStart();
-//void Arabian::ReadyUpdate(float _Delta);
+void Arabian::ReadyStart()
+{
+	ChangeAnimationState("Ready1");
+}
+void Arabian::ReadyUpdate(float _Delta)
+{
+	
+	if (ArabianRenderer->IsAnimation("Left_Arabian_Ready1") || ArabianRenderer->IsAnimation("Right_Arabian_Ready1"))
+	{
+		AddPos(float4::LEFT * 0.25);
+		if (ArabianRenderer->IsAnimationEnd())
+		{
+			ChangeAnimationState("Ready2");
+		}
+	}
+	else if (ArabianRenderer->IsAnimation("Left_Arabian_Ready2") || ArabianRenderer->IsAnimation("Right_Arabian_Ready2"))
+	{
+		AddPos(float4::RIGHT * 0.5);
+		if (ArabianRenderer->IsAnimationEnd())
+		{
+			ChangeAnimationState("Ready1");
+		}
+	}
+}
 
-//void Arabian::Movestart();
-//void Arabian::MoveUpdate(float _Delta);
+void Arabian::MoveStart()
+{
+	ChangeAnimationState("Move");
+}
+void Arabian::MoveUpdate(float _Delta)
+{
+	
+}
 
-//void Arabian::JumpStart();
-//void Arabian::JumpUpdate(float _Delta);
+void Arabian::JumpReadyStart()
+{
+	ChangeAnimationState("JumpReady");
+}
+void Arabian::JumpReadyUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		ChangeState(ArabianState::Jump);
+	}
+}
 
-//void Arabian::BackStepStart();
-//void Arabian::BackStepUpdate(float _Delta);
+void Arabian::JumpStart()
+{
+	if (Dir == ArabianDir::Left)
+	{
+		GravityReset();
+		float4 GravityDir = (float4::UP);
+		GravityDir += (float4::LEFT * 0.5f);
+		SetGravityVector(GravityDir * 300.0f);
+	}
+	else if (Dir == ArabianDir::Right)
+	{
+		GravityReset();
+		float4 GravityDir = (float4::UP);
+		GravityDir += (float4::RIGHT);
+		SetGravityVector(GravityDir * 100.0f);
+	}
+	ChangeAnimationState("Jump");
+}
+void Arabian::JumpUpdate(float _Delta)
+{
+	Gravity(_Delta);
 
-//void Arabian::AttackReadyStart();
-//void Arabian::AttackReadyUpdate(float _Delta);
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		if (Color != RGB(255, 255, 255))
+		{
+			if (ArabianRenderer->IsAnimationEnd())
+			{
+				ChangeState(ArabianState::Idle);
+			}
+		}
+	}
+		
 
-//void Arabian::MeleeAttackStart();
-//void Arabian::MeleeAttackUpdate(float _Delta);
+	
+}
 
-//void Arabian::RangeAttackStart();
-//void Arabian::RangeAttackUpdate(float _Delta);
+void Arabian::BackStepStart()
+{
+	if (Dir == ArabianDir::Left)
+	{
+		float4 GravityDir = (float4::UP);
+		GravityDir += (float4::RIGHT);
+		SetGravityVector(GravityDir * 500.0f);
+	}
+	else if (Dir == ArabianDir::Right)
+	{
+		float4 GravityDir = (float4::UP);
+		GravityDir += (float4::LEFT);
+		SetGravityVector(GravityDir * 100.0f);
+	}
+	ChangeAnimationState("BackStep");
+}
+void Arabian::BackStepUpdate(float _Delta)
+{
+	Gravity(_Delta);
+
+	{
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		if (Color != RGB(255, 255, 255))
+		{
+			ChangeState(ArabianState::Idle);
+		}
+	}
+	
+}
+
+void Arabian::AttackReadyStart()
+{
+	ChangeAnimationState("AttackReady");
+}
+void Arabian::AttackReadyUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		//ChangeState(ArabianState::MeleeAttack);
+		ChangeState(ArabianState::RangeAttack);
+	}
+}
+
+void Arabian::MeleeAttackStart()
+{
+	ChangeAnimationState("MeleeAttack");
+}
+void Arabian::MeleeAttackUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		ChangeState(ArabianState::Idle);
+	}
+}
+
+void Arabian::RangeAttackStart()
+{
+	ChangeAnimationState("RangeAttack");
+}
+void Arabian::RangeAttackUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		ChangeState(ArabianState::Idle);
+	}
+}
