@@ -533,7 +533,7 @@ void Player::MoveUpperUpdate(float _Delta)
 
 void Player::IdleJumpLowerStart()
 {
-	SetGravityVector(float4::UP * 1200.0f);
+	SetGravityVector(float4::UP * 1000.0f);
 	ChangeLowerAnimationState("IdleJump");
 }
 void Player::IdleJumpLowerUpdate(float _Delta)
@@ -581,7 +581,7 @@ void Player::IdleJumpUpperUpdate(float _Delta)
 
 void Player::MoveJumpLowerStart()
 {
-	SetGravityVector(float4::UP * 1200.0f);
+	SetGravityVector(float4::UP * 1000.0f);
 	ChangeLowerAnimationState("MoveJump");
 }
 void Player::MoveJumpLowerUpdate(float _Delta)
@@ -671,15 +671,9 @@ void Player::FireStart()
 }
 void Player::FireUpdate(float _Delta)
 {
-	DirCheck();
-	
-	
-	
-	int a = 0;
 
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
-		DirCheck();
 		ChangeUpperState(PlayerUpperState::Move);
 	}
 
@@ -708,7 +702,7 @@ void Player::FireUpdate(float _Delta)
 	if (true == UpperRenderer->IsAnimationEnd())
 	{
 		//if (PrevState == "Idle")
-		if(LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
+		if (LowerRenderer->IsAnimation("Right_Lower_Idle") || LowerRenderer->IsAnimation("Left_Lower_Idle"))
 		{
 			if (true == GameEngineInput::IsPress(VK_UP))
 			{
@@ -724,9 +718,8 @@ void Player::FireUpdate(float _Delta)
 		{
 			ChangeUpperState(PlayerUpperState::Move);
 		}
-		
+
 	}
-	
 }
 
 void Player::GranadeStart()

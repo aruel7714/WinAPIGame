@@ -28,9 +28,9 @@ void PlayActor::CameraFocus()
 		CameraPos.X = 0.0f;
 	}
 
-	if (0 >= CameraPos.Y)
+	if ((GlobalValue::MapScale.Y - WindowScale.Y) >= CameraPos.Y)
 	{
-		CameraPos.Y = 0.0f;
+		CameraPos.Y = 0.0f + (GlobalValue::MapScale.Y - WindowScale.Y);
 	}
 
 	if (GlobalValue::MapScale.X <= CameraPos.X + WindowScale.X)

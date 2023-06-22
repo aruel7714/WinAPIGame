@@ -83,7 +83,7 @@ void Granade::Start()
 	{
 		GranadeCollision = CreateCollision(CollisionOrder::BulletCollision);
 
-		GranadeCollision->SetCollisionScale({ 20, 20 });
+		GranadeCollision->SetCollisionScale({ 50, 50 });
 		GranadeCollision->SetCollisionType(CollisionType::Rect);
 		
 	}
@@ -192,6 +192,23 @@ void Granade::FireUpdate(float _Delta)
 		{
 			ChangeState(GranadeState::Bound);
 		}
+	}
+
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == GranadeCollision->Collision(CollisionOrder::EnemyCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+
+			//Actor->Death();
+		}
+		ChangeState(GranadeState::Explosion);
 	}
 
 }
