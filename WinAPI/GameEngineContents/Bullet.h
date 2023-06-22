@@ -1,6 +1,14 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+enum class BulletState
+{
+	EnemyColide,
+	GroundColide,
+	WallColide,
+	Max
+};
+
 // Ό³Έν : 
 class Bullet : public GameEngineActor
 {
@@ -28,6 +36,8 @@ public:
 	}
 
 protected:
+
+	
 	
 
 private:

@@ -12,6 +12,9 @@ enum class ArabianState
 	AttackReady,
 	MeleeAttack,
 	RangeAttack,
+	RangeDeath,
+	MeleeDeath,
+	AirDeath,
 	Max
 };
 

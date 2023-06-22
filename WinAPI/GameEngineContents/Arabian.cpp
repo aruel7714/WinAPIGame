@@ -113,6 +113,15 @@ void Arabian::ChangeState(ArabianState _State)
 		case ArabianState::RangeAttack:
 			RangeAttackStart();
 			break;
+		case ArabianState::RangeDeath:
+			//RangeDeathStart();
+			break;
+		case ArabianState::MeleeDeath:
+			//MeleeDeathStart();
+			break;
+		case ArabianState::AirDeath:
+			//AirDeathStart();
+			break;
 		default:
 			break;
 		}
@@ -142,6 +151,15 @@ void Arabian::StateUpdate(float _Delta)
 		return MeleeAttackUpdate(_Delta);
 	case ArabianState::RangeAttack:
 		return RangeAttackUpdate(_Delta);
+	case ArabianState::RangeDeath:
+		//return RangeDeathUpdate(_Delta);
+		break;
+	case ArabianState::MeleeDeath:
+		//return MeleeDeathUpdate(_Delta);
+		break;
+	case ArabianState::AirDeath:
+		//return AirDeathUpdate(_Delta);
+		break;
 	default:
 		break;
 	}

@@ -27,6 +27,9 @@ enum class PlayerLowerState
 	SitFireIdle,
 	SitGranade,
 	SitGranadeIdle,
+	RangeDeath,
+	MeleeDeath,
+	SwordDeath,
 	Max
 };
 

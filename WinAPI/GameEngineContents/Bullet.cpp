@@ -28,9 +28,24 @@ void Bullet::Start()
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("PistolBullet.bmp"));
 	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("WeaponExplosion.bmp"))
+	{
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\");
+		
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("WeaponExplosion.bmp"), 5, 2);
+	}
+
+	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.01f, false);
+
 	ResourcesManager::GetInst().FindTexture("PistolBullet.bmp");
 	Renderer->SetTexture("PistolBullet.bmp");
 	Renderer->SetRenderScaleToTexture();
+
 
 	{
 		BulletCollision = CreateCollision(CollisionOrder::BulletCollision);
