@@ -72,8 +72,12 @@ void Stage1::Start()
 
 	
 	//EnemyArabian = CreateActor<Arabian>();
-	NewArabian = CreateActor<Arabian>();
-	NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+	NewArabian1 = CreateActor<Arabian>();
+	NewArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
+	
+	//NewArabian2 = CreateActor<Arabian>();
+	//NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");
+	//NewArabian2->SetDir(2);
 }
 
 //int Stage1::GetColor(unsigned int _DefaultColor, float4 _Pos)

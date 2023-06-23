@@ -39,8 +39,21 @@ public:
 	Arabian& operator=(const Arabian & _Other) = delete;
 	Arabian& operator=(Arabian && _Other) noexcept = delete;
 
+	void SetDir(int _Value)
+	{
+		if (_Value == 1)
+		{
+			Dir = ArabianDir::Left;
+		}
+		else if (_Value == 2)
+		{
+			Dir = ArabianDir::Right;
+		}
+	}
+
 protected:
 	ArabianState State = ArabianState::Max;
+	//ArabianDir Dir = ArabianDir::Left;
 	ArabianDir Dir = ArabianDir::Left;
 
 	void ChangeState(ArabianState _State);
@@ -74,6 +87,15 @@ protected:
 	
 	 void RangeAttackStart();
 	 void RangeAttackUpdate(float _Delta);
+
+	 void RangeDeathStart();
+	 void RangeDeathUpdate(float _Delta);
+
+	 void MeleeDeathStart();
+	 void MeleeDeathUpdate(float _Delta);
+
+	 void AirDeathStart();
+	 void AirDeathUpdate(float _Delta);
 private:
 	static std::list<Arabian*> AllArabian;
 

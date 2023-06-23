@@ -26,8 +26,34 @@ void Arabian::Start()
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
 		
-		// ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Left_Arabian.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Arabian_All.bmp"), 5, 14);
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Arabian_Death.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Arabian_Death.bmp"), 5, 9);
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Arabian_All.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Arabian_All.bmp"), 5, 14);
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Arabian_Death.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Arabian_Death.bmp"), 5, 9);
 	}
 
 	{
@@ -44,7 +70,28 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Left_Arabian_BackStep", "Left_Arabian_All.bmp", 31, 34, 0.1f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_AttackReady", "Left_Arabian_All.bmp", 35, 38, 0.1f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeAttack", "Left_Arabian_All.bmp", 39, 45, 0.05f, true);
-		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 0.5f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 1.0f, true);
+
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeDeath", "Left_Arabian_Death.bmp", 0, 10, 0.5f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeDeath", "Left_Arabian_Death.bmp", 11, 28, 0.5f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_AirDeath", "Left_Arabian_Death.bmp", 29, 43, 0.5f, true);
+
+		ArabianRenderer->CreateAnimation("Right_Arabian_Idle1", "Right_Arabian_All.bmp", 0, 5, 0.1f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_Idle2", "Right_Arabian_All.bmp", 4, 1, 0.1f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_Ready1", "Right_Arabian_All.bmp", 6, 9, 1.0f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_Ready2", "Right_Arabian_All.bmp", 8, 7, 1.0f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_Move", "Right_Arabian_All.bmp", 10, 21, 1.0f, true);
+		ArabianRenderer->CreateAnimation("Right_Arabian_JumpReady", "Right_Arabian_All.bmp", 22, 26, 1.0f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_Jump", "Right_Arabian_All.bmp", 27, 30, 1.0f, false);
+
+		ArabianRenderer->CreateAnimation("Right_Arabian_BackStep", "Right_Arabian_All.bmp", 31, 34, 1.0f, true);
+		ArabianRenderer->CreateAnimation("Right_Arabian_AttackReady", "Right_Arabian_All.bmp", 35, 38, 1.0f, true);
+		ArabianRenderer->CreateAnimation("Right_Arabian_MeleeAttack", "Right_Arabian_All.bmp", 39, 45, 1.0f, true);
+		ArabianRenderer->CreateAnimation("Right_Arabian_RangeAttack", "Right_Arabian_All.bmp", 46, 64, 1.0f, true);
+
+		ArabianRenderer->CreateAnimation("Right_Arabian_RangeDeath", "Right_Arabian_Death.bmp", 0, 10, 0.5f, true);
+		ArabianRenderer->CreateAnimation("Right_Arabian_MeleeDeath", "Right_Arabian_Death.bmp", 11, 28, 0.5f, true);
+		ArabianRenderer->CreateAnimation("Right_Arabian_AirDeath", "Right_Arabian_Death.bmp", 29, 43, 0.5f, true);
 
 
 		ArabianRenderer->GetActor()->SetPos({ 3200, 850 });
@@ -114,13 +161,13 @@ void Arabian::ChangeState(ArabianState _State)
 			RangeAttackStart();
 			break;
 		case ArabianState::RangeDeath:
-			//RangeDeathStart();
+			RangeDeathStart();
 			break;
 		case ArabianState::MeleeDeath:
-			//MeleeDeathStart();
+			MeleeDeathStart();
 			break;
 		case ArabianState::AirDeath:
-			//AirDeathStart();
+			AirDeathStart();
 			break;
 		default:
 			break;
@@ -152,14 +199,11 @@ void Arabian::StateUpdate(float _Delta)
 	case ArabianState::RangeAttack:
 		return RangeAttackUpdate(_Delta);
 	case ArabianState::RangeDeath:
-		//return RangeDeathUpdate(_Delta);
-		break;
+		return RangeDeathUpdate(_Delta);
 	case ArabianState::MeleeDeath:
-		//return MeleeDeathUpdate(_Delta);
-		break;
+		return MeleeDeathUpdate(_Delta);
 	case ArabianState::AirDeath:
-		//return AirDeathUpdate(_Delta);
-		break;
+		return AirDeathUpdate(_Delta);
 	default:
 		break;
 	}
@@ -228,7 +272,7 @@ void Arabian::IdleUpdate(float _Delta)
 		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
 		{
 			//ChangeAnimationState("Idle1");
-			ChangeState(ArabianState::JumpReady);
+			ChangeState(ArabianState::MeleeDeath);
 		}
 	}
 }
@@ -311,8 +355,6 @@ void Arabian::JumpUpdate(float _Delta)
 			}
 		}
 	}
-		
-
 	
 }
 
@@ -343,7 +385,6 @@ void Arabian::BackStepUpdate(float _Delta)
 			ChangeState(ArabianState::Idle);
 		}
 	}
-	
 }
 
 void Arabian::AttackReadyStart()
@@ -376,6 +417,42 @@ void Arabian::RangeAttackStart()
 	ChangeAnimationState("RangeAttack");
 }
 void Arabian::RangeAttackUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		ChangeState(ArabianState::Idle);
+	}
+}
+
+void Arabian::RangeDeathStart()
+{
+	ChangeAnimationState("RangeDeath");
+}
+void Arabian::RangeDeathUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		ChangeState(ArabianState::Idle);
+	}
+}
+
+void Arabian::MeleeDeathStart()
+{
+	ChangeAnimationState("MeleeDeath");
+}
+void Arabian::MeleeDeathUpdate(float _Delta)
+{
+	if (ArabianRenderer->IsAnimationEnd())
+	{
+		ChangeState(ArabianState::Idle);
+	}
+}
+
+void Arabian::AirDeathStart()
+{
+	ChangeAnimationState("AirDeath");
+}
+void Arabian::AirDeathUpdate(float _Delta)
 {
 	if (ArabianRenderer->IsAnimationEnd())
 	{
