@@ -219,9 +219,9 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle1", "Right_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle2", "Right_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
-		LowerRenderer->CreateAnimation("Right_Lower_RangeDeath", "Right_Death.bmp", 0, 0, 0.5f, false);
-		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 0, 0, 0.5f, false);
-		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 0, 0, 0.5f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_RangeDeath", "Right_Death.bmp", 0, 0, 1.0f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 0, 0, 1.0f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 0, 0, 1.0f, false);
 
 		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.1f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.04f, true);
@@ -242,9 +242,9 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle1", "Left_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle2", "Left_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
-		LowerRenderer->CreateAnimation("Left_Lower_RangeDeath", "Left_Death.bmp", 0, 0, 0.5f, false);
-		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 0, 0, 0.5f, false);
-		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 0, 0, 0.5f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_RangeDeath", "Left_Death.bmp", 0, 18, 1.0f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 0, 0, 1.0f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 0, 0, 1.0f, false);
 
 		
 
@@ -266,8 +266,8 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookUp", "Right_Pistol_Upper.bmp", 64, 62, 0.05f, false);
 		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 64, 64, 0.1f, false);
 		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 65, 70, 0.05f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 0.1f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 0.1f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 1.0f, false);
 
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_FireStart", "Right_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 
@@ -286,8 +286,8 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookUp", "Left_Pistol_Upper.bmp", 64, 62, 0.05f, false);
 		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 64, 64, 0.1f, false);
 		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 65, 70, 0.05f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt1", "Left_Pistol_Upper.bmp", 71, 76, 0.1f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt2", "Left_Pistol_Upper.bmp", 77, 82, 0.1f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt1", "Left_Pistol_Upper.bmp", 71, 76, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt2", "Left_Pistol_Upper.bmp", 77, 82, 1.0f, false);
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_FireStart", "Left_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 		
@@ -317,13 +317,17 @@ void Player::Start()
 	}
 
 	{
-		
-		
 		BodyCollision = CreateCollision(CollisionOrder::PlayerCollision);
 		
 		BodyCollision->SetCollisionScale({ 80, 140 });
 		BodyCollision->SetCollisionType(CollisionType::Rect);
 		BodyCollision->SetCollisionPos({ 0, -70 });
+	}
+
+	{
+		//MeleeAttCollision = CreateCollision(CollisionOrder::PlayerMeleeCollision);
+
+		
 	}
 
 

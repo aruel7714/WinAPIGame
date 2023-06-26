@@ -72,7 +72,7 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeAttack", "Left_Arabian_All.bmp", 39, 45, 0.05f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 1.0f, true);
 
-		ArabianRenderer->CreateAnimation("Left_Arabian_RangeDeath", "Left_Arabian_Death.bmp", 0, 10, 0.5f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeDeath", "Left_Arabian_Death.bmp", 0, 10, 0.05f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeDeath", "Left_Arabian_Death.bmp", 11, 30, 1.0f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_AirDeath", "Left_Arabian_Death.bmp", 31, 43, 1.0f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_DeathEnd", "Left_Arabian_Death.bmp", 44, 44, 0.05f, false);
@@ -270,6 +270,21 @@ void Arabian::IdleUpdate(float _Delta)
 		}
 	}
 
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == ArabianCollision->Collision(CollisionOrder::BulletCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+		}
+		ChangeState(ArabianState::RangeDeath);
+	}
+
 
 
 	if (ArabianRenderer->IsAnimationEnd())
@@ -281,6 +296,7 @@ void Arabian::IdleUpdate(float _Delta)
 		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
 		{
 			ChangeAnimationState("Idle1");
+			
 		}
 	}
 }
@@ -447,19 +463,45 @@ void Arabian::RangeDeathStart()
 	{
 		float4 GravityDir = (float4::UP);
 		GravityDir += (float4::RIGHT);
-		SetGravityVector(GravityDir * 500.0f);
+		SetGravityVector(GravityDir * 300.0f);
 	}
 	else if (Dir == ArabianDir::Right)
 	{
 		float4 GravityDir = (float4::UP);
 		GravityDir += (float4::LEFT);
-		SetGravityVector(GravityDir * 500.0f);
+		SetGravityVector(GravityDir * 300.0f);
 	}
 
 	ChangeAnimationState("RangeDeath");
 }
 void Arabian::RangeDeathUpdate(float _Delta)
 {
+	{
+		Gravity(_Delta);
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
+
 	if (ArabianRenderer->IsAnimationEnd())
 	{
 		ChangeState(ArabianState::DeathEnd);
@@ -497,9 +539,13 @@ void Arabian::DeathEndStart()
 
 void Arabian::DeathEndUpdate(float _Delta)
 {
-	if (ArabianRenderer->IsAnimationEnd())
+	if (nullptr != ArabianRenderer)
 	{
 		ArabianRenderer->Death();
 		ArabianRenderer = nullptr;
+		ArabianCollision->Death();
+		ArabianCollision = nullptr;
 	}
+
+	
 }

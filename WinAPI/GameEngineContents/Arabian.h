@@ -55,7 +55,7 @@ public:
 protected:
 	ArabianState State = ArabianState::Max;
 	//ArabianDir Dir = ArabianDir::Left;
-	ArabianDir Dir = ArabianDir::Right;
+	ArabianDir Dir = ArabianDir::Left;
 
 	void ChangeState(ArabianState _State);
 	void StateUpdate(float _Delta);

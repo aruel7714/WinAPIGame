@@ -366,6 +366,11 @@ void Player::IdleLowerUpdate(float _Delta)
 	{
 		ChangeLowerState(PlayerLowerState::SitDown);
 	}
+
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		ChangeLowerState(PlayerLowerState::RangeDeath);
+	}
 }
 
 void Player::IdleUpperStart()
@@ -404,7 +409,8 @@ void Player::IdleUpperUpdate(float _Delta)
 
 		PrevState = "Idle";
 
-		ChangeUpperState(PlayerUpperState::Fire);
+		//ChangeUpperState(PlayerUpperState::Fire);
+		ChangeUpperState(PlayerUpperState::MeleeAtt);
 	}
 	if (true == GameEngineInput::IsDown('D'))
 	{
@@ -1248,15 +1254,21 @@ void Player::SitGranadeIdleUpdate(float _Delta)
 
 void Player::MeleeAttStart()
 {
-	ChangeUpperAnimationState("MeleeAtt");
+	ChangeUpperAnimationState("MeleeAtt2");
+
+	
 }
 void Player::MeleeAttUpdate(float _Delta)
 {
-	
+	if (UpperRenderer->IsAnimationEnd())
+	{
+		ChangeUpperState(PlayerUpperState::Idle);
+	}
 }
 
 void Player::RangeDeathStart()
 {
+	UpperRenderer->Off();
 	ChangeLowerAnimationState("RangeDeath", false);
 }
 void Player::RangeDeathUpdate(float _Delta)
@@ -1269,6 +1281,7 @@ void Player::RangeDeathUpdate(float _Delta)
 
 void Player::MeleeDeathStart()
 {
+	UpperRenderer->Off();
 	ChangeLowerAnimationState("MeleeDeath", false);
 }
 void Player::MeleeDeathUpdate(float _Delta)
@@ -1281,6 +1294,7 @@ void Player::MeleeDeathUpdate(float _Delta)
 
 void Player::SwordDeathStart()
 {
+	UpperRenderer->Off();
 	ChangeLowerAnimationState("SwordDeath", false);
 }
 void Player::SwordDeathUpdate(float _Delta)

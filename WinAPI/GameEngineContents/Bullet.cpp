@@ -81,7 +81,7 @@ void Bullet::Update(float _Delta)
 
 			GameEngineActor* Actor = Collision->GetActor();
 
-			Actor->Death();
+			// Actor->Death();
 		}
 	}
 }

@@ -232,6 +232,7 @@ protected:
 
 	// Collision
 	GameEngineCollision* BodyCollision = nullptr;
+	GameEngineCollision* MeleeAttCollision = nullptr;
 
 private:
 	void LevelStart() override;
