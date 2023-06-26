@@ -221,8 +221,8 @@ void Player::Start()
 
 		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathJump", "Right_Death.bmp", 0, 9, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathGround", "Right_Death.bmp", 9, 18, 0.1f, false);
-		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 19, 37, 1.0f, false);
-		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 38, 56, 1.0f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 19, 37, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 38, 56, 0.1f, false);
 
 		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.1f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.04f, true);
@@ -245,8 +245,8 @@ void Player::Start()
 
 		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathJump", "Left_Death.bmp", 0, 9, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathGround", "Left_Death.bmp", 10, 18, 0.1f, false);
-		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 19, 37, 1.0f, false);
-		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 38, 56, 1.0f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 19, 37, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 38, 56, 0.1f, false);
 
 		
 

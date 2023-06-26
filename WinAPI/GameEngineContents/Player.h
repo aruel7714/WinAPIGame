@@ -73,6 +73,7 @@ enum class PlayerDir
 // Ό³Έν : 
 class Player : public PlayActor
 {
+	friend class Arabian;
 private:
 	static Player* MainPlayer;
 
