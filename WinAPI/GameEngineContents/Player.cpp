@@ -219,6 +219,10 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle1", "Right_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle2", "Right_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
+		LowerRenderer->CreateAnimation("Right_Lower_RangeDeath", "Right_Death.bmp", 0, 0, 0.5f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 0, 0, 0.5f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 0, 0, 0.5f, false);
+
 		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.1f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.04f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_IdleJump", "Left_Lower.bmp", 13, 18, 0.1f, false);
@@ -237,6 +241,10 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranade", "Left_Pistol_Sit.bmp", 25, 30, 0.05f, false);
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle1", "Left_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle2", "Left_Pistol_Sit.bmp", 34, 32, 0.1f, false);
+
+		LowerRenderer->CreateAnimation("Left_Lower_RangeDeath", "Left_Death.bmp", 0, 0, 0.5f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 0, 0, 0.5f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 0, 0, 0.5f, false);
 
 		
 
@@ -460,6 +468,15 @@ void Player::ChangeLowerState(PlayerLowerState _LowerState)
 		case PlayerLowerState::SitGranadeIdle:
 			SitGranadeIdleStart();
 			break;
+		case PlayerLowerState::RangeDeath:
+			RangeDeathStart();
+			break;
+		case PlayerLowerState::MeleeDeath:
+			MeleeDeathStart();
+			break;
+		case PlayerLowerState::SwordDeath:
+			SwordDeathStart();
+			break;
 		default:
 			break;
 		}
@@ -496,6 +513,12 @@ void Player::StateLowerUpdate(float _Delta)
 		return SitGranadeUpdate(_Delta);
 	case PlayerLowerState::SitGranadeIdle:
 		return SitGranadeIdleUpdate(_Delta);
+	case PlayerLowerState::RangeDeath:
+		return RangeDeathUpdate(_Delta);
+	case PlayerLowerState::MeleeDeath:
+		return MeleeDeathUpdate(_Delta);
+	case PlayerLowerState::SwordDeath:
+		return SwordDeathUpdate(_Delta);
 	default:
 		break;
 	}

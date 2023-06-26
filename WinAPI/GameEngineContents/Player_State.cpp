@@ -1248,7 +1248,45 @@ void Player::SitGranadeIdleUpdate(float _Delta)
 
 void Player::MeleeAttStart()
 {
+	ChangeUpperAnimationState("MeleeAtt");
 }
 void Player::MeleeAttUpdate(float _Delta)
 {
+	
+}
+
+void Player::RangeDeathStart()
+{
+	ChangeLowerAnimationState("RangeDeath", false);
+}
+void Player::RangeDeathUpdate(float _Delta)
+{
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
+	}
+}
+
+void Player::MeleeDeathStart()
+{
+	ChangeLowerAnimationState("MeleeDeath", false);
+}
+void Player::MeleeDeathUpdate(float _Delta)
+{
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
+	}
+}
+
+void Player::SwordDeathStart()
+{
+	ChangeLowerAnimationState("SwordDeath", false);
+}
+void Player::SwordDeathUpdate(float _Delta)
+{
+	if (true == LowerRenderer->IsAnimationEnd())
+	{
+		ChangeLowerState(PlayerLowerState::Idle);
+	}
 }

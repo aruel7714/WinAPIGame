@@ -30,6 +30,7 @@ enum class PlayerLowerState
 	RangeDeath,
 	MeleeDeath,
 	SwordDeath,
+	Revive,
 	Max
 };
 
@@ -204,6 +205,15 @@ protected:
 
 	void MeleeAttStart();
 	void MeleeAttUpdate(float _Delta);
+
+	void RangeDeathStart();
+	void RangeDeathUpdate(float _Delta);
+
+	void MeleeDeathStart();
+	void MeleeDeathUpdate(float _Delta);
+
+	void SwordDeathStart();
+	void SwordDeathUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
 	void DirCheck();

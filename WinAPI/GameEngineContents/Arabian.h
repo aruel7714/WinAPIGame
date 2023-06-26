@@ -15,6 +15,7 @@ enum class ArabianState
 	RangeDeath,
 	MeleeDeath,
 	AirDeath,
+	DeathEnd,
 	Max
 };
 
@@ -54,7 +55,7 @@ public:
 protected:
 	ArabianState State = ArabianState::Max;
 	//ArabianDir Dir = ArabianDir::Left;
-	ArabianDir Dir = ArabianDir::Left;
+	ArabianDir Dir = ArabianDir::Right;
 
 	void ChangeState(ArabianState _State);
 	void StateUpdate(float _Delta);
@@ -96,6 +97,10 @@ protected:
 
 	 void AirDeathStart();
 	 void AirDeathUpdate(float _Delta);
+
+	 void DeathEndStart();
+	 void DeathEndUpdate(float _Delta);
+
 private:
 	static std::list<Arabian*> AllArabian;
 
