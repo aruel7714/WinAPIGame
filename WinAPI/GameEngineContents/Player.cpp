@@ -268,8 +268,9 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookUp", "Right_Pistol_Upper.bmp", 64, 62, 0.05f, false);
 		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 64, 64, 0.1f, false);
 		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 65, 70, 0.05f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 0.01f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1End", "Right_Pistol_Upper.bmp", 76, 76, 0.2f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 0.03f, false);
 
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_FireStart", "Right_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 
@@ -288,8 +289,9 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_JumpLookUp", "Left_Pistol_Upper.bmp", 64, 62, 0.05f, false);
 		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Idle", "Left_Pistol_Upper.bmp", 64, 64, 0.1f, false);
 		UpperRenderer->CreateAnimation("LeftDown_Pistol_Upper_Fire", "Left_Pistol_Upper.bmp", 65, 70, 0.05f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt1", "Left_Pistol_Upper.bmp", 71, 76, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt2", "Left_Pistol_Upper.bmp", 77, 82, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt1", "Left_Pistol_Upper.bmp", 71, 76, 0.01f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt1End", "Left_Pistol_Upper.bmp", 76, 76, 0.2f, false);
+		UpperRenderer->CreateAnimation("Left_Pistol_Upper_MeleeAtt2", "Left_Pistol_Upper.bmp", 77, 82, 0.02f, false);
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_FireStart", "Left_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 		

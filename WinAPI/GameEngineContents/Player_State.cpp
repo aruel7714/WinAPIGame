@@ -1263,7 +1263,17 @@ void Player::MeleeAttUpdate(float _Delta)
 {
 	if (UpperRenderer->IsAnimationEnd())
 	{
-		ChangeUpperState(PlayerUpperState::Idle);
+		if (UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1"))
+		{
+			ChangeUpperAnimationState("MeleeAtt1End");
+		}
+		else if(UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1End") ||
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1End"))
+		{
+			ChangeUpperState(PlayerUpperState::Idle);
+		}
+
 	}
 }
 

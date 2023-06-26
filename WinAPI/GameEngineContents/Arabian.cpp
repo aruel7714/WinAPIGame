@@ -5,6 +5,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnum.h"
+#include "Player.h"
 
 std::list<Arabian*> Arabian::AllArabian;
 
@@ -73,8 +74,8 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 1.0f, true);
 
 		ArabianRenderer->CreateAnimation("Left_Arabian_RangeDeath", "Left_Arabian_Death.bmp", 0, 10, 0.05f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeDeath", "Left_Arabian_Death.bmp", 11, 30, 1.0f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_AirDeath", "Left_Arabian_Death.bmp", 31, 43, 1.0f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeDeath", "Left_Arabian_Death.bmp", 11, 30, 0.05f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_AirDeath", "Left_Arabian_Death.bmp", 31, 43, 0.05f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_DeathEnd", "Left_Arabian_Death.bmp", 44, 44, 0.05f, false);
 
 		ArabianRenderer->CreateAnimation("Right_Arabian_Idle1", "Right_Arabian_All.bmp", 0, 5, 0.1f, false);
@@ -90,9 +91,9 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Right_Arabian_MeleeAttack", "Right_Arabian_All.bmp", 39, 45, 1.0f, true);
 		ArabianRenderer->CreateAnimation("Right_Arabian_RangeAttack", "Right_Arabian_All.bmp", 46, 64, 1.0f, true);
 
-		ArabianRenderer->CreateAnimation("Right_Arabian_RangeDeath", "Right_Arabian_Death.bmp", 0, 10, 0.5f, false);
-		ArabianRenderer->CreateAnimation("Right_Arabian_MeleeDeath", "Right_Arabian_Death.bmp", 11, 30, 1.0f, false);
-		ArabianRenderer->CreateAnimation("Right_Arabian_AirDeath", "Right_Arabian_Death.bmp", 31, 43, 1.0f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_RangeDeath", "Right_Arabian_Death.bmp", 0, 10, 0.05f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_MeleeDeath", "Right_Arabian_Death.bmp", 11, 30, 0.05f, false);
+		ArabianRenderer->CreateAnimation("Right_Arabian_AirDeath", "Right_Arabian_Death.bmp", 31, 43, 0.05f, false);
 		ArabianRenderer->CreateAnimation("Right_Arabian_DeathEnd", "Right_Arabian_Death.bmp", 44, 44, 0.05f, false);
 
 
@@ -120,7 +121,9 @@ void Arabian::Start()
 
 void Arabian::Update(float _Delta)
 {
+
 	StateUpdate(_Delta);
+
 }
 
 void Arabian::Render(float _Delta)
@@ -291,6 +294,29 @@ void Arabian::IdleUpdate(float _Delta)
 		}
 		ChangeState(ArabianState::RangeDeath);
 	}
+	else if (true == ArabianCollision->Collision(CollisionOrder::PlayerMeleeCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+			
+		}
+		if (Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2"))
+		{
+			if (Player::GetMainPlayer()->UpperRenderer->IsAnimationEnd())
+			{
+				ChangeState(ArabianState::MeleeDeath);
+			}
+		}
+	}
 
 
 
@@ -302,8 +328,8 @@ void Arabian::IdleUpdate(float _Delta)
 		}
 		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
 		{
-			//ChangeAnimationState("Idle1");
-			ChangeState(ArabianState::Ready);
+			ChangeAnimationState("Idle1");
+			//ChangeState(ArabianState::Ready);
 			
 			//ChangeState(ArabianState::MeleeAttack);
 		}
@@ -317,6 +343,7 @@ void Arabian::ReadyStart()
 void Arabian::ReadyUpdate(float _Delta)
 {
 	
+
 	if (ArabianRenderer->IsAnimation("Left_Arabian_Ready1") || ArabianRenderer->IsAnimation("Right_Arabian_Ready1"))
 	{
 		AddPos(float4::LEFT * 0.25);
@@ -368,6 +395,7 @@ void Arabian::JumpReadyStart()
 }
 void Arabian::JumpReadyUpdate(float _Delta)
 {
+	
 	if (ArabianRenderer->IsAnimationEnd())
 	{
 		ChangeState(ArabianState::Jump);
@@ -406,6 +434,8 @@ void Arabian::JumpUpdate(float _Delta)
 			}
 		}
 	}
+
+	
 	
 }
 
@@ -459,7 +489,25 @@ void Arabian::MeleeAttackUpdate(float _Delta)
 {
 	if (ArabianRenderer->IsAnimationEnd())
 	{
-		ChangeState(ArabianState::Idle);
+		std::vector<GameEngineCollision*> _Collision;
+		if (true == ArabianMeleeAttCollision->Collision(CollisionOrder::PlayerCollision, _Collision
+			, CollisionType::Rect
+			, CollisionType::Rect
+		))
+		{
+			for (size_t i = 0; i < _Collision.size(); i++)
+			{
+				GameEngineCollision* Collision = _Collision[i];
+
+				GameEngineActor* Actor = Collision->GetActor();
+				
+			}
+			
+		}
+		else
+		{
+			ChangeState(ArabianState::Ready);
+		}
 	}
 }
 
