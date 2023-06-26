@@ -244,6 +244,11 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle1", "Right_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle2", "Right_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_MoveStop1", "Right_Rifle_All.bmp", 0, 3, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_MoveStop2", "Right_Rifle_All.bmp", 3, 0, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitDown", "Right_Rifle_All.bmp", 4, 6, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitUp", "Right_Rifle_All.bmp", 5, 4, 0.05f, false);
+
 		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathJump", "Right_Death.bmp", 0, 9, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathGround", "Right_Death.bmp", 9, 18, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 19, 37, 0.05f, false);
@@ -268,10 +273,17 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle1", "Left_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle2", "Left_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_MoveStop1", "Left_Rifle_All.bmp", 0, 3, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_MoveStop2", "Left_Rifle_All.bmp", 3, 0, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitDown", "Left_Rifle_All.bmp", 4, 6, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitUp", "Left_Rifle_All.bmp", 5, 4, 0.05f, false);
+
 		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathJump", "Left_Death.bmp", 0, 9, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathGround", "Left_Death.bmp", 10, 18, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 19, 37, 0.05f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 38, 56, 0.1f, false);
+
+		
 
 		
 
@@ -409,7 +421,8 @@ void Player::Start()
 	}
 
 
-	WeaponName = "Pistol_";
+	//WeaponName = "Pistol_";
+	WeaponName = "Rifle_";
 
 	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
