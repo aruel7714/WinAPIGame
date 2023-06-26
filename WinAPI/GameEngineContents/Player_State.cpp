@@ -1255,7 +1255,7 @@ void Player::SitGranadeIdleUpdate(float _Delta)
 
 void Player::MeleeAttStart()
 {
-	ChangeUpperAnimationState("MeleeAtt2");
+	ChangeUpperAnimationState("MeleeAtt1");
 
 	
 }

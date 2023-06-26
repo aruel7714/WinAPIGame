@@ -14,8 +14,8 @@ enum class RenderOrder
 
 enum class CollisionOrder
 {
-	PlayerCollision,
 	PlayerMeleeCollision,
+	PlayerCollision,
 	BulletCollision,
 	EnemySwordCollision,
 	EnemyMeleeCollision,

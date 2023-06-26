@@ -327,8 +327,11 @@ void Player::Start()
 	}
 
 	{
-		//MeleeAttCollision = CreateCollision(CollisionOrder::PlayerMeleeCollision);
+		MeleeAttCollision = CreateCollision(CollisionOrder::PlayerMeleeCollision);
 
+		MeleeAttCollision->SetCollisionScale({ 120, 140 });
+		MeleeAttCollision->SetCollisionType(CollisionType::Rect);
+		MeleeAttCollision->SetCollisionPos({ 20, -70 });
 		
 	}
 
@@ -634,6 +637,7 @@ void Player::DirCheck()
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsFree(VK_RIGHT))
 	{
 		Dir = PlayerDir::Left;
+		MeleeAttCollision->SetCollisionPos({ -20, -70 });
 		//ChangeLowerAnimationState(CurState);
 		return;
 	}
@@ -644,6 +648,7 @@ void Player::DirCheck()
 	if(true == GameEngineInput::IsFree(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
 		Dir = PlayerDir::Right;
+		MeleeAttCollision->SetCollisionPos({ 20, -70 });
 		//ChangeAnimationState(CurState);
 		return;
 	}

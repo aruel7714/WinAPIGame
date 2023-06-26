@@ -107,6 +107,7 @@ private:
 	GameEngineRenderer* ArabianRenderer = nullptr;
 
 	GameEngineCollision* ArabianCollision = nullptr;
+	GameEngineCollision* ArabianMeleeAttCollision = nullptr;
 
 	void Start() override;
 

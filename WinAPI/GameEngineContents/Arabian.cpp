@@ -107,6 +107,13 @@ void Arabian::Start()
 		ArabianCollision->SetCollisionPos({ 0, -70 });
 	}
 
+	{
+		ArabianMeleeAttCollision = CreateCollision(CollisionOrder::EnemyMeleeCollision);
+		ArabianMeleeAttCollision->SetCollisionScale({ 140, 140 });
+		ArabianMeleeAttCollision->SetCollisionType(CollisionType::Rect);
+		ArabianMeleeAttCollision->SetCollisionPos({ -100, -70 });
+	}
+
 	ChangeState(ArabianState::Idle);
 	//ChangeState(ArabianState::Ready);
 }
@@ -295,8 +302,10 @@ void Arabian::IdleUpdate(float _Delta)
 		}
 		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
 		{
-			ChangeAnimationState("Idle1");
+			//ChangeAnimationState("Idle1");
+			ChangeState(ArabianState::Ready);
 			
+			//ChangeState(ArabianState::MeleeAttack);
 		}
 	}
 }
@@ -321,7 +330,25 @@ void Arabian::ReadyUpdate(float _Delta)
 		AddPos(float4::RIGHT * 0.5);
 		if (ArabianRenderer->IsAnimationEnd())
 		{
-			ChangeAnimationState("Ready1");
+			std::vector<GameEngineCollision*> _Collision;
+			if (true == ArabianMeleeAttCollision->Collision(CollisionOrder::PlayerCollision, _Collision
+				, CollisionType::Rect
+				, CollisionType::Rect
+			))
+			{
+				for (size_t i = 0; i < _Collision.size(); i++)
+				{
+					GameEngineCollision* Collision = _Collision[i];
+
+					GameEngineActor* Actor = Collision->GetActor();
+				}
+				ChangeState(ArabianState::AttackReady);
+			}
+			else
+			{
+				ChangeAnimationState("Ready1");
+			}
+			
 		}
 	}
 }
@@ -419,8 +446,8 @@ void Arabian::AttackReadyUpdate(float _Delta)
 {
 	if (ArabianRenderer->IsAnimationEnd())
 	{
-		//ChangeState(ArabianState::MeleeAttack);
-		ChangeState(ArabianState::RangeAttack);
+		ChangeState(ArabianState::MeleeAttack);
+		//ChangeState(ArabianState::RangeAttack);
 	}
 }
 
