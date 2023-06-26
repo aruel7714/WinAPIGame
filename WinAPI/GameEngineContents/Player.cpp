@@ -219,9 +219,10 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle1", "Right_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Pistol_Lower_SitGranadeIdle2", "Right_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
-		LowerRenderer->CreateAnimation("Right_Lower_RangeDeath", "Right_Death.bmp", 0, 0, 1.0f, false);
-		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 0, 0, 1.0f, false);
-		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 0, 0, 1.0f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathJump", "Right_Death.bmp", 0, 9, 0.1f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathGround", "Right_Death.bmp", 9, 18, 0.1f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_MeleeDeath", "Right_Death.bmp", 19, 37, 1.0f, false);
+		LowerRenderer->CreateAnimation("Right_Lower_SwordDeath", "Right_Death.bmp", 38, 56, 1.0f, false);
 
 		LowerRenderer->CreateAnimation("Left_Lower_Idle", "Left_Lower.bmp", 0, 0, 0.1f, true);
 		LowerRenderer->CreateAnimation("Left_Lower_Move", "Left_Lower.bmp", 1, 12, 0.04f, true);
@@ -242,9 +243,10 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle1", "Left_Pistol_Sit.bmp", 31, 34, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Pistol_Lower_SitGranadeIdle2", "Left_Pistol_Sit.bmp", 34, 32, 0.1f, false);
 
-		LowerRenderer->CreateAnimation("Left_Lower_RangeDeath", "Left_Death.bmp", 0, 18, 1.0f, false);
-		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 0, 0, 1.0f, false);
-		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 0, 0, 1.0f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathJump", "Left_Death.bmp", 0, 9, 0.1f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathGround", "Left_Death.bmp", 10, 18, 0.1f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_MeleeDeath", "Left_Death.bmp", 19, 37, 1.0f, false);
+		LowerRenderer->CreateAnimation("Left_Lower_SwordDeath", "Left_Death.bmp", 38, 56, 1.0f, false);
 
 		
 
@@ -472,8 +474,11 @@ void Player::ChangeLowerState(PlayerLowerState _LowerState)
 		case PlayerLowerState::SitGranadeIdle:
 			SitGranadeIdleStart();
 			break;
-		case PlayerLowerState::RangeDeath:
-			RangeDeathStart();
+		case PlayerLowerState::RangeDeathJump:
+			RangeDeathJumpStart();
+			break;
+		case PlayerLowerState::RangeDeathGround:
+			RangeDeathGroundStart();
 			break;
 		case PlayerLowerState::MeleeDeath:
 			MeleeDeathStart();
@@ -517,8 +522,10 @@ void Player::StateLowerUpdate(float _Delta)
 		return SitGranadeUpdate(_Delta);
 	case PlayerLowerState::SitGranadeIdle:
 		return SitGranadeIdleUpdate(_Delta);
-	case PlayerLowerState::RangeDeath:
-		return RangeDeathUpdate(_Delta);
+	case PlayerLowerState::RangeDeathJump:
+		return RangeDeathJumpUpdate(_Delta);
+	case PlayerLowerState::RangeDeathGround:
+		return RangeDeathGroundUpdate(_Delta);
 	case PlayerLowerState::MeleeDeath:
 		return MeleeDeathUpdate(_Delta);
 	case PlayerLowerState::SwordDeath:

@@ -369,7 +369,8 @@ void Player::IdleLowerUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('P'))
 	{
-		ChangeLowerState(PlayerLowerState::RangeDeath);
+		//ChangeLowerState(PlayerLowerState::RangeDeathJump);
+		//ChangeLowerState(PlayerLowerState::SwordDeath);
 	}
 }
 
@@ -1266,16 +1267,68 @@ void Player::MeleeAttUpdate(float _Delta)
 	}
 }
 
-void Player::RangeDeathStart()
+void Player::RangeDeathJumpStart()
 {
+	if (Dir == PlayerDir::Right)
+	{
+		float4 GravityDir = (float4::UP * 2.0f);
+		GravityDir += (float4::LEFT * 0.25f);
+		SetGravityVector(GravityDir * 500.0f);
+	}
+	else if(Dir == PlayerDir::Left)
+	{
+		float4 GravityDir = (float4::UP * 2.0f);
+		GravityDir += (float4::RIGHT * 0.25f);
+		SetGravityVector(GravityDir * 500.0f);
+	}
+	
 	UpperRenderer->Off();
-	ChangeLowerAnimationState("RangeDeath", false);
+	ChangeLowerAnimationState("RangeDeathJump", false);
 }
-void Player::RangeDeathUpdate(float _Delta)
+void Player::RangeDeathJumpUpdate(float _Delta)
+{
+	{
+		Gravity(_Delta);
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		if (RGB(255, 255, 255) == Color)
+		{
+			
+		}
+		else
+		{
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			if (LowerRenderer->IsAnimationEnd())
+			{
+				ChangeLowerState(PlayerLowerState::RangeDeathGround);
+			}
+
+			GravityReset();
+		}
+	}
+	if (LowerRenderer->IsAnimationEnd())
+	{
+		ChangeLowerState(PlayerLowerState::RangeDeathGround);
+	}
+}
+
+void Player::RangeDeathGroundStart()
+{
+	ChangeLowerAnimationState("RangeDeathGround", false);
+}
+void Player::RangeDeathGroundUpdate(float _Delta)
 {
 	if (true == LowerRenderer->IsAnimationEnd())
 	{
 		ChangeLowerState(PlayerLowerState::Idle);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Idle);
 	}
 }
 
@@ -1289,6 +1342,8 @@ void Player::MeleeDeathUpdate(float _Delta)
 	if (true == LowerRenderer->IsAnimationEnd())
 	{
 		ChangeLowerState(PlayerLowerState::Idle);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Idle);
 	}
 }
 
@@ -1302,5 +1357,7 @@ void Player::SwordDeathUpdate(float _Delta)
 	if (true == LowerRenderer->IsAnimationEnd())
 	{
 		ChangeLowerState(PlayerLowerState::Idle);
+		UpperRenderer->On();
+		ChangeUpperState(PlayerUpperState::Idle);
 	}
 }

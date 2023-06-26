@@ -27,7 +27,8 @@ enum class PlayerLowerState
 	SitFireIdle,
 	SitGranade,
 	SitGranadeIdle,
-	RangeDeath,
+	RangeDeathJump,
+	RangeDeathGround,
 	MeleeDeath,
 	SwordDeath,
 	Revive,
@@ -206,8 +207,11 @@ protected:
 	void MeleeAttStart();
 	void MeleeAttUpdate(float _Delta);
 
-	void RangeDeathStart();
-	void RangeDeathUpdate(float _Delta);
+	void RangeDeathJumpStart();
+	void RangeDeathJumpUpdate(float _Delta);
+
+	void RangeDeathGroundStart();
+	void RangeDeathGroundUpdate(float _Delta);
 
 	void MeleeDeathStart();
 	void MeleeDeathUpdate(float _Delta);
