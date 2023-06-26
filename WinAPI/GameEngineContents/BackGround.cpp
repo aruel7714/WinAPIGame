@@ -18,8 +18,10 @@ BackGround::~BackGround()
 void BackGround::Start()
 {
 	FirstRenderer = CreateRenderer(RenderOrder::FirstBackGround);
-	//SecondRenderer = CreateRenderer(RenderOrder::SecondBackGround);
+	SecondRenderer = CreateRenderer(RenderOrder::SecondBackGround);
+	ThirdRenderer = CreateRenderer(RenderOrder::ThirdBackGround);
 	DebugRenderer = CreateRenderer(RenderOrder::FirstBackGround);
+	
 
 	FirstRenderer->On();
 	//SecondRenderer->On();
@@ -88,6 +90,49 @@ void BackGround::Init(const std::string& _FileName, const std::string& _DebugFil
 	// SetRenderPos(GameEngineWindow::MainWindow.GetScale().Half())
 //	DebugRenderer->SetRenderPos({ 0, 0 });
 	
+}
+
+void BackGround::SecondInit(const std::string& _SecondFileName)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_SecondFileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _SecondFileName);
+
+		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+	}
+
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_SecondFileName);
+	float4 Scale = Texture->GetScale();
+
+	SecondRenderer->SetTexture(_SecondFileName);
+	SecondRenderer->SetRenderScale(Scale);
+
+	SetPos({ Scale.hX(), Scale.hY() });
+
+}
+
+void BackGround::ThirdInit(const std::string& _ThirdFileName)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_ThirdFileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _ThirdFileName);
+
+		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+	}
+
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_ThirdFileName);
+	float4 Scale = Texture->GetScale();
+
+	ThirdRenderer->SetTexture(_ThirdFileName);
+	ThirdRenderer->SetRenderScale(Scale);
+
+	SetPos({ Scale.hX(), Scale.hY() });
 }
 
 //void BackGround::InitDebug(const std::string& _DebugFileName)
@@ -178,13 +223,15 @@ void BackGround::SwitchRender()
 	if (true == SwitchRenderValue)
 	{
 		FirstRenderer->On();
-		//SecondRenderer->On();
+		SecondRenderer->On();
+		ThirdRenderer->On();
 		DebugRenderer->Off();
 	}
 	else
 	{
 		FirstRenderer->Off();
-		//SecondRenderer->Off();
+		SecondRenderer->Off();
+		ThirdRenderer->Off();
 		DebugRenderer->On();
 	}
 }

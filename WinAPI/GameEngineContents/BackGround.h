@@ -18,6 +18,8 @@ public:
 
 	void Init(const std::string& _FileName);
 	void Init(const std::string& _FileName, const std::string& _DebugFileName);
+	void SecondInit(const std::string& _SecondFileName);
+	void ThirdInit(const std::string& _ThirdFileName);
 	// void Init(const std::string& _FileName, const std::string& _SecondFileName);
 
 	// void InitDebug(const std::string& _DebugFileName);
@@ -38,6 +40,7 @@ private:
 	std::string FileName;
 	class GameEngineRenderer* FirstRenderer;
 	class GameEngineRenderer* SecondRenderer;
+	class GameEngineRenderer* ThirdRenderer;
 	class GameEngineRenderer* DebugRenderer;
 
 	
