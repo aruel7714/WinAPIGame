@@ -8,6 +8,7 @@ enum class RenderOrder
 	Object1,
 	Object2,
 	Enemy,
+	NPC,
 	Granade,
 	PlayerLower,
 	PlayerUpper,

@@ -83,7 +83,7 @@ void Granade::Start()
 	{
 		GranadeCollision = CreateCollision(CollisionOrder::BulletCollision);
 
-		GranadeCollision->SetCollisionScale({ 50, 50 });
+		GranadeCollision->SetCollisionScale({ 45, 45 });
 		GranadeCollision->SetCollisionType(CollisionType::Rect);
 		
 	}

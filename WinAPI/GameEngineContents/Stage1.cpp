@@ -11,6 +11,7 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 #include "HeavyMachineGun.h"
+#include "SlaveNPC.h"
 
 Stage1::Stage1()
 {
@@ -98,6 +99,12 @@ void Stage1::Start()
 
 	NewItem = CreateActor<HeavyMachineGun>();
 	NewItem->SetGroundTexture("Mission1_Debug_Test.bmp");
+
+	NewSlave = CreateActor<SlaveNPC>();
+	NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+	NewSlave->SetPos({ 4000, 860 });
+	
+	
 	
 	//NewArabian2 = CreateActor<Arabian>();
 	//NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");

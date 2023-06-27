@@ -31,6 +31,7 @@ private:
 	class Arabian* NewArabian1 = nullptr;
 	//class Arabian* NewArabian2 = nullptr;
 
+	class SlaveNPC* NewSlave = nullptr;
 	class HeavyMachineGun* NewItem = nullptr;
 
 
