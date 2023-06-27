@@ -206,6 +206,32 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Rifle_Upper.bmp"), 5, 17);
 	}
 
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Rifle_All.bmp"))
+	{
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Rifle_All.bmp"), 5, 2);
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Rifle_All.bmp"))
+	{
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Rifle_All.bmp"), 5, 2);
+	}
+
 	{
 		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
 		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
