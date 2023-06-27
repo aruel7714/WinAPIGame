@@ -11,6 +11,7 @@ enum class RenderOrder
 	Granade,
 	PlayerLower,
 	PlayerUpper,
+	ItemRenderer,
 	WeaponSFX,
 	PlayUI
 };
@@ -20,6 +21,7 @@ enum class CollisionOrder
 	PlayerMeleeCollision,
 	PlayerCollision,
 	BulletCollision,
+	ItemCollision,
 	EnemySwordCollision,
 	EnemyMeleeCollision,
 	EnemyCollision

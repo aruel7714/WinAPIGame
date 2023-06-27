@@ -940,11 +940,17 @@ void Player::MoveStopUpdate(float _Delta)
 
 	if (true == LowerRenderer->IsAnimationEnd())
 	{
-		if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_MoveStop1") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_MoveStop1"))
+		if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_MoveStop1") ||
+			true == LowerRenderer->IsAnimation("Left_Pistol_Lower_MoveStop1") ||
+			true == LowerRenderer->IsAnimation("Right_Rifle_Lower_MoveStop1") ||
+			true == LowerRenderer->IsAnimation("Left_Rifle_Lower_MoveStop1"))
 		{
 			ChangeLowerAnimationState("MoveStop2", true);
 		}
-		else if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_MoveStop2") || true == LowerRenderer->IsAnimation("Left_Pistol_Lower_MoveStop2"))
+		else if (true == LowerRenderer->IsAnimation("Right_Pistol_Lower_MoveStop2") ||
+			true == LowerRenderer->IsAnimation("Left_Pistol_Lower_MoveStop2") ||
+			true == LowerRenderer->IsAnimation("Right_Rifle_Lower_MoveStop2") ||
+			true == LowerRenderer->IsAnimation("Left_Rifle_Lower_MoveStop2"))
 		{
 			ChangeLowerState(PlayerLowerState::Idle);
 			UpperRenderer->On();
@@ -1255,7 +1261,7 @@ void Player::SitGranadeIdleUpdate(float _Delta)
 
 void Player::MeleeAttStart()
 {
-	ChangeUpperAnimationState("MeleeAtt1");
+	ChangeUpperAnimationState("MeleeAtt2");
 
 	
 }

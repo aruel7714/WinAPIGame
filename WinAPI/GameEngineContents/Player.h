@@ -74,6 +74,7 @@ enum class PlayerDir
 class Player : public PlayActor
 {
 	friend class Arabian;
+	friend class HeavyMachineGun;
 private:
 	static Player* MainPlayer;
 
@@ -230,7 +231,7 @@ protected:
 	void ChangeLowerAnimationState(const std::string& _State, bool _IsWeapon = false, bool _IsForce = false);
 	void ChangeUpperAnimationState(const std::string& _State, bool _IsForce = false);
 
-	std::string WeaponName;
+	static std::string WeaponName;
 
 	bool IsWeapon = false;
 	bool IsKnife = false;

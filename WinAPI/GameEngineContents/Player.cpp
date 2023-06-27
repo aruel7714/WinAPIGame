@@ -13,6 +13,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 Player* Player::MainPlayer = nullptr;
+std::string Player::WeaponName = "";
 
 Player::Player()
 {
@@ -317,7 +318,8 @@ void Player::Start()
 		// RightDia ÇÊ¿ä
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 0, 5, 0.1f, true);
 		// UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.03f, true);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.04f, true);
+		//UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 0.04f, true);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Move", "Right_Pistol_Upper.bmp", 6, 17, 1.0f, true);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_IdleJump", "Right_Pistol_Upper.bmp", 18, 23, 0.1f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MoveJump", "Right_Pistol_Upper.bmp", 24, 29, 0.1f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 30, 39, 0.05f, false);
@@ -331,9 +333,11 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_JumpLookUp", "Right_Pistol_Upper.bmp", 64, 62, 0.05f, false);
 		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Idle", "Right_Pistol_Upper.bmp", 64, 64, 0.1f, false);
 		UpperRenderer->CreateAnimation("RightDown_Pistol_Upper_Fire", "Right_Pistol_Upper.bmp", 65, 70, 0.05f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 0.01f, false);
+		//UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 0.01f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1", "Right_Pistol_Upper.bmp", 71, 76, 1.0f, false);
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt1End", "Right_Pistol_Upper.bmp", 76, 76, 0.2f, false);
-		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 0.03f, false);
+		//UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 0.03f, false);
+		UpperRenderer->CreateAnimation("Right_Pistol_Upper_MeleeAtt2", "Right_Pistol_Upper.bmp", 77, 82, 1.0f, false);
 
 		UpperRenderer->CreateAnimation("Right_Pistol_Upper_FireStart", "Right_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 
@@ -358,49 +362,49 @@ void Player::Start()
 
 		UpperRenderer->CreateAnimation("Left_Pistol_Upper_FireStart", "Left_Pistol_Upper.bmp", 30, 30, 0.001f, false);
 		
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Idle", "Right_Rifle_Upper.bmp", 0, 3, 1.0f, true);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Move", "Right_Rifle_Upper.bmp", 4, 15, 1.0f, true);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_IdleJump", "Right_Rifle_Upper.bmp", 16, 21, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MoveJump", "Right_Rifle_Upper.bmp", 22, 27, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 28, 31, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Granade", "Right_Rifle_Upper.bmp", 32, 37, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt1", "Right_Rifle_Upper.bmp", 38, 43, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt2", "Right_Rifle_Upper.bmp", 44, 49, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookUp", "Right_Rifle_Upper.bmp", 50, 51, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookDown", "Right_Rifle_Upper.bmp", 51, 50, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle1", "Right_Rifle_Upper.bmp", 52, 55, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle2", "Right_Rifle_Upper.bmp", 54, 53, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 56, 59, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_FireEnd", "Right_Rifle_Upper.bmp", 60, 65, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Idle", "Right_Rifle_Upper.bmp", 0, 5, 1.0f, true);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Move", "Right_Rifle_Upper.bmp", 6, 17, 1.0f, true);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_IdleJump", "Right_Rifle_Upper.bmp", 18, 23, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MoveJump", "Right_Rifle_Upper.bmp", 24, 29, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 30, 33, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Granade", "Right_Rifle_Upper.bmp", 34, 39, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt1", "Right_Rifle_Upper.bmp", 40, 45, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt2", "Right_Rifle_Upper.bmp", 46, 51, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookUp", "Right_Rifle_Upper.bmp", 52, 53, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookDown", "Right_Rifle_Upper.bmp", 53, 52, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle1", "Right_Rifle_Upper.bmp", 54, 57, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle2", "Right_Rifle_Upper.bmp", 56, 55, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 58, 61, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_FireEnd", "Right_Rifle_Upper.bmp", 62, 67, 1.0f, false);
 		// Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation("")
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookDown", "Right_Rifle_Upper.bmp", 70, 71, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookUp", "Right_Rifle_Upper.bmp", 71, 70, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Idle", "Right_Rifle_Upper.bmp", 72, 72, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 73, 76, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookDown", "Right_Rifle_Upper.bmp", 72, 73, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookUp", "Right_Rifle_Upper.bmp", 73, 72, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Idle", "Right_Rifle_Upper.bmp", 74, 74, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 75, 78, 1.0f, false);
 		// ¾Æ·¡·Î Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation()
 
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Idle", "Left_Rifle_Upper.bmp", 0, 3, 1.0f, true);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Move", "Left_Rifle_Upper.bmp", 4, 15, 1.0f, true);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_IdleJump", "Left_Rifle_Upper.bmp", 16, 21, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MoveJump", "Left_Rifle_Upper.bmp", 22, 27, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 28, 31, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Granade", "Left_Rifle_Upper.bmp", 32, 37, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt1", "Left_Rifle_Upper.bmp", 38, 43, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt2", "Left_Rifle_Upper.bmp", 44, 49, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookUp", "Left_Rifle_Upper.bmp", 50, 51, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDown", "Left_Rifle_Upper.bmp", 51, 50, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle1", "Left_Rifle_Upper.bmp", 52, 55, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle2", "Left_Rifle_Upper.bmp", 54, 53, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 56, 59, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_FireEnd", "Left_Rifle_Upper.bmp", 60, 65, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Idle", "Left_Rifle_Upper.bmp", 0, 5, 1.0f, true);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Move", "Left_Rifle_Upper.bmp", 6, 17, 1.0f, true);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_IdleJump", "Left_Rifle_Upper.bmp", 18, 23, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MoveJump", "Left_Rifle_Upper.bmp", 24, 29, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 30, 33, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Granade", "Left_Rifle_Upper.bmp", 34, 39, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt1", "Left_Rifle_Upper.bmp", 40, 45, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt2", "Left_Rifle_Upper.bmp", 46, 51, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookUp", "Left_Rifle_Upper.bmp", 52, 53, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDown", "Left_Rifle_Upper.bmp", 53, 52, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle1", "Left_Rifle_Upper.bmp", 54, 57, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle2", "Left_Rifle_Upper.bmp", 56, 55, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 58, 61, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_FireEnd", "Left_Rifle_Upper.bmp", 62, 67, 1.0f, false);
 		// Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation("")
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookDown", "Left_Rifle_Upper.bmp", 70, 71, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookUp", "Left_Rifle_Upper.bmp", 71, 70, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Idle", "Left_Rifle_Upper.bmp", 72, 72, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 73, 76, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookDown", "Left_Rifle_Upper.bmp", 72, 73, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookUp", "Left_Rifle_Upper.bmp", 73, 72, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Idle", "Left_Rifle_Upper.bmp", 74, 74, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 75, 78, 1.0f, false);
 		// ¾Æ·¡·Î Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation()
 
@@ -447,8 +451,8 @@ void Player::Start()
 	}
 
 
-	//WeaponName = "Pistol_";
-	WeaponName = "Rifle_";
+	WeaponName = "Pistol_";
+	//WeaponName = "Rifle_";
 
 	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);

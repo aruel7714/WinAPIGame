@@ -10,6 +10,7 @@
 #include "Arabian.h"
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
+#include "HeavyMachineGun.h"
 
 Stage1::Stage1()
 {
@@ -94,6 +95,9 @@ void Stage1::Start()
 	//EnemyArabian = CreateActor<Arabian>();
 	NewArabian1 = CreateActor<Arabian>();
 	NewArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
+
+	NewItem = CreateActor<HeavyMachineGun>();
+	NewItem->SetGroundTexture("Mission1_Debug_Test.bmp");
 	
 	//NewArabian2 = CreateActor<Arabian>();
 	//NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");

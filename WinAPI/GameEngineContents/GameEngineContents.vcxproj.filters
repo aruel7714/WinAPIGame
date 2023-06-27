@@ -16,6 +16,12 @@
     <Filter Include="Global\WeaponSFX">
       <UniqueIdentifier>{680d164d-d45e-40a7-ac28-387125e677b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Global\NPC">
+      <UniqueIdentifier>{a437aa82-c66a-4f34-a7e9-5966a5975c30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global\Item">
+      <UniqueIdentifier>{3c004225-cfbb-4fa0-8509-7b155b4af8c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -52,6 +58,12 @@
     <ClInclude Include="GlobalValue.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="HeavyMachineGun.h">
+      <Filter>Global\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="SlaveNPC.h">
+      <Filter>Global\NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -87,6 +99,12 @@
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="HeavyMachineGun.cpp">
+      <Filter>Global\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SlaveNPC.cpp">
+      <Filter>Global\NPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
