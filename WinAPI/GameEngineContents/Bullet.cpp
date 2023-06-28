@@ -77,7 +77,7 @@ void Bullet::Update(float _Delta)
 			
 		}
 		Renderer->Off();
-		
+		//BulletCollision->Off();
 	}
 
 	if (0.5f < GetLiveTime())
@@ -85,7 +85,7 @@ void Bullet::Update(float _Delta)
 		if (nullptr != Renderer)
 		{
 			Renderer->Off();
-			
+			//BulletCollision->Off();
 		}
 	}
 }

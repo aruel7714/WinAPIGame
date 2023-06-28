@@ -188,6 +188,7 @@ void SlaveNPC::CatchOnUpdate(float _Delta)
 			GameEngineCollision* Collision = _Collision[i];
 
 			GameEngineActor* Actor = Collision->GetActor();
+			Collision->Death();
 		}
 		ChangeState(SlaveState::CatchOff);
 	}

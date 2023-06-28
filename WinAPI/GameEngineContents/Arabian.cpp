@@ -644,6 +644,7 @@ void Arabian::DeathCollisionCheck()
 			GameEngineCollision* Collision = _Collision[i];
 
 			GameEngineActor* Actor = Collision->GetActor();
+			Collision->Death();
 		}
 		ChangeState(ArabianState::RangeDeath);
 	}
