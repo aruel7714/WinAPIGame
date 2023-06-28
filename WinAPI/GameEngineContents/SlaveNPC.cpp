@@ -224,7 +224,10 @@ void SlaveNPC::CatchOffStart()
 }
 void SlaveNPC::CatchOffUpdate(float _Delta)
 {
-
+	if (SlaveRenderer->IsAnimationEnd())
+	{
+		ChangeState(SlaveState::Move);
+	}
 }
 
 void SlaveNPC::MoveStart()
@@ -233,7 +236,20 @@ void SlaveNPC::MoveStart()
 }
 void SlaveNPC::MoveUpdate(float _Delta)
 {
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == SlaveCatchOnCollision->Collision(CollisionOrder::PlayerCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
 
+			GameEngineActor* Actor = Collision->GetActor();
+		}
+		ChangeState(SlaveState::Gift);
+	}
 }
 
 void SlaveNPC::GiftStart()
@@ -243,6 +259,10 @@ void SlaveNPC::GiftStart()
 void SlaveNPC::GiftUpdate(float _Delta)
 {
 
+	if (SlaveRenderer->IsAnimationEnd())
+	{
+		ChangeState(SlaveState::Greet);
+	}
 }
 
 void SlaveNPC::GreetStart()
@@ -251,11 +271,14 @@ void SlaveNPC::GreetStart()
 }
 void SlaveNPC::GreetUpdate(float _Delta)
 {
-
+	if (SlaveRenderer->IsAnimationEnd())
+	{
+		ChangeState(SlaveState::Run);
+	}
 }
 
 void SlaveNPC::RunStart()
-{
+{ 
 	ChangeAnimationState("Run");
 }
 void SlaveNPC::RunUpdate(float _Delta)
