@@ -10,9 +10,6 @@
     <Filter Include="Global\Player">
       <UniqueIdentifier>{276b6248-109a-4b4a-af62-4a59fcb1dba4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Global\Arabian">
-      <UniqueIdentifier>{cf9eccd3-0c82-4d85-a5bf-f9c159048efc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global\WeaponSFX">
       <UniqueIdentifier>{680d164d-d45e-40a7-ac28-387125e677b1}</UniqueIdentifier>
     </Filter>
@@ -21,6 +18,9 @@
     </Filter>
     <Filter Include="Global\Item">
       <UniqueIdentifier>{3c004225-cfbb-4fa0-8509-7b155b4af8c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global\Enemy">
+      <UniqueIdentifier>{86f5e696-3845-485e-9aa3-7d205e0b3d90}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,9 +43,6 @@
     <ClInclude Include="Player.h">
       <Filter>Global\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Arabian.h">
-      <Filter>Global\Arabian</Filter>
-    </ClInclude>
     <ClInclude Include="PlayActor.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -63,6 +60,15 @@
     </ClInclude>
     <ClInclude Include="SlaveNPC.h">
       <Filter>Global\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Arabian.h">
+      <Filter>Global\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MiddleBoss.h">
+      <Filter>Global\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBoss.h">
+      <Filter>Global\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,9 +91,6 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Global\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Arabian.cpp">
-      <Filter>Global\Arabian</Filter>
-    </ClCompile>
     <ClCompile Include="PlayActor.cpp">
       <Filter>Global</Filter>
     </ClCompile>
@@ -105,6 +108,15 @@
     </ClCompile>
     <ClCompile Include="SlaveNPC.cpp">
       <Filter>Global\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Arabian.cpp">
+      <Filter>Global\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MiddleBoss.cpp">
+      <Filter>Global\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalBoss.cpp">
+      <Filter>Global\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
