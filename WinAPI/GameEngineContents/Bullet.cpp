@@ -60,14 +60,7 @@ void Bullet::Update(float _Delta)
 {
 	AddPos(Dir * _Delta * Speed);
 
-	if (2.0f < GetLiveTime())
-	{
-		if (nullptr != Renderer)
-		{
-			Renderer->Death();
-			Renderer = nullptr;
-		}
-	}
+	
 
 	std::vector<GameEngineCollision*> _Collision;
 	if (true == BulletCollision->Collision(CollisionOrder::EnemyCollision, _Collision
@@ -81,9 +74,18 @@ void Bullet::Update(float _Delta)
 
 			GameEngineActor* Actor = Collision->GetActor();
 
+			
+		}
+		Renderer->Off();
+		
+	}
+
+	if (0.5f < GetLiveTime())
+	{
+		if (nullptr != Renderer)
+		{
 			Renderer->Off();
 			
-			// Actor->Death();
 		}
 	}
 }

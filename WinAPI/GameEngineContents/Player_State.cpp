@@ -410,8 +410,8 @@ void Player::IdleUpperUpdate(float _Delta)
 
 		PrevState = "Idle";
 
-		//ChangeUpperState(PlayerUpperState::Fire);
-		ChangeUpperState(PlayerUpperState::MeleeAtt);
+		ChangeUpperState(PlayerUpperState::Fire);
+		//ChangeUpperState(PlayerUpperState::MeleeAtt);
 	}
 	if (true == GameEngineInput::IsDown('D'))
 	{
