@@ -77,29 +77,31 @@ protected:
 	void JumpStart();
 	void JumpUpdate(float _Delta);
 
-	 void BackStepStart();
-	 void BackStepUpdate(float _Delta);
+	void BackStepStart();
+	void BackStepUpdate(float _Delta);
 
-	 void AttackReadyStart();
-	 void AttackReadyUpdate(float _Delta);
+	void AttackReadyStart();
+	void AttackReadyUpdate(float _Delta);
 	
-	 void MeleeAttackStart();
-	 void MeleeAttackUpdate(float _Delta);
+	void MeleeAttackStart();
+	void MeleeAttackUpdate(float _Delta);
 	
-	 void RangeAttackStart();
-	 void RangeAttackUpdate(float _Delta);
+	void RangeAttackStart();
+	void RangeAttackUpdate(float _Delta);
 
-	 void RangeDeathStart();
-	 void RangeDeathUpdate(float _Delta);
+	void RangeDeathStart();
+	void RangeDeathUpdate(float _Delta);
 
-	 void MeleeDeathStart();
-	 void MeleeDeathUpdate(float _Delta);
+	void MeleeDeathStart();
+	void MeleeDeathUpdate(float _Delta);
 
-	 void AirDeathStart();
-	 void AirDeathUpdate(float _Delta);
+	void AirDeathStart();
+	void AirDeathUpdate(float _Delta);
 
-	 void DeathEndStart();
-	 void DeathEndUpdate(float _Delta);
+	void DeathEndStart();
+	void DeathEndUpdate(float _Delta);
+
+	void DeathCollisionCheck();
 
 private:
 	static std::list<Arabian*> AllArabian;
