@@ -20,6 +20,7 @@ enum class RenderOrder
 
 enum class CollisionOrder
 {
+	DebugCollision,
 	PlayerMeleeCollision,
 	PlayerCollision,
 	BulletCollision,

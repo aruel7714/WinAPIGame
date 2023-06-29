@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include "Granade.h"
+#include "BackGround.h"
 
 // 왼쪽 방향키 : 왼쪽 바라보기, 왼쪽으로 이동
 // 오른쪽 방향키 : 오른쪽 바라보기, 오른쪽으로 이동
@@ -443,6 +444,8 @@ void Player::MoveLowerUpdate(float _Delta)
 				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
 				AddPos(float4::UP);
 			}
+
+			
 
 			if (true == GameEngineInput::IsPress('S'))
 			{

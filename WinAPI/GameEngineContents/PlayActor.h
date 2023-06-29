@@ -24,11 +24,13 @@ public:
 
 	float4 ActorCameraPos();
 
+	void SetFocusOn();
+	void SetFocusOff();
+
 protected:
 
 private:
 	class GameEngineWindowTexture* GroundTexture = nullptr;
-
 
 // gravity
 public:
@@ -51,5 +53,7 @@ private:
 	float GravityPower = 2000.0f;
 	float4 GravityVector = float4::ZERO;
 
+	bool IsCameraFocus = true;
 };
+
 

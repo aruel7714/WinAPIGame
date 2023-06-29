@@ -18,6 +18,11 @@ PlayActor::~PlayActor()
 
 void PlayActor::CameraFocus()
 {
+	if (false == IsCameraFocus)
+	{
+		return;
+	}
+
 	float4 WindowScale = GameEngineWindow::MainWindow.GetScale();
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
 
@@ -81,4 +86,14 @@ void PlayActor::Gravity(float _Delta)
 float4 PlayActor::ActorCameraPos()
 {
 	return GetPos() - GetLevel()->GetMainCamera()->GetPos();
+}
+
+void PlayActor::SetFocusOn()
+{
+	IsCameraFocus = true;
+}
+
+void PlayActor::SetFocusOff()
+{
+	IsCameraFocus = false;
 }

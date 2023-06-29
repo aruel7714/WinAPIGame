@@ -473,6 +473,33 @@ void Player::Update(float _Delta)
 		GameEngineLevel::CollisionDebugRenderSwitch();
 	}
 
+	/*if (true == GameEngineInput::IsDown('P'))
+	{
+		SetFocusOff();;
+	}
+	if (true == GameEngineInput::IsDown('O'))
+	{
+		SetFocusOn();
+	}*/
+
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == BodyCollision->Collision(CollisionOrder::DebugCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+
+			Collision->Death();
+		}
+
+		SetFocusOff();
+		
+	}
 
 
 	CameraFocus();

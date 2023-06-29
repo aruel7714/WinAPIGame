@@ -37,6 +37,8 @@ protected:
 	SlaveState State = SlaveState::Max;
 	SlaveDir Dir = SlaveDir::Left;
 
+	void SetDir(SlaveDir _Dir);
+
 	void ChangeState(SlaveState _State);
 	void StateUpdate(float _Delta);
 

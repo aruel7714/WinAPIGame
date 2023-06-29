@@ -74,6 +74,11 @@ void SlaveNPC::Update(float _Delta)
 	StateUpdate(_Delta);
 }
 
+void SlaveNPC::SetDir(SlaveDir _Dir)
+{
+	Dir = _Dir;
+}
+
 void SlaveNPC::ChangeState(SlaveState _State)
 {
 	if (_State != State)
@@ -249,6 +254,25 @@ void SlaveNPC::MoveUpdate(float _Delta)
 			GameEngineActor* Actor = Collision->GetActor();
 		}
 		ChangeState(SlaveState::Gift);
+	}
+
+	if (SlaveRenderer->IsAnimation("Left_Slave_Move"))
+	{
+		AddPos(float4::LEFT * 0.25);
+		if (SlaveRenderer->IsAnimationEnd())
+		{
+			SetDir(SlaveDir::Right);
+			ChangeAnimationState("Move");
+		}
+	}
+	else if (SlaveRenderer->IsAnimation("Right_Slave_Move"))
+	{
+		AddPos(float4::RIGHT * 0.25);
+		if (SlaveRenderer->IsAnimationEnd())
+		{
+			SetDir(SlaveDir::Left);
+			ChangeAnimationState("Move");
+		}
 	}
 }
 
