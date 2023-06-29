@@ -28,9 +28,15 @@ private:
 
 	class BackGround* BackGroundPtr;
 	class Player* LevelPlayer = nullptr;
+
+	//Enemy
 	class Arabian* NewArabian1 = nullptr;
 	//class Arabian* NewArabian2 = nullptr;
+	
+	class FinalBoss* FinalBossPtr = nullptr;
 
+
+	//Etc
 	class SlaveNPC* NewSlave = nullptr;
 	class HeavyMachineGun* NewItem = nullptr;
 

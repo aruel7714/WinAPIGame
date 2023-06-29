@@ -9,6 +9,7 @@ enum class RenderOrder
 	Object2,
 	Enemy,
 	Boss,
+	BossAttack,
 	NPC,
 	Granade,
 	PlayerLower,
@@ -27,5 +28,7 @@ enum class CollisionOrder
 	ItemCollision,
 	EnemySwordCollision,
 	EnemyMeleeCollision,
-	EnemyCollision
+	EnemyCollision,
+	FinalBossCollision,
+	FinalBossAttackCollision
 };

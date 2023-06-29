@@ -1,5 +1,5 @@
 #pragma once
-#include "PlayActor.h"
+#include <GameEngineCore/GameEngineActor.h>
 
 enum class BossState
 {
@@ -14,8 +14,17 @@ enum class BossState
 	Max
 };
 
+enum class BossAttackState
+{
+	AttackBase, 
+	AttackReady,
+	Attack,
+	AttackEnd,
+	Max
+};
+
 // Ό³Έν : 
-class FinalBoss : PlayActor
+class FinalBoss : public GameEngineActor
 {
 public:
 	// constrcuter destructer
@@ -29,13 +38,25 @@ public:
 	FinalBoss& operator=(FinalBoss && _Other) noexcept = delete;
 
 	GameEngineRenderer* FinalBossRenderer = nullptr;
+	GameEngineRenderer* FinalBossAttackRenderer = nullptr;
+
+	GameEngineCollision* FinalBossBodyCollision = nullptr;
+	GameEngineCollision* FinalBossWingCollision = nullptr;
+	GameEngineCollision* FinalBossLeftAttackCollision = nullptr;
+	GameEngineCollision* FinalBossRightAttackCollision = nullptr;
 
 protected:
 	BossState State = BossState::Max;
-	void ChangeState(BossState _State);
-	void StateUpdate(float _Delta);
+	BossAttackState AttackState = BossAttackState::Max;
 
-	void ChangeAnimationState(const std::string& _State);
+	void ChangeMainState(BossState _State);
+	void MainStateUpdate(float _Delta);
+
+	void ChangeAttackState(BossAttackState _AttackState);
+	void AttackStateUpdate(float _Delta);
+
+	void ChangeMainAnimationState(const std::string& _State);
+	void ChangeAttackAnimationState(const std::string& _State);
 
 	void Pattern1Start();
 	void Pattern1Update(float _Delta);
@@ -61,7 +82,20 @@ protected:
 	void DestroyStart();
 	void DestroyUpdate(float _Delta);
 
+	void AttackBaseStart();
+	void AttackBaseUpdate(float _Delta);
+
+	void AttackReadyStart();
+	void AttackReadyUpdate(float _Delta);
+
+	void AttackStart();
+	void AttackUpdate(float _Delta);
+
+	void AttackEndStart();
+	void AttackEndUpdate(float _Delta);
+
 private:
 	void Start() override;
+	void Update(float _Delta) override;
 };
 

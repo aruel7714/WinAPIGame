@@ -12,6 +12,7 @@
 #include "GlobalValue.h"
 #include "HeavyMachineGun.h"
 #include "SlaveNPC.h"
+#include "FinalBoss.h"
 
 Stage1::Stage1()
 {
@@ -96,6 +97,9 @@ void Stage1::Start()
 	//EnemyArabian = CreateActor<Arabian>();
 	NewArabian1 = CreateActor<Arabian>();
 	NewArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
+
+	FinalBossPtr = CreateActor<FinalBoss>();
+	
 
 	NewItem = CreateActor<HeavyMachineGun>();
 	NewItem->SetGroundTexture("Mission1_Debug_Test.bmp");
