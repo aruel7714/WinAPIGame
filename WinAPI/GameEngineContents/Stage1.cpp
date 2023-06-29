@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Player.h"
 #include "BackGround.h"
@@ -13,6 +14,7 @@
 #include "HeavyMachineGun.h"
 #include "SlaveNPC.h"
 #include "FinalBoss.h"
+#include "DebugCollision.h"
 
 Stage1::Stage1()
 {
@@ -87,7 +89,15 @@ void Stage1::Start()
 
 	GlobalValue::MapScale = Ptr->GetScale();
 
-	
+	{
+		FirstCollision = CreateActor<DebugCollision>();
+		FirstCollision->FocusCollision->SetCollisionPos({ 4150, 400 });
+
+		if (true == FirstCollision->FocusCollision->IsDeath())
+		{
+
+		}
+	}
 	
 
 	LevelPlayer = CreateActor<Player>();

@@ -70,6 +70,9 @@
     <ClInclude Include="FinalBoss.h">
       <Filter>Global\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="DebugCollision.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -117,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="FinalBoss.cpp">
       <Filter>Global\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCollision.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

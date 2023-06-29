@@ -185,6 +185,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="DebugCollision.h" />
     <ClInclude Include="FinalBoss.h">
       <SubType>
       </SubType>
@@ -247,6 +248,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DebugCollision.cpp" />
     <ClCompile Include="FinalBoss.cpp">
       <SubType>
       </SubType>

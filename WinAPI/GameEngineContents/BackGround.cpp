@@ -23,13 +23,13 @@ void BackGround::Start()
 	ThirdRenderer = CreateRenderer(RenderOrder::ThirdBackGround);
 	DebugRenderer = CreateRenderer(RenderOrder::FirstBackGround);
 	
-	{
-		FirstCollision = CreateCollision(CollisionOrder::DebugCollision);
-		FirstCollision->SetCollisionScale({ 300, 500 });
-		FirstCollision->SetCollisionType(CollisionType::Rect);
-		//FirstCollision->SetCollisionPos({ 500, 100 });
-		FirstCollision->SetCollisionPos({ -3000, 200 });
-	}
+	//{
+	//	FirstCollision = CreateCollision(CollisionOrder::DebugCollision);
+	//	FirstCollision->SetCollisionScale({ 300, 500 });
+	//	FirstCollision->SetCollisionType(CollisionType::Rect);
+	//	//FirstCollision->SetCollisionPos({ 500, 100 });
+	//	FirstCollision->SetCollisionPos({ -3000, 200 });
+	//}
 
 	FirstRenderer->On();
 	//SecondRenderer->On();

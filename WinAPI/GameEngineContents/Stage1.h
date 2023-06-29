@@ -39,7 +39,8 @@ private:
 	//Etc
 	class SlaveNPC* NewSlave = nullptr;
 	class HeavyMachineGun* NewItem = nullptr;
-
+	
+	class DebugCollision* FirstCollision = nullptr;
 
 	//class Arabian* EnemyArabian = nullptr;
 	
