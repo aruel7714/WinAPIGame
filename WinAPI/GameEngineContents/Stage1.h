@@ -31,6 +31,8 @@ private:
 
 	//Enemy
 	class Arabian* NewArabian1 = nullptr;
+	class CamelArabian* NewCamelArabian1 = nullptr;
+	class CamelArabian* NewCamelArabian2 = nullptr;
 	//class Arabian* NewArabian2 = nullptr;
 	
 	class FinalBoss* FinalBossPtr = nullptr;
@@ -44,5 +46,6 @@ private:
 
 	//class Arabian* EnemyArabian = nullptr;
 	
+	bool IsCamelArabian = false;
 };
 

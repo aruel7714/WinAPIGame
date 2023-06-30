@@ -15,6 +15,7 @@
 #include "SlaveNPC.h"
 #include "FinalBoss.h"
 #include "DebugCollision.h"
+#include "CamelArabian.h"
 
 Stage1::Stage1()
 {
@@ -93,10 +94,7 @@ void Stage1::Start()
 		FirstCollision = CreateActor<DebugCollision>();
 		FirstCollision->FocusCollision->SetCollisionPos({ 4150, 400 });
 
-		if (true == FirstCollision->FocusCollision->IsDeath())
-		{
-
-		}
+		
 	}
 	
 
@@ -118,7 +116,8 @@ void Stage1::Start()
 	NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
 	NewSlave->SetPos({ 4000, 860 });
 	
-	
+	NewCamelArabian2 = CreateActor<CamelArabian>();
+	NewCamelArabian2->LowerCamelArabianRenderer->GetActor()->SetPos({ 12500, 860 });
 	
 	//NewArabian2 = CreateActor<Arabian>();
 	//NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");
@@ -151,6 +150,13 @@ void Stage1::Update(float _Delta)
 	//	Monster* NewMonster = CreateActor<Monster>(UpdateOrder::Monster);
 	//	ResetLiveTime();
 	//}
+
+	if (true == FirstCollision->FocusCollision->IsDeath() && false == IsCamelArabian)
+	{
+		NewCamelArabian1 = CreateActor<CamelArabian>();
+		NewCamelArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
+		IsCamelArabian = true;
+	}
 }
 void Stage1::Release() {}
 

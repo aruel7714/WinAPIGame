@@ -73,6 +73,9 @@
     <ClInclude Include="DebugCollision.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="CamelArabian.h">
+      <Filter>Global\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -123,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="DebugCollision.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="CamelArabian.cpp">
+      <Filter>Global\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

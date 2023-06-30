@@ -42,12 +42,14 @@ public:
 	CamelArabian& operator=(const CamelArabian & _Other) = delete;
 	CamelArabian& operator=(CamelArabian && _Other) noexcept = delete;
 
-	GameEngineRenderer* LowerCamelArabian = nullptr;
-	GameEngineRenderer* UpperCamelArabian = nullptr;
+	GameEngineRenderer* LowerCamelArabianRenderer = nullptr;
+	GameEngineRenderer* UpperCamelArabianRenderer = nullptr;
+	GameEngineRenderer* UpperDownCamelArabianRenderer = nullptr;
 
 protected:
 	CamelArabianLowerState LowerState = CamelArabianLowerState::Max;
 	CamelArabianUpperState UpperState = CamelArabianUpperState::Max;
+	CamelArabianDir Dir = CamelArabianDir::Left;
 
 	void ChangeLowerState(CamelArabianLowerState _LowerState);
 	void StateLowerUpdate(float _Delta);
@@ -57,6 +59,7 @@ protected:
 
 	void ChangeLowerAnimationState(const std::string& _State);
 	void ChangeUpperAnimationState(const std::string& _State);
+	void ChangeUpperDownAnimationState(const std::string& _State);
 
 	void IdleLowerStart();
 	void IdleLowerUpdate(float _Delta);
@@ -73,8 +76,8 @@ protected:
 	void DeathLowerStart();
 	void DeathLowerUpdate(float _Delta);
 
-	void EntranceUpperStart();
-	void EntranceUpperUpdate(float _Delta);
+	void EnteranceUpperStart();
+	void EnteranceUpperUpdate(float _Delta);
 
 	void IdleUpperStart();
 	void IdleUpperUpdate(float _Delta);
