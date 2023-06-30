@@ -18,10 +18,10 @@ public:
 	~Bullet();
 
 	// delete Function
-	Bullet(const Bullet & _Other) = delete;
-	Bullet(Bullet && _Other) noexcept = delete;
-	Bullet& operator=(const Bullet & _Other) = delete;
-	Bullet& operator=(Bullet && _Other) noexcept = delete;
+	Bullet(const Bullet& _Other) = delete;
+	Bullet(Bullet&& _Other) noexcept = delete;
+	Bullet& operator=(const Bullet& _Other) = delete;
+	Bullet& operator=(Bullet&& _Other) noexcept = delete;
 
 	class GameEngineRenderer* Renderer;
 
@@ -35,7 +35,11 @@ public:
 		Speed = _Speed;
 	}
 
-	void SetDirTexture();
+	
+
+	void SetPistolDirTexture();
+
+	void SetRifleDirTexture();
 
 protected:
 

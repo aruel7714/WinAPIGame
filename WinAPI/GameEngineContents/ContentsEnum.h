@@ -2,11 +2,11 @@
 
 enum class RenderOrder
 {
+	CloudBackGround,
 	ThirdBackGround,
 	SecondBackGround,
 	FirstBackGround,
 	Object1,
-	Object2,
 	CamelUpper,
 	CamelLower,
 	CamelUpperDown,
@@ -19,6 +19,7 @@ enum class RenderOrder
 	PlayerUpper,
 	ItemRenderer,
 	WeaponSFX,
+	Object2,
 	PlayUI
 };
 

@@ -51,6 +51,8 @@ protected:
 
 	void ExplosionEnd();
 
+	float4 GravityDir = float4::ZERO;
+
 private:
 	void Start() override;
 	void Update(float _Delta) override;

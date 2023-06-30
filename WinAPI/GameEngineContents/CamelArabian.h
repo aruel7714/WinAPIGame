@@ -96,6 +96,8 @@ protected:
 
 
 private:
+	GameEngineCollision* CamelArabianCollision = nullptr;
+
 	void Start() override;
 	void Update(float _Delta) override;
 };

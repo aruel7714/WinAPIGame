@@ -3,6 +3,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "Player.h"
 
 Granade::Granade()
 {
@@ -177,8 +178,15 @@ void Granade::ChangeAnimationState(const std::string& _State)
 
 void Granade::FireStart()
 {
-	float4 GravityDir = float4::UP;
-	GravityDir += (float4::RIGHT);
+	GravityDir = float4::UP;
+	if (Player::Dir == PlayerDir::Right)
+	{
+		GravityDir += (float4::RIGHT);
+	}
+	else if (Player::Dir == PlayerDir::Left)
+	{
+		GravityDir += (float4::LEFT);
+	}
 	SetGravityVector(GravityDir * 600.0f);
 	ChangeAnimationState("Fire");
 }
@@ -217,8 +225,6 @@ void Granade::FireUpdate(float _Delta)
 
 void Granade::BoundStart()
 {
-	float4 GravityDir = (float4::UP);
-	GravityDir += (float4::RIGHT);
 	SetGravityVector(GravityDir * 500.0f);
 	ChangeAnimationState("Bound");
 }

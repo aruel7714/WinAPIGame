@@ -21,6 +21,8 @@ void BackGround::Start()
 	FirstRenderer = CreateRenderer(RenderOrder::FirstBackGround);
 	SecondRenderer = CreateRenderer(RenderOrder::SecondBackGround);
 	ThirdRenderer = CreateRenderer(RenderOrder::ThirdBackGround);
+	CloudRenderer = CreateRenderer(RenderOrder::CloudBackGround);
+	ObjectRenderer = CreateRenderer(RenderOrder::Object2);
 	DebugRenderer = CreateRenderer(RenderOrder::FirstBackGround);
 	
 	//{
@@ -143,6 +145,48 @@ void BackGround::ThirdInit(const std::string& _ThirdFileName)
 	SetPos({ Scale.hX(), Scale.hY() });
 }
 
+void BackGround::ObjectInit(const std::string& _ObjectFileName)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_ObjectFileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _ObjectFileName);
+
+		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+	}
+
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_ObjectFileName);
+	float4 Scale = Texture->GetScale();
+
+	ObjectRenderer->SetTexture(_ObjectFileName);
+	ObjectRenderer->SetRenderScale(Scale);
+
+	SetPos({ Scale.hX(), Scale.hY() });
+}
+
+void BackGround::CloudInit(const std::string& _CloudFileName)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_CloudFileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\Map\\" + _CloudFileName);
+
+		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+	}
+
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_CloudFileName);
+	float4 Scale = Texture->GetScale();
+
+	CloudRenderer->SetTexture(_CloudFileName);
+	CloudRenderer->SetRenderScale(Scale);
+
+	SetPos({ Scale.hX(), Scale.hY() });
+}
+
 //void BackGround::InitDebug(const std::string& _DebugFileName)
 //{
 //	if (false == ResourcesManager::GetInst().IsLoadTexture(_DebugFileName))
@@ -233,6 +277,7 @@ void BackGround::SwitchRender()
 		FirstRenderer->On();
 		SecondRenderer->On();
 		ThirdRenderer->On();
+		ObjectRenderer->On();
 		DebugRenderer->Off();
 	}
 	else
@@ -240,6 +285,7 @@ void BackGround::SwitchRender()
 		FirstRenderer->Off();
 		SecondRenderer->Off();
 		ThirdRenderer->Off();
+		ObjectRenderer->Off();
 		DebugRenderer->On();
 	}
 }

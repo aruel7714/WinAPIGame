@@ -56,7 +56,14 @@ void Bullet::Start()
 
 	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.01f, false);
 	
-	SetDirTexture();
+	if (Player::WeaponName == "Pistol_")
+	{
+		SetPistolDirTexture();
+	}
+	else if (Player::WeaponName == "Rifle_")
+	{
+		SetRifleDirTexture();
+	}
 
 	/*ResourcesManager::GetInst().FindTexture("PistolBullet.bmp");
 	Renderer->SetTexture("PistolBullet.bmp");*/
@@ -106,7 +113,7 @@ void Bullet::Update(float _Delta)
 	}
 }
 
-void Bullet::SetDirTexture()
+void Bullet::SetPistolDirTexture()
 {
 	if (Player::BulletDir == PlayerBulletDir::Left ||
 		Player::BulletDir == PlayerBulletDir::Right)
@@ -122,4 +129,9 @@ void Bullet::SetDirTexture()
 		ResourcesManager::GetInst().FindTexture("PistolBulletUpDown.bmp");
 		Renderer->SetTexture("PistolBulletUpDown.bmp");
 	}
+}
+
+void Bullet::SetRifleDirTexture()
+{
+
 }

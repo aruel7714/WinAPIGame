@@ -719,6 +719,15 @@ void Player::FireStart()
 
 		NewBullet->SetPos(Pos);
 	}
+
+	if (WeaponName == "Rifle_")
+	{
+		if (RifleDir == PlayerRifleBulletDir::Right)
+		{
+			Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+			NewBullet->SetDir(float4::RIGHT);
+		}
+	}
 	
 }
 void Player::FireUpdate(float _Delta)

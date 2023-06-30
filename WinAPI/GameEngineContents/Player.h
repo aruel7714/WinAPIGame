@@ -79,12 +79,27 @@ enum class PlayerBulletDir
 	Max
 };
 
+enum class PlayerRifleBulletDir
+{
+	Left,
+	LeftUp30,
+	LeftUp45,
+	LeftUp60,
+	LeftUP90,
+	Right,
+	RightUp30,
+	RightUp45,
+	RightUp60,
+	RightUp90
+};
+
 // Ό³Έν : 
 class Player : public PlayActor
 {
 	friend class Arabian;
 	friend class HeavyMachineGun;
 	friend class Bullet;
+	friend class Granade;
 private:
 	static Player* MainPlayer;
 
@@ -231,8 +246,11 @@ protected:
 	void SwordDeathStart();
 	void SwordDeathUpdate(float _Delta);
 
-	PlayerDir Dir = PlayerDir::Right;
+	static PlayerDir Dir;
 	static PlayerBulletDir BulletDir;
+	static PlayerRifleBulletDir RifleDir;
+
+	//PlayerRifleBulletDir RifleDir = PlayerRifleBulletDir::Right;
 	void DirCheck();
 	void BulletDirCheck();
 
