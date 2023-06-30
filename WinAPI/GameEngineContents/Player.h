@@ -65,8 +65,17 @@ enum class PlayerDir
 {
 	Left,
 	Right,
-	Up,
-	Down,
+	Max
+};
+
+enum class PlayerBulletDir
+{
+	Left,
+	Right,
+	LeftUp,
+	RightUp,
+	LeftDown,
+	RightDown,
 	Max
 };
 
@@ -222,7 +231,9 @@ protected:
 	void SwordDeathUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
+	PlayerBulletDir BulletDir = PlayerBulletDir::Right;
 	void DirCheck();
+	void BulletDirCheck();
 
 	std::string CurState = "";
 	std::string PrevState = "";

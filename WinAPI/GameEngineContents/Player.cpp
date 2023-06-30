@@ -800,6 +800,51 @@ void Player::DirCheck()
 	
 }
 
+void Player::BulletDirCheck()
+{
+	if (true == GameEngineInput::IsFree(VK_UP) &&
+		true == GameEngineInput::IsFree(VK_DOWN) &&
+		Dir == PlayerDir::Left)
+	{
+		BulletDir = PlayerBulletDir::Left;
+		return;
+	}
+	if (true == GameEngineInput::IsFree(VK_UP) &&
+		true == GameEngineInput::IsFree(VK_DOWN) &&
+		Dir == PlayerDir::Right)
+	{
+		BulletDir = PlayerBulletDir::Right;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_UP) &&
+		Dir == PlayerDir::Left)
+	{
+		BulletDir = PlayerBulletDir::LeftUp;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_UP) && 
+		Dir == PlayerDir::Right)
+	{
+		BulletDir = PlayerBulletDir::RightUp;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_DOWN) &&
+		Dir == PlayerDir::Left &&
+		(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
+	{
+		BulletDir = PlayerBulletDir::LeftDown;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_DOWN) &&
+		Dir == PlayerDir::Right &&
+		(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
+	{
+		BulletDir = PlayerBulletDir::RightDown;
+		return;
+	}
+	
+}
+
 void Player::ChangeAnimationState(const std::string & _State)
 {
 	std::string LowerAnimationName;

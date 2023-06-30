@@ -664,16 +664,58 @@ void Player::MoveJumpUpperUpdate(float _Delta)
 
 void Player::FireStart()
 {
+	BulletDirCheck();
 	ChangeUpperAnimationState("Fire");
 	{
 		Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
-
-		NewBullet->SetDir(float4::RIGHT);
-
 		float4 Pos = GetPos();
 
-		Pos.X += 132;
-		Pos.Y -= 112;
+		if (BulletDir == PlayerBulletDir::Right)
+		{
+			NewBullet->SetDir(float4::RIGHT);
+
+			Pos.X += 132;
+			Pos.Y -= 112;
+
+			
+		}
+		else if (BulletDir == PlayerBulletDir::Left)
+		{
+			NewBullet->SetDir(float4::LEFT);
+
+			Pos.X -= 132;
+			Pos.Y -= 112;
+
+		}
+		else if (BulletDir == PlayerBulletDir::RightUp)
+		{
+			NewBullet->SetDir(float4::UP);
+
+			Pos.X += 0;
+			Pos.Y -= 224;
+		}
+		else if (BulletDir == PlayerBulletDir::LeftUp)
+		{
+			NewBullet->SetDir(float4::UP);
+
+			Pos.X -= 0;
+			Pos.Y -= 224;
+
+		}
+		else if (BulletDir == PlayerBulletDir::LeftDown)
+		{
+			NewBullet->SetDir(float4::DOWN);
+
+			Pos.X -= 15;
+			Pos.Y -= 0;
+		}
+		else if (BulletDir == PlayerBulletDir::RightDown)
+		{
+			NewBullet->SetDir(float4::DOWN);
+
+			Pos.X += 15;
+			Pos.Y -= 0;
+		}
 
 		NewBullet->SetPos(Pos);
 	}
@@ -681,7 +723,7 @@ void Player::FireStart()
 }
 void Player::FireUpdate(float _Delta)
 {
-
+	BulletDirCheck();
 	if (true == GameEngineInput::IsDown(VK_LEFT) || true == GameEngineInput::IsDown(VK_RIGHT))
 	{
 		ChangeUpperState(PlayerUpperState::Move);
@@ -691,14 +733,56 @@ void Player::FireUpdate(float _Delta)
 	{	
 		{
 			Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
-
-			NewBullet->SetDir(float4::RIGHT);
-
 			float4 Pos = GetPos();
 
-			Pos.X += 132;
-			Pos.Y -= 112;
+			if (BulletDir == PlayerBulletDir::Right)
+			{
+				NewBullet->SetDir(float4::RIGHT);
 
+				Pos.X += 132;
+				Pos.Y -= 112;
+
+
+			}
+			else if (BulletDir == PlayerBulletDir::Left)
+			{
+				NewBullet->SetDir(float4::LEFT);
+
+				Pos.X -= 132;
+				Pos.Y -= 112;
+
+			}
+			else if (BulletDir == PlayerBulletDir::RightUp)
+			{
+				NewBullet->SetDir(float4::UP);
+
+				Pos.X += 0;
+				Pos.Y -= 224;
+				
+			}
+			else if (BulletDir == PlayerBulletDir::LeftUp)
+			{
+				NewBullet->SetDir(float4::UP);
+
+				Pos.X -= 0;
+				Pos.Y -= 224;
+
+			}
+			else if (BulletDir == PlayerBulletDir::LeftDown)
+			{
+				NewBullet->SetDir(float4::DOWN);
+
+				Pos.X -= 15;
+				Pos.Y -= 0;
+			}
+			else if (BulletDir == PlayerBulletDir::RightDown)
+			{
+				NewBullet->SetDir(float4::DOWN);
+
+				Pos.X += 15;
+				Pos.Y -= 0;
+			}
+			
 			NewBullet->SetPos(Pos);
 		}
 		ChangeUpperAnimationState("Fire", true);

@@ -85,7 +85,7 @@ void Bullet::Update(float _Delta)
 		if (nullptr != Renderer)
 		{
 			Renderer->Off();
-			//BulletCollision->Off();
+			BulletCollision->Off();
 		}
 	}
 }
