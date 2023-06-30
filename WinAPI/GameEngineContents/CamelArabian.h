@@ -49,7 +49,7 @@ public:
 protected:
 	CamelArabianLowerState LowerState = CamelArabianLowerState::Max;
 	CamelArabianUpperState UpperState = CamelArabianUpperState::Max;
-	CamelArabianDir Dir = CamelArabianDir::Left;
+	CamelArabianDir Dir = CamelArabianDir::Right;
 
 	void ChangeLowerState(CamelArabianLowerState _LowerState);
 	void StateLowerUpdate(float _Delta);

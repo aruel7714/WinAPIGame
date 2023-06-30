@@ -79,7 +79,7 @@ void CamelArabian::Start()
 
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Idle", "CamelArabian_Lower.bmp", 0, 3, 1.0f, true);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Move", "CamelArabian_Lower.bmp", 15, 4, 2.0f, true);
-		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Down", "CamelArabian_Lower.bmp", 16, 18, 1.0f, true);
+		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Down", "CamelArabian_Lower.bmp", 16, 18, 5.0f, true);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_DownIdle", "CamelArabian_Lower.bmp", 19, 22, 1.0f, true);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Death", "CamelArabian_Lower_Death.bmp", 0, 11, 1.0f, true);
 	}
@@ -92,23 +92,23 @@ void CamelArabian::Start()
 		UpperCamelArabianRenderer->CreateAnimation("CamelArabian_Left_Upper_Death", "Left_CamelArabian_Upper.bmp", 0, 9, 1.0f, true);
 
 		UpperCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Enterance", "Right_CamelArabian_Upper.bmp", 0, 9, 1.0f, true);
-		UpperCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Idle", "Right_CamelArabian_Upper.bmp", 0, 9, 1.0f, true);
+		UpperCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Idle", "Right_CamelArabian_Upper.bmp", 10, 12, 1.0f, true);
 		UpperCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Death", "Right_CamelArabian_Upper.bmp", 0, 9, 1.0f, true);
 	}
 
 	{
 		UpperDownCamelArabianRenderer = CreateRenderer(RenderOrder::CamelUpperDown);
 
-		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Left_Upper_Down", "Left_CamelArabian_Upper.bmp", 13, 15, 1.0f, true);
+		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Left_Upper_Down", "Left_CamelArabian_Upper.bmp", 13, 15, 5.0f, true);
 		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Left_Upper_DownIdle", "Left_CamelArabian_Upper.bmp", 26, 28, 1.0f, true);
 		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Left_Upper_Fire", "Left_CamelArabian_Upper.bmp", 16, 25, 1.0f, true);
 
-		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Down", "Right_CamelArabian_Upper.bmp", 0, 0, 1.0f, true);
-		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_DownIdle", "Right_CamelArabian_Upper.bmp", 0, 0, 1.0f, true);
-		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Fire", "Right_CamelArabian_Upper.bmp", 0, 0, 1.0f, true);
+		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Down", "Right_CamelArabian_Upper.bmp", 13, 15, 1.0f, true);
+		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_DownIdle", "Right_CamelArabian_Upper.bmp", 26, 28, 1.0f, true);
+		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Fire", "Right_CamelArabian_Upper.bmp", 16, 25, 1.0f, true);
 	}
 
-	ChangeLowerState(CamelArabianLowerState::DownIdle);
+	ChangeLowerState(CamelArabianLowerState::Down);
 	ChangeUpperState(CamelArabianUpperState::Enterance);
 	ChangeUpperState(CamelArabianUpperState::Down);
 
@@ -116,7 +116,7 @@ void CamelArabian::Start()
 	UpperDownCamelArabianRenderer->SetRenderPos({ 40, -168 });
 
 	UpperCamelArabianRenderer->Off();
-	UpperDownCamelArabianRenderer->Off();
+	UpperDownCamelArabianRenderer->On();
 	//LowerCamelArabianRenderer->GetActor()->SetPos({ 4300, 860 });
 	
 }
@@ -299,7 +299,7 @@ void CamelArabian::DownLowerUpdate(float _Delta)
 {
 	if (LowerCamelArabianRenderer->IsAnimationEnd())
 	{
-		ChangeLowerState(CamelArabianLowerState::DownIdle);
+		//ChangeLowerState(CamelArabianLowerState::DownIdle);
 	}
 }
 
@@ -311,7 +311,7 @@ void CamelArabian::DownIdleLowerUpdate(float _Delta)
 {
 	if (LowerCamelArabianRenderer->IsAnimationEnd())
 	{
-		ChangeLowerState(CamelArabianLowerState::Down);
+	//	ChangeLowerState(CamelArabianLowerState::Down);
 	}
 }
 
@@ -349,7 +349,10 @@ void CamelArabian::DownUpperStart()
 }
 void CamelArabian::DownUpperUpdate(float _Delta)
 {
-
+	if (UpperDownCamelArabianRenderer->IsAnimationEnd())
+	{
+		//ChangeUpperState(CamelArabianUpperState::Fire);
+	}
 }
 
 void CamelArabian::DownIdleUpperStart()
@@ -358,7 +361,10 @@ void CamelArabian::DownIdleUpperStart()
 }
 void CamelArabian::DownIdleUpperUpdate(float _Delta)
 {
-
+	if (UpperDownCamelArabianRenderer->IsAnimationEnd())
+	{
+		ChangeUpperState(CamelArabianUpperState::Down);
+	}
 }
 
 void CamelArabian::FireUpperStart()
@@ -369,9 +375,10 @@ void CamelArabian::FireUpperUpdate(float _Delta)
 {
 	if (UpperDownCamelArabianRenderer->IsAnimationEnd())
 	{
-		UpperDownCamelArabianRenderer->Off();
+		/*UpperDownCamelArabianRenderer->Off();
 		UpperCamelArabianRenderer->On();
-		ChangeUpperState(CamelArabianUpperState::Idle);
+		ChangeUpperState(CamelArabianUpperState::Idle);*/
+		ChangeUpperState(CamelArabianUpperState::DownIdle);
 	}
 }
 
@@ -381,5 +388,5 @@ void CamelArabian::DeathUpperStart()
 }
 void CamelArabian::DeathUpperUpdate(float _Delta)
 {
-
+	
 }
