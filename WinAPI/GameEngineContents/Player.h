@@ -84,6 +84,7 @@ class Player : public PlayActor
 {
 	friend class Arabian;
 	friend class HeavyMachineGun;
+	friend class Bullet;
 private:
 	static Player* MainPlayer;
 
@@ -231,7 +232,7 @@ protected:
 	void SwordDeathUpdate(float _Delta);
 
 	PlayerDir Dir = PlayerDir::Right;
-	PlayerBulletDir BulletDir = PlayerBulletDir::Right;
+	static PlayerBulletDir BulletDir;
 	void DirCheck();
 	void BulletDirCheck();
 

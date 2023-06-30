@@ -3,6 +3,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnum.h"
+#include "Player.h"
 
 
 Bullet::Bullet()
@@ -29,6 +30,19 @@ void Bullet::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("PistolBullet.bmp"));
 	}
 
+	if (false == ResourcesManager::GetInst().IsLoadTexture("PistolBulletUpDown.bmp"))
+	{
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\");
+
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("PistolBulletUpDown.bmp"));
+	}
+
 	if (false == ResourcesManager::GetInst().IsLoadTexture("WeaponExplosion.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -41,9 +55,11 @@ void Bullet::Start()
 	}
 
 	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.01f, false);
+	
+	SetDirTexture();
 
-	ResourcesManager::GetInst().FindTexture("PistolBullet.bmp");
-	Renderer->SetTexture("PistolBullet.bmp");
+	/*ResourcesManager::GetInst().FindTexture("PistolBullet.bmp");
+	Renderer->SetTexture("PistolBullet.bmp");*/
 	Renderer->SetRenderScaleToTexture();
 
 
@@ -87,5 +103,23 @@ void Bullet::Update(float _Delta)
 			Renderer->Off();
 			BulletCollision->Off();
 		}
+	}
+}
+
+void Bullet::SetDirTexture()
+{
+	if (Player::BulletDir == PlayerBulletDir::Left ||
+		Player::BulletDir == PlayerBulletDir::Right)
+	{
+		ResourcesManager::GetInst().FindTexture("PistolBullet.bmp");
+		Renderer->SetTexture("PistolBullet.bmp");
+	}
+	else if (Player::BulletDir == PlayerBulletDir::LeftUp ||
+		Player::BulletDir == PlayerBulletDir::RightUp ||
+		Player::BulletDir == PlayerBulletDir::LeftDown ||
+		Player::BulletDir == PlayerBulletDir::RightDown)
+	{
+		ResourcesManager::GetInst().FindTexture("PistolBulletUpDown.bmp");
+		Renderer->SetTexture("PistolBulletUpDown.bmp");
 	}
 }

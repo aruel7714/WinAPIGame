@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "PlayActor.h"
 
 enum class BulletState
 {
@@ -10,7 +10,7 @@ enum class BulletState
 };
 
 // Ό³Έν : 
-class Bullet : public GameEngineActor
+class Bullet : public PlayActor
 {
 public:
 	// constrcuter destructer
@@ -34,6 +34,8 @@ public:
 	{
 		Speed = _Speed;
 	}
+
+	void SetDirTexture();
 
 protected:
 

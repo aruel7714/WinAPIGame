@@ -14,6 +14,7 @@
 
 Player* Player::MainPlayer = nullptr;
 std::string Player::WeaponName = "";
+PlayerBulletDir Player::BulletDir = PlayerBulletDir::Right;
 
 Player::Player()
 {
