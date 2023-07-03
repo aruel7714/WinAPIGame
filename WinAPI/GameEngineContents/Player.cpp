@@ -11,6 +11,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "Bullet.h"
 
 Player* Player::MainPlayer = nullptr;
 std::string Player::WeaponName = "";
@@ -369,7 +370,7 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Move", "Right_Rifle_Upper.bmp", 6, 17, 0.04f, true);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_IdleJump", "Right_Rifle_Upper.bmp", 18, 23, 0.1f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MoveJump", "Right_Rifle_Upper.bmp", 24, 29, 0.1f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 30, 33, 0.05f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 30, 33, 0.02f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Granade", "Right_Rifle_Upper.bmp", 34, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt1", "Right_Rifle_Upper.bmp", 40, 45, 0.01f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt2", "Right_Rifle_Upper.bmp", 46, 51, 0.02f, false);
@@ -377,14 +378,14 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookDown", "Right_Rifle_Upper.bmp", 53, 52, 0.05f, false);
 		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle1", "Right_Rifle_Upper.bmp", 54, 57, 0.1f, false);
 		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle2", "Right_Rifle_Upper.bmp", 56, 55, 0.1f, false);
-		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 58, 61, 0.05f, false);
+		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 58, 61, 0.02f, false);
 		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_FireEnd", "Right_Rifle_Upper.bmp", 62, 67, 0.1f, false);
 		// Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation("")
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookDown", "Right_Rifle_Upper.bmp", 72, 73, 1.0f, false);
-		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookUp", "Right_Rifle_Upper.bmp", 73, 72, 1.0f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookDown", "Right_Rifle_Upper.bmp", 72, 73, 0.05f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_JumpLookUp", "Right_Rifle_Upper.bmp", 73, 72, 0.05f, false);
 		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Idle", "Right_Rifle_Upper.bmp", 74, 74, 1.0f, false);
-		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 75, 78, 1.0f, false);
+		UpperRenderer->CreateAnimation("RightDown_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 75, 78, 0.02f, false);
 		// ¾Æ·¡·Î Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation()
 
@@ -455,8 +456,8 @@ void Player::Start()
 	}
 
 
-	WeaponName = "Pistol_";
-	//WeaponName = "Rifle_";
+	//WeaponName = "Pistol_";
+	WeaponName = "Rifle_";
 
 	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
@@ -848,6 +849,52 @@ void Player::BulletDirCheck()
 	
 }
 
+void Player::RifleDirCheck()
+{
+	if (true == GameEngineInput::IsFree(VK_UP) &&
+		true == GameEngineInput::IsFree(VK_DOWN) &&
+		Dir == PlayerDir::Left)
+	{
+		RifleDir = PlayerRifleBulletDir::Left;
+		return;
+	}
+	if (true == GameEngineInput::IsFree(VK_UP) &&
+		true == GameEngineInput::IsFree(VK_DOWN) &&
+		Dir == PlayerDir::Right)
+	{
+		RifleDir = PlayerRifleBulletDir::Right;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_UP) &&
+		Dir == PlayerDir::Left)
+	{
+		RifleDir = PlayerRifleBulletDir::LeftUp90;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_UP) &&
+		Dir == PlayerDir::Right)
+	{
+		RifleDir = PlayerRifleBulletDir::RightUp90;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_DOWN) &&
+		Dir == PlayerDir::Left &&
+		(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
+	{
+		RifleDir = PlayerRifleBulletDir::LeftDown90;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_DOWN) &&
+		Dir == PlayerDir::Right &&
+		(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
+	{
+		RifleDir = PlayerRifleBulletDir::RightDown90;
+		return;
+	}
+	
+
+}
+
 void Player::ChangeAnimationState(const std::string & _State)
 {
 	std::string LowerAnimationName;
@@ -1028,4 +1075,108 @@ void Player::ChangeUpperAnimationState(const std::string& _State, bool _IsForce)
 	}
 
 	UpperRenderer->ChangeAnimation(UpperAnimationName, 0, _IsForce);
+}
+
+void Player::BulletFire()
+{
+	if (WeaponName == "Pistol_")
+	{
+		BulletDirCheck();
+		Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+		float4 Pos = GetPos();
+
+		if (BulletDir == PlayerBulletDir::Right)
+		{
+			NewBullet->SetDir(float4::RIGHT);
+
+			Pos.X += 132;
+			Pos.Y -= 112;
+
+
+		}
+		else if (BulletDir == PlayerBulletDir::Left)
+		{
+			NewBullet->SetDir(float4::LEFT);
+
+			Pos.X -= 132;
+			Pos.Y -= 112;
+
+		}
+		else if (BulletDir == PlayerBulletDir::RightUp)
+		{
+			NewBullet->SetDir(float4::UP);
+
+			Pos.X += 0;
+			Pos.Y -= 224;
+		}
+		else if (BulletDir == PlayerBulletDir::LeftUp)
+		{
+			NewBullet->SetDir(float4::UP);
+
+			Pos.X -= 0;
+			Pos.Y -= 224;
+
+		}
+		else if (BulletDir == PlayerBulletDir::LeftDown)
+		{
+			NewBullet->SetDir(float4::DOWN);
+
+			Pos.X -= 15;
+			Pos.Y -= 0;
+		}
+		else if (BulletDir == PlayerBulletDir::RightDown)
+		{
+			NewBullet->SetDir(float4::DOWN);
+
+			Pos.X += 15;
+			Pos.Y -= 0;
+		}
+
+		NewBullet->SetPos(Pos);
+	}
+	else if (WeaponName == "Rifle_")
+	{
+		RifleDirCheck();
+		Bullet* NewBullet = GetLevel()->CreateActor<Bullet>();
+		float4 Pos = GetPos();
+
+		if (RifleDir == PlayerRifleBulletDir::Right)
+		{
+			NewBullet->SetDir(float4::RIGHT);
+			Pos.X += 132;
+			Pos.Y -= 80;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::Left)
+		{
+			NewBullet->SetDir(float4::LEFT);
+			Pos.X -= 132;
+			Pos.Y -= 80;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::RightUp90)
+		{
+			NewBullet->SetDir(float4::UP);
+			Pos.X += 0;
+			Pos.Y -= 224;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::LeftUp90)
+		{
+			NewBullet->SetDir(float4::UP);
+			Pos.X -= 0;
+			Pos.Y -= 224;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::LeftDown90)
+		{
+			NewBullet->SetDir(float4::DOWN);
+			Pos.X += 15;
+			Pos.Y += 20;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::RightDown90)
+		{
+			NewBullet->SetDir(float4::DOWN);
+			Pos.X -= 15;
+			Pos.Y += 20;
+		}
+
+		NewBullet->SetPos(Pos);
+	}
 }

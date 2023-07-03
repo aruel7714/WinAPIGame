@@ -50,8 +50,62 @@ void Bullet::Start()
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
 		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\");
-		
+
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("WeaponExplosion.bmp"), 5, 2);
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunRight.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunRight.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeft.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeft.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunRightUp90.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunRightUp90.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeftUp90.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftUp90.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunRightDown90.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunRightDown90.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeftDown90.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftDown90.bmp"));
 	}
 
 	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.01f, false);
@@ -133,5 +187,34 @@ void Bullet::SetPistolDirTexture()
 
 void Bullet::SetRifleDirTexture()
 {
-
+	if (Player::RifleDir == PlayerRifleBulletDir::Right)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunRight.bmp");
+		Renderer->SetTexture("HeavyMachineGunRight.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::Left)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeft.bmp");
+		Renderer->SetTexture("HeavyMachineGunLeft.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::RightUp90)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunRightUp90.bmp");
+		Renderer->SetTexture("HeavyMachineGunRightUp90.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp90)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp90.bmp");
+		Renderer->SetTexture("HeavyMachineGunLeftUP90.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::RightDown90)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunRightDown90.bmp");
+		Renderer->SetTexture("HeavyMachineGunRightUp90.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::LeftDown90)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftDown90.bmp");
+		Renderer->SetTexture("HeavyMachineGunLeftUP90.bmp");
+	}
 }

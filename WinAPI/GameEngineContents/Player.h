@@ -85,12 +85,20 @@ enum class PlayerRifleBulletDir
 	LeftUp30,
 	LeftUp45,
 	LeftUp60,
-	LeftUP90,
+	LeftUp90,
+	LeftDown30,
+	LeftDown45,
+	LeftDown60,
+	LeftDown90,
 	Right,
 	RightUp30,
 	RightUp45,
 	RightUp60,
-	RightUp90
+	RightUp90,
+	RightDown30,
+	RightDown45,
+	RightDown60,
+	RightDown90
 };
 
 // Ό³Έν : 
@@ -253,6 +261,7 @@ protected:
 	//PlayerRifleBulletDir RifleDir = PlayerRifleBulletDir::Right;
 	void DirCheck();
 	void BulletDirCheck();
+	void RifleDirCheck();
 
 	std::string CurState = "";
 	std::string PrevState = "";
@@ -281,7 +290,7 @@ private:
 	float4 Pos = float4::ZERO;
 	// Debug
 	
-
-
+	int MachineGunCount = 4;
+	void BulletFire();
 };
 
