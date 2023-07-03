@@ -52,6 +52,8 @@ enum class PlayerUpperState
 	JumpLookUp,
 	DownFire,
 	MeleeAtt,
+	LookUpFire,
+	LookDownFire,
 	Max
 };
 
@@ -254,6 +256,12 @@ protected:
 	void SwordDeathStart();
 	void SwordDeathUpdate(float _Delta);
 
+	void LookUpFireStart();
+	void LookUpFireUpdate(float _Delta);
+
+	void LookDownFireStart();
+	void LookDownFireUpdate(float _Delta);
+
 	static PlayerDir Dir;
 	static PlayerBulletDir BulletDir;
 	static PlayerRifleBulletDir RifleDir;
@@ -292,5 +300,8 @@ private:
 	
 	int MachineGunCount = 4;
 	void BulletFire();
+	float4 RifleBulletDir = float4::ZERO;
+	float BulletPlusDir = 0.25f;
+	int AngleCount = 0;
 };
 
