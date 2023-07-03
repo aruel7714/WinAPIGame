@@ -95,5 +95,5 @@ void PlayActor::SetFocusOn()
 
 void PlayActor::SetFocusOff()
 {
-	IsCameraFocus = false;
+	IsCameraFocus = true;
 }

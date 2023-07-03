@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 CamelArabian::CamelArabian()
 {
@@ -108,17 +109,28 @@ void CamelArabian::Start()
 		UpperDownCamelArabianRenderer->CreateAnimation("CamelArabian_Right_Upper_Fire", "Right_CamelArabian_Upper.bmp", 16, 25, 1.0f, true);
 	}
 
-	ChangeLowerState(CamelArabianLowerState::Death);
-	ChangeUpperState(CamelArabianUpperState::Death);
-	ChangeUpperState(CamelArabianUpperState::Down);
+	
+
+	ChangeLowerState(CamelArabianLowerState::Idle);
+	ChangeUpperState(CamelArabianUpperState::Idle);
+	ChangeUpperState(CamelArabianUpperState::DownIdle);
 
 	UpperCamelArabianRenderer->SetRenderPos({ 40, -168 });
 	UpperDownCamelArabianRenderer->SetRenderPos({ 40, -168 });
 
-	LowerCamelArabianRenderer->Off();
-	UpperCamelArabianRenderer->On();
-	UpperDownCamelArabianRenderer->Off();
+	LowerCamelArabianRenderer->On();
+	UpperCamelArabianRenderer->Off();
+	UpperDownCamelArabianRenderer->On();
 	//LowerCamelArabianRenderer->GetActor()->SetPos({ 4300, 860 });
+
+	{
+		CamelArabianCollision = CreateCollision(CollisionOrder::EnemyCollision);
+
+		CamelArabianCollision->SetCollisionScale({ 100, 100 });
+		CamelArabianCollision->SetCollisionType(CollisionType::Rect);
+		
+		//CamelArabianCollision->SetCollisionPos({ 60, -240 });
+	}
 	
 }
 
@@ -328,10 +340,14 @@ void CamelArabian::DeathLowerUpdate(float _Delta)
 void CamelArabian::EnteranceUpperStart()
 {
 	ChangeUpperAnimationState("Enterance");
+	CamelArabianCollision->SetCollisionPos({ 60, -240 });
 }
 void CamelArabian::EnteranceUpperUpdate(float _Delta)
 {
-
+	if (UpperCamelArabianRenderer->IsAnimationEnd())
+	{
+		ChangeUpperState(CamelArabianUpperState::Idle);
+	}
 }
 
 void CamelArabian::IdleUpperStart()
@@ -347,6 +363,7 @@ void CamelArabian::DownUpperStart()
 {
 	UpperCamelArabianRenderer->Off();
 	ChangeUpperDownAnimationState("Down");
+	CamelArabianCollision->SetCollisionPos({ 60, -100 });
 }
 void CamelArabian::DownUpperUpdate(float _Delta)
 {

@@ -20,7 +20,7 @@ void FinalBoss::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
-		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\FinalBoss\\");
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("FinalBoss1.bmp"), 1, 8);
 	}
@@ -30,7 +30,7 @@ void FinalBoss::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
-		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\FinalBoss\\");
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("FinalBossAttack1.bmp"), 5, 3);
 	}
@@ -40,7 +40,7 @@ void FinalBoss::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
-		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\FinalBoss\\");
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("FinalBossAttack2.bmp"), 5, 4);
 	}
@@ -50,7 +50,7 @@ void FinalBoss::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
-		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\FinalBoss\\");
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("FinalBossAttack3.bmp"), 5, 2);
 	}
@@ -60,7 +60,7 @@ void FinalBoss::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("ContentsResources");
-		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\");
+		FilePath.MoveChild("ContentsResources\\Texture\\Enemy\\FinalBoss\\");
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("FinalBossAttackEnd.bmp"), 5, 4);
 	}

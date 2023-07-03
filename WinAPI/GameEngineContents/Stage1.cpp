@@ -13,6 +13,7 @@
 #include "GlobalValue.h"
 #include "HeavyMachineGun.h"
 #include "SlaveNPC.h"
+#include "MiddleBoss.h"
 #include "FinalBoss.h"
 #include "DebugCollision.h"
 #include "CamelArabian.h"
@@ -126,6 +127,7 @@ void Stage1::Start()
 	NewArabian1 = CreateActor<Arabian>();
 	NewArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
 
+	MiddleBossPtr = CreateActor<MiddleBoss>();
 	FinalBossPtr = CreateActor<FinalBoss>();
 	
 
@@ -139,9 +141,9 @@ void Stage1::Start()
 	NewCamelArabian2 = CreateActor<CamelArabian>();
 	NewCamelArabian2->LowerCamelArabianRenderer->GetActor()->SetPos({ 12500, 860 });
 	
-	//NewArabian2 = CreateActor<Arabian>();
-	//NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");
-	//NewArabian2->SetDir(2);
+	/*NewArabian2 = CreateActor<Arabian>();
+	NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");
+	NewArabian2->SetDir(2);*/
 }
 
 //int Stage1::GetColor(unsigned int _DefaultColor, float4 _Pos)
@@ -171,12 +173,12 @@ void Stage1::Update(float _Delta)
 	//	ResetLiveTime();
 	//}
 
-	if (true == FirstCollision->FocusCollision->IsDeath() && false == IsCamelArabian)
+	/*if (true == FirstCollision->FocusCollision->IsDeath() && false == IsCamelArabian)
 	{
 		NewCamelArabian1 = CreateActor<CamelArabian>();
 		NewCamelArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
 		IsCamelArabian = true;
-	}
+	}*/
 }
 void Stage1::Release() {}
 

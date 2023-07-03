@@ -432,7 +432,8 @@ void Player::Start()
 		// MainRenderer->SetRenderScaleToTexture();
 
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
-		LowerRenderer->GetActor()->SetPos({ 550, 400 });
+		//LowerRenderer->GetActor()->SetPos({ 550, 400 });
+		LowerRenderer->GetActor()->SetPos({ 8600, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 12300, 850 });
 
 		

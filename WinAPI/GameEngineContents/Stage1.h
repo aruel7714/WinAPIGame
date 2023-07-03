@@ -35,6 +35,8 @@ private:
 	class CamelArabian* NewCamelArabian2 = nullptr;
 	//class Arabian* NewArabian2 = nullptr;
 	
+	class MiddleBoss* MiddleBossPtr = nullptr;
+
 	class FinalBoss* FinalBossPtr = nullptr;
 
 
