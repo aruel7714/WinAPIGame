@@ -120,7 +120,7 @@ void CamelArabian::Start()
 
 	LowerCamelArabianRenderer->On();
 	UpperCamelArabianRenderer->Off();
-	UpperDownCamelArabianRenderer->On();
+	UpperDownCamelArabianRenderer->Off();
 	//LowerCamelArabianRenderer->GetActor()->SetPos({ 4300, 860 });
 
 	{

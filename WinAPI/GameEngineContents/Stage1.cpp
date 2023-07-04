@@ -300,6 +300,11 @@ void Stage1::Update(float _Delta)
 		NewCamelArabian1->LowerCamelArabianRenderer->GetActor()->SetPos({ 4774, 860 });
 		IsCamelArabian = true;
 	}
+
+	//if (NewCamelArabian1->IsDeath())
+	//{
+	//	LevelPlayer->SetFocusOn();
+	//}
 }
 void Stage1::Release() {}
 

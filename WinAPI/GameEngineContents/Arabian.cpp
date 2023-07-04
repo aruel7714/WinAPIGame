@@ -308,6 +308,7 @@ void Arabian::ReadyUpdate(float _Delta)
 {
 	DeathCollisionCheck();
 
+
 	if (ArabianRenderer->IsAnimation("Left_Arabian_Ready1") || ArabianRenderer->IsAnimation("Right_Arabian_Ready1"))
 	{
 		AddPos(float4::LEFT * 0.25);
@@ -342,6 +343,8 @@ void Arabian::ReadyUpdate(float _Delta)
 			
 		}
 	}
+
+
 }
 
 void Arabian::MoveStart()
@@ -351,6 +354,7 @@ void Arabian::MoveStart()
 void Arabian::MoveUpdate(float _Delta)
 {
 	DeathCollisionCheck();
+
 }
 
 void Arabian::JumpReadyStart()

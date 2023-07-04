@@ -27,6 +27,11 @@ public:
 	void SetFocusOn();
 	void SetFocusOff();
 
+	float4 GetGravityVector()
+	{
+		return GravityVector;
+	}
+
 protected:
 
 private:

@@ -76,6 +76,9 @@
     <ClInclude Include="CamelArabian.h">
       <Filter>Global\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Berserker.h">
+      <Filter>Global\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -128,6 +131,9 @@
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="CamelArabian.cpp">
+      <Filter>Global\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Berserker.cpp">
       <Filter>Global\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

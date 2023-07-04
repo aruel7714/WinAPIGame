@@ -433,6 +433,7 @@ void Player::Start()
 
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
 		LowerRenderer->GetActor()->SetPos({ 500, 400 });
+		//LowerRenderer->GetActor()->SetPos({ 2400, 864 });
 		//LowerRenderer->GetActor()->SetPos({ 8600, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 12300, 850 });
 

@@ -144,8 +144,6 @@ void Player::MoveLowerUpdate(float _Delta)
 				AddPos(float4::UP);
 			}
 
-			
-
 			if (true == GameEngineInput::IsPress('S'))
 			{
 				ChangeLowerState(PlayerLowerState::MoveJump);
@@ -249,7 +247,7 @@ void Player::IdleJumpLowerUpdate(float _Delta)
 {
 	DirCheck();
 	Gravity(_Delta);
-
+	if(0 <= GetGravityVector().Y)
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
 
@@ -298,6 +296,7 @@ void Player::MoveJumpLowerUpdate(float _Delta)
 	DirCheck();
 	Gravity(_Delta);
 
+	if (0 <= GetGravityVector().Y)
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
 

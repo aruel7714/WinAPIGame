@@ -49,7 +49,7 @@ void SlaveNPC::Start()
 		SlaveRenderer->CreateAnimation("Left_Slave_CatchOn2", "Left_Slave.bmp", 3, 1, 0.08f, false);
 		SlaveRenderer->CreateAnimation("Left_Slave_CatchOff", "Left_Slave.bmp", 5, 8, 0.08f, false);
 		SlaveRenderer->CreateAnimation("Left_Slave_Move", "Left_Slave.bmp", 9, 20, 0.1f, true);
-		SlaveRenderer->CreateAnimation("Left_Slave_Gift", "Left_Slave.bmp", 21, 31, 0.15f, false);
+		SlaveRenderer->CreateAnimation("Left_Slave_Gift", "Left_Slave.bmp", 21, 31, 0.1f, false);
 		SlaveRenderer->CreateAnimation("Left_Slave_Greet", "Left_Slave.bmp", 32, 45, 0.08f, false);
 		SlaveRenderer->CreateAnimation("Left_Slave_Run", "Left_Slave.bmp", 46, 53, 0.08f, true);
 
@@ -286,7 +286,7 @@ void SlaveNPC::MoveUpdate(float _Delta)
 
 	if (SlaveRenderer->IsAnimation("Left_Slave_Move"))
 	{
-		AddPos(float4::LEFT * 0.25);
+		AddPos(float4::LEFT * 0.4f);
 		if (SlaveRenderer->IsAnimationEnd())
 		{
 			SetDir(SlaveDir::Right);
@@ -295,7 +295,7 @@ void SlaveNPC::MoveUpdate(float _Delta)
 	}
 	else if (SlaveRenderer->IsAnimation("Right_Slave_Move"))
 	{
-		AddPos(float4::RIGHT * 0.25);
+		AddPos(float4::RIGHT * 0.4f);
 		if (SlaveRenderer->IsAnimationEnd())
 		{
 			SetDir(SlaveDir::Left);
@@ -334,9 +334,14 @@ void SlaveNPC::GreetUpdate(float _Delta)
 
 void SlaveNPC::RunStart()
 { 
+	ResetLiveTime();
 	ChangeAnimationState("Run");
 }
 void SlaveNPC::RunUpdate(float _Delta)
 {
-
+	AddPos(float4::LEFT * 3.0f);
+	
+	if (3.0f <= GetLiveTime()) {
+		SlaveRenderer->Off();
+	}
 }
