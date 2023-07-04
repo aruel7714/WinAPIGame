@@ -19,9 +19,16 @@ enum class SlaveDir
 	Max
 };
 
+enum class SlaveItem
+{
+	HeavyMachineGun,
+	Max
+};
+
 // Ό³Έν : 
 class SlaveNPC : public PlayActor
 {
+	friend class Stage1;
 public:
 	// constrcuter destructer
 	SlaveNPC();
@@ -33,9 +40,15 @@ public:
 	SlaveNPC& operator=(const SlaveNPC & _Other) = delete;
 	SlaveNPC& operator=(SlaveNPC && _Other) noexcept = delete;
 
-protected:
+	void SetSlaveItem(SlaveItem _Item)
+	{
+		Item = _Item;
+	}
+
+	protected:
 	SlaveState State = SlaveState::Max;
 	SlaveDir Dir = SlaveDir::Left;
+	SlaveItem Item = SlaveItem::Max;
 
 	void SetDir(SlaveDir _Dir);
 
@@ -69,6 +82,8 @@ private:
 	
 	GameEngineCollision* SlaveCatchOnCollision = nullptr;
 	GameEngineCollision* SlaveCatchOffCollision = nullptr;
+
+	class HeavyMachineGun* NewHeavyMachineGun = nullptr;
 
 	void Start() override;
 

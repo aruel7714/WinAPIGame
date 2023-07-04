@@ -15,7 +15,10 @@ MiddleBoss::~MiddleBoss()
 
 void MiddleBoss::Start()
 {
-	MainRenderer = CreateRenderer(RenderOrder::Boss);
+	MainTexture = CreateRenderer(RenderOrder::MiddleBossTexture);
+	//LeftRenderer = CreateRenderer(RenderOrder::MiddleBoss);
+	//MiddleRenderer = CreateRenderer(RenderOrder::MiddleBoss);
+	//RightRenderer = CreateRenderer(RenderOrder::MiddleBoss);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("MiddleBossObject.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -38,12 +41,11 @@ void MiddleBoss::Start()
 
 	
 	{
-		/*ResourcesManager::GetInst().FindTexture("MiddleBossObject.bmp");
-		MainRenderer->SetTexture("MiddleBossObject.bmp");*/
-		
-		//MainRenderer->GetActor()->SetPos({ 8147, 597 });
-		ResourcesManager::GetInst().FindTexture("MiddleBossObject_Destroy.bmp");
-		MainRenderer->SetTexture("MiddleBossObject_Destroy.bmp");
-		MainRenderer->GetActor()->SetPos({ 8147, 609 });
+		ResourcesManager::GetInst().FindTexture("MiddleBossObject.bmp");
+		MainTexture->SetTexture("MiddleBossObject.bmp");
+		MainTexture->GetActor()->SetPos({ 8147, 597 });
+		/*ResourcesManager::GetInst().FindTexture("MiddleBossObject_Destroy.bmp");
+		MainTexture->SetTexture("MiddleBossObject_Destroy.bmp");
+		MainTexture->GetActor()->SetPos({ 8147, 609 });*/
 	}
 }

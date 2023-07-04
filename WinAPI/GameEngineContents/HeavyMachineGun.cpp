@@ -34,9 +34,6 @@ void HeavyMachineGun::Start()
 	ItemRenderer->SetTexture("HeavyMachineGunItem.bmp");
 	ItemRenderer->SetRenderScaleToTexture();
 
-	ItemRenderer->GetActor()->SetPos({ 2800, 800 });
-	
-
 	ItemCollision = CreateCollision(CollisionOrder::ItemCollision);
 
 	ItemCollision->SetCollisionScale({ 80, 80 });

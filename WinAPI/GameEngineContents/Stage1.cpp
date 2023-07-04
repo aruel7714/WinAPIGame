@@ -114,6 +114,9 @@ void Stage1::Start()
 	{
 		FirstCollision = CreateActor<DebugCollision>();
 		FirstCollision->FocusCollision->SetCollisionPos({ 4150, 400 });
+		// 5800 864
+		// 8170
+		// 9950
 
 		
 	}
@@ -124,26 +127,126 @@ void Stage1::Start()
 
 	
 	//EnemyArabian = CreateActor<Arabian>();
-	NewArabian1 = CreateActor<Arabian>();
-	NewArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
+	{
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 1650, 800 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 1953, 864 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 2360, 732 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 2810, 864 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 2843, 512 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 3552, 864 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 4001, 864 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 5353, 580 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 5353, 380 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 5580, 580 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 6412, 580 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 6412, 380 });
+
+		NewArabian = CreateActor<Arabian>();
+		NewArabian->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewArabian->SetPos({ 6678, 380 });
+	}
+	// 1953, 864
+	// 2360, 732
+	// 2810 864
+	// 2843 512
+	// 3552 864
+	// 4001 864
+	// 5353 580
+	// 5353 380
+	// 5580 580
+	// 6412 580
+	// 6412 380
+	// 6678 380
+
 
 	MiddleBossPtr = CreateActor<MiddleBoss>();
 	FinalBossPtr = CreateActor<FinalBoss>();
 	
 
-	NewItem = CreateActor<HeavyMachineGun>();
-	NewItem->SetGroundTexture("Mission1_Debug_Test.bmp");
+	/*NewItem = CreateActor<HeavyMachineGun>();
+	NewItem->SetGroundTexture("Mission1_Debug_Test.bmp");*/
 
-	NewSlave = CreateActor<SlaveNPC>();
-	NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
-	NewSlave->SetPos({ 4000, 860 });
+
+	{
+		NewSlave = CreateActor<SlaveNPC>();
+		NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewSlave->SetPos({ 2366, 864 });
+		NewSlave->SetSlaveItem(SlaveItem::HeavyMachineGun);
+		
+		NewSlave = CreateActor<SlaveNPC>();
+		NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewSlave->SetPos({ 2590, 614 });
+		NewSlave->SetSlaveItem(SlaveItem::HeavyMachineGun);
+
+		NewSlave = CreateActor<SlaveNPC>();
+		NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewSlave->SetPos({ 5243, 580 });
+
+		NewSlave = CreateActor<SlaveNPC>();
+		NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewSlave->SetPos({ 6678, 580 });
+
+		NewSlave = CreateActor<SlaveNPC>();
+		NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewSlave->SetPos({ 8100, 580 });
+
+		NewSlave = CreateActor<SlaveNPC>();
+		NewSlave->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewSlave->SetPos({ 11340, 580 });
+	}
 	
-	NewCamelArabian2 = CreateActor<CamelArabian>();
-	NewCamelArabian2->LowerCamelArabianRenderer->GetActor()->SetPos({ 12500, 860 });
+	// 2366 864
+	// 2590 614
+	// 5243 580
+	// 5655 580
+	// 6678 580
+	// 8100 580
+	// 11340
+	
+	/*NewCamelArabian2 = CreateActor<CamelArabian>();
+	NewCamelArabian2->LowerCamelArabianRenderer->GetActor()->SetPos({ 12500, 860 });*/
 	
 	/*NewArabian2 = CreateActor<Arabian>();
 	NewArabian2->SetGroundTexture("Mission1_Debug_Test.bmp");
 	NewArabian2->SetDir(2);*/
+
+	// truck
+	// 6430 864
 }
 
 //int Stage1::GetColor(unsigned int _DefaultColor, float4 _Pos)
@@ -164,6 +267,23 @@ void Stage1::Update(float _Delta)
 		BackGroundPtr->SwitchRender();
 	}
 
+	//SlaveNPC::AllSlave
+	for (SlaveNPC* Slave : SlaveNPC::AllSlave)
+	{
+		if (Slave->SlaveRenderer->IsAnimationEnd())
+		{
+			if (Slave->SlaveRenderer->IsAnimation("Left_Slave_Gift"))
+			{
+				if (Slave->Item == SlaveItem::HeavyMachineGun)
+				{
+					NewHeavyMachineGun = CreateActor<HeavyMachineGun>();
+					NewHeavyMachineGun->SetGroundTexture("Mission1_Debug_Test.bmp");
+					NewHeavyMachineGun->SetPos(Slave->GetPos());
+				}
+			}
+		}
+	}
+
 	//CameraFocus();
 	
 
@@ -173,12 +293,13 @@ void Stage1::Update(float _Delta)
 	//	ResetLiveTime();
 	//}
 
-	/*if (true == FirstCollision->FocusCollision->IsDeath() && false == IsCamelArabian)
+	if (true == FirstCollision->FocusCollision->IsDeath() && false == IsCamelArabian)
 	{
 		NewCamelArabian1 = CreateActor<CamelArabian>();
 		NewCamelArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewCamelArabian1->LowerCamelArabianRenderer->GetActor()->SetPos({ 4774, 860 });
 		IsCamelArabian = true;
-	}*/
+	}
 }
 void Stage1::Release() {}
 

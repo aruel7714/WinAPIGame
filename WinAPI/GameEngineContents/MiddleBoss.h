@@ -15,7 +15,7 @@ public:
 	MiddleBoss& operator=(const MiddleBoss & _Other) = delete;
 	MiddleBoss& operator=(MiddleBoss && _Other) noexcept = delete;
 
-	GameEngineRenderer* MainRenderer = nullptr;
+	GameEngineRenderer* MainTexture = nullptr;
 
 	GameEngineRenderer* LeftRenderer = nullptr;
 	GameEngineRenderer* MiddleRenderer = nullptr;

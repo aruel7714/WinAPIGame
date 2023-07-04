@@ -97,7 +97,7 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Right_Arabian_DeathEnd", "Right_Arabian_Death.bmp", 44, 44, 0.05f, false);
 
 
-		ArabianRenderer->GetActor()->SetPos({ 3200, 850 });
+		//ArabianRenderer->GetActor()->SetPos({ 3200, 850 });
 	}
 
 	{
@@ -280,43 +280,7 @@ void Arabian::IdleUpdate(float _Delta)
 		}
 	}
 
-	std::vector<GameEngineCollision*> _Collision;
-	if (true == ArabianCollision->Collision(CollisionOrder::BulletCollision, _Collision
-		, CollisionType::Rect
-		, CollisionType::Rect
-	))
-	{
-		for (size_t i = 0; i < _Collision.size(); i++)
-		{
-			GameEngineCollision* Collision = _Collision[i];
-
-			GameEngineActor* Actor = Collision->GetActor();
-		}
-		ChangeState(ArabianState::RangeDeath);
-	}
-	else if (true == ArabianCollision->Collision(CollisionOrder::PlayerMeleeCollision, _Collision
-		, CollisionType::Rect
-		, CollisionType::Rect
-	))
-	{
-		for (size_t i = 0; i < _Collision.size(); i++)
-		{
-			GameEngineCollision* Collision = _Collision[i];
-
-			GameEngineActor* Actor = Collision->GetActor();
-			
-		}
-		if (Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
-			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
-			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||
-			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2"))
-		{
-			if (Player::GetMainPlayer()->UpperRenderer->IsAnimationEnd())
-			{
-				ChangeState(ArabianState::MeleeDeath);
-			}
-		}
-	}
+	DeathCollisionCheck();
 
 
 
@@ -624,8 +588,10 @@ void Arabian::DeathEndUpdate(float _Delta)
 	{
 		ArabianRenderer->Death();
 		ArabianRenderer = nullptr;
-		ArabianCollision->Death();
+		/*ArabianCollision->Death();
 		ArabianCollision = nullptr;
+		ArabianMeleeAttCollision->Death();
+		ArabianMeleeAttCollision = nullptr;*/
 	}
 
 	
@@ -644,8 +610,11 @@ void Arabian::DeathCollisionCheck()
 			GameEngineCollision* Collision = _Collision[i];
 
 			GameEngineActor* Actor = Collision->GetActor();
-			Collision->Death();
+			Actor->Death();
+			Collision->Off();
 		}
+		ArabianCollision->Off();
+		ArabianMeleeAttCollision->Off();
 		ChangeState(ArabianState::RangeDeath);
 	}
 	else if (true == ArabianCollision->Collision(CollisionOrder::PlayerMeleeCollision, _Collision
@@ -667,6 +636,8 @@ void Arabian::DeathCollisionCheck()
 		{
 			if (Player::GetMainPlayer()->UpperRenderer->IsAnimationEnd())
 			{
+				ArabianCollision->Off();
+				ArabianMeleeAttCollision->Off();
 				ChangeState(ArabianState::MeleeDeath);
 			}
 		}

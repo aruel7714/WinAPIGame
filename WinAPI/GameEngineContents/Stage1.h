@@ -30,7 +30,22 @@ private:
 	class Player* LevelPlayer = nullptr;
 
 	//Enemy
-	class Arabian* NewArabian1 = nullptr;
+	class Arabian* NewArabian = nullptr;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
 	class CamelArabian* NewCamelArabian1 = nullptr;
 	class CamelArabian* NewCamelArabian2 = nullptr;
 	//class Arabian* NewArabian2 = nullptr;
@@ -39,10 +54,14 @@ private:
 
 	class FinalBoss* FinalBossPtr = nullptr;
 
+	class SlaveNPC* NewSlave = nullptr;
 
 	//Etc
-	class SlaveNPC* NewSlave = nullptr;
-	class HeavyMachineGun* NewItem = nullptr;
+	class SlaveNPC* NewSlave1 = nullptr;
+	
+	
+
+	class HeavyMachineGun* NewHeavyMachineGun = nullptr;
 	
 	class DebugCollision* FirstCollision = nullptr;
 

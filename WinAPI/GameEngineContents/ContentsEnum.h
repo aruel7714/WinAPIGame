@@ -7,6 +7,8 @@ enum class RenderOrder
 	SecondBackGround,
 	FirstBackGround,
 	Object1,
+	MiddleBoss,
+	MiddleBossTexture,
 	CamelUpper,
 	CamelLower,
 	CamelUpperDown,
@@ -33,6 +35,7 @@ enum class CollisionOrder
 	EnemySwordCollision,
 	EnemyMeleeCollision,
 	EnemyCollision,
+	NPCCollision,
 	FinalBossCollision,
 	FinalBossAttackCollision
 };

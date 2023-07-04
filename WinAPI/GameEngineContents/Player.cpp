@@ -432,8 +432,8 @@ void Player::Start()
 		// MainRenderer->SetRenderScaleToTexture();
 
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
-		//LowerRenderer->GetActor()->SetPos({ 550, 400 });
-		LowerRenderer->GetActor()->SetPos({ 8600, 850 });
+		LowerRenderer->GetActor()->SetPos({ 500, 400 });
+		//LowerRenderer->GetActor()->SetPos({ 8600, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 12300, 850 });
 
 		
@@ -465,8 +465,8 @@ void Player::Start()
 	}
 
 
-	//WeaponName = "Pistol_";
-	WeaponName = "Rifle_";
+	WeaponName = "Pistol_";
+	//WeaponName = "Rifle_";
 
 	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
@@ -525,6 +525,15 @@ void Player::Update(float _Delta)
 void Player::Render(float _Delta)
 {
 	HDC dc = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
+
+	{
+		std::string PosText = "";
+		PosText += "À§Ä¡ : ";
+		PosText += std::to_string(GetPos().iX());
+		PosText += ", ";
+		PosText += std::to_string(GetPos().iY());
+		TextOutA(dc, 2, 3, PosText.c_str(), static_cast<int>(PosText.size()));
+	}
 
 	CollisionData Data;
 

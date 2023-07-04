@@ -4,8 +4,11 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include "ContentsEnum.h"
 #include "Player.h"
+#include "HeavyMachineGun.h"
+
 
 std::list<SlaveNPC*> SlaveNPC::AllSlave;
 
@@ -42,16 +45,17 @@ void SlaveNPC::Start()
 	{
 		SlaveRenderer = CreateRenderer(RenderOrder::NPC);
 
-		SlaveRenderer->CreateAnimation("Left_Slave_CatchOn", "Left_Slave.bmp", 0, 4, 1.0f, true);
-		SlaveRenderer->CreateAnimation("Left_Slave_CatchOff", "Left_Slave.bmp", 5, 8, 1.0f, true);
-		SlaveRenderer->CreateAnimation("Left_Slave_Move", "Left_Slave.bmp", 9, 20, 1.0f, true);
-		SlaveRenderer->CreateAnimation("Left_Slave_Gift", "Left_Slave.bmp", 21, 31, 1.0f, true);
-		SlaveRenderer->CreateAnimation("Left_Slave_Greet", "Left_Slave.bmp", 32, 45, 1.0f, true);
-		SlaveRenderer->CreateAnimation("Left_Slave_Run", "Left_Slave.bmp", 46, 53, 1.0f, true);
+		SlaveRenderer->CreateAnimation("Left_Slave_CatchOn1", "Left_Slave.bmp", 0, 4, 0.08f, false);
+		SlaveRenderer->CreateAnimation("Left_Slave_CatchOn2", "Left_Slave.bmp", 3, 1, 0.08f, false);
+		SlaveRenderer->CreateAnimation("Left_Slave_CatchOff", "Left_Slave.bmp", 5, 8, 0.08f, false);
+		SlaveRenderer->CreateAnimation("Left_Slave_Move", "Left_Slave.bmp", 9, 20, 0.1f, true);
+		SlaveRenderer->CreateAnimation("Left_Slave_Gift", "Left_Slave.bmp", 21, 31, 0.15f, false);
+		SlaveRenderer->CreateAnimation("Left_Slave_Greet", "Left_Slave.bmp", 32, 45, 0.08f, false);
+		SlaveRenderer->CreateAnimation("Left_Slave_Run", "Left_Slave.bmp", 46, 53, 0.08f, true);
 
 		SlaveRenderer->CreateAnimation("Right_Slave_CatchOn", "Right_Slave.bmp", 0, 4, 1.0f, true);
 		SlaveRenderer->CreateAnimation("Right_Slave_CatchOff", "Right_Slave.bmp", 5, 8, 1.0f, true);
-		SlaveRenderer->CreateAnimation("Right_Slave_Move", "Right_Slave.bmp", 9, 20, 1.0f, true);
+		SlaveRenderer->CreateAnimation("Right_Slave_Move", "Right_Slave.bmp", 9, 20, 0.1f, true);
 		SlaveRenderer->CreateAnimation("Right_Slave_Gift", "Right_Slave.bmp", 21, 31, 1.0f, true);
 		SlaveRenderer->CreateAnimation("Right_Slave_Greet", "Right_Slave.bmp", 32, 45, 1.0f, true);
 		SlaveRenderer->CreateAnimation("Right_Slave_Run", "Right_Slave.bmp", 46, 53, 1.0f, true);
@@ -65,8 +69,17 @@ void SlaveNPC::Start()
 		SlaveCatchOnCollision->SetCollisionPos({ 0, -55 });
 	}
 
+	{
+		SlaveCatchOffCollision = CreateCollision(CollisionOrder::NPCCollision);
+
+		SlaveCatchOffCollision->SetCollisionScale({ 80, 110 });
+		SlaveCatchOffCollision->SetCollisionType(CollisionType::Rect);
+		SlaveCatchOffCollision->SetCollisionPos({ 0, -55 });
+	}
+
 	ChangeState(SlaveState::CatchOn);
-	int a = 0;
+	
+	SlaveCatchOffCollision->Off();
 }
 
 void SlaveNPC::Update(float _Delta)
@@ -153,7 +166,7 @@ void SlaveNPC::ChangeAnimationState(const std::string& _State)
 
 void SlaveNPC::CatchOnStart()
 {
-	ChangeAnimationState("CatchOn");
+	ChangeAnimationState("CatchOn1");
 }
 void SlaveNPC::CatchOnUpdate(float _Delta)
 {
@@ -194,6 +207,7 @@ void SlaveNPC::CatchOnUpdate(float _Delta)
 
 			GameEngineActor* Actor = Collision->GetActor();
 			Collision->Death();
+			SlaveCatchOnCollision->Off();
 		}
 		ChangeState(SlaveState::CatchOff);
 	}
@@ -221,6 +235,18 @@ void SlaveNPC::CatchOnUpdate(float _Delta)
 		}
 	}
 
+	if (SlaveRenderer->IsAnimationEnd())
+	{
+		if (SlaveRenderer->IsAnimation("Left_Slave_CatchOn1"))
+		{
+			ChangeAnimationState("CatchOn2");
+		}
+		else if (SlaveRenderer->IsAnimation("Left_Slave_CatchOn2"))
+		{
+			ChangeAnimationState("CatchOn1");
+		}
+	}
+
 }
 
 void SlaveNPC::CatchOffStart()
@@ -237,12 +263,13 @@ void SlaveNPC::CatchOffUpdate(float _Delta)
 
 void SlaveNPC::MoveStart()
 {
+	SlaveCatchOffCollision->On();
 	ChangeAnimationState("Move");
 }
 void SlaveNPC::MoveUpdate(float _Delta)
 {
 	std::vector<GameEngineCollision*> _Collision;
-	if (true == SlaveCatchOnCollision->Collision(CollisionOrder::PlayerCollision, _Collision
+	if (true == SlaveCatchOffCollision->Collision(CollisionOrder::PlayerCollision, _Collision
 		, CollisionType::Rect
 		, CollisionType::Rect
 	))
@@ -253,6 +280,7 @@ void SlaveNPC::MoveUpdate(float _Delta)
 
 			GameEngineActor* Actor = Collision->GetActor();
 		}
+		Dir = SlaveDir::Left;
 		ChangeState(SlaveState::Gift);
 	}
 
@@ -278,6 +306,7 @@ void SlaveNPC::MoveUpdate(float _Delta)
 
 void SlaveNPC::GiftStart()
 {
+	SlaveCatchOffCollision->Off();
 	ChangeAnimationState("Gift");
 }
 void SlaveNPC::GiftUpdate(float _Delta)
@@ -285,12 +314,14 @@ void SlaveNPC::GiftUpdate(float _Delta)
 
 	if (SlaveRenderer->IsAnimationEnd())
 	{
+		
 		ChangeState(SlaveState::Greet);
 	}
 }
 
 void SlaveNPC::GreetStart()
 {
+
 	ChangeAnimationState("Greet");
 }
 void SlaveNPC::GreetUpdate(float _Delta)
