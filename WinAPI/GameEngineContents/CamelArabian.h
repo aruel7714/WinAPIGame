@@ -8,6 +8,7 @@ enum class CamelArabianLowerState
 	Move,
 	Down,
 	DownIdle,
+	Up,
 	Death,
 	Max
 };
@@ -19,6 +20,7 @@ enum class CamelArabianUpperState
 	Down,
 	DownIdle,
 	Fire,
+	Up,
 	Death,
 	Max
 };
@@ -77,6 +79,9 @@ protected:
 	void DownIdleLowerStart();
 	void DownIdleLowerUpdate(float _Delta);
 
+	void UpLowerStart();
+	void UpLowerUpdate(float _Delta);
+
 	void DeathLowerStart();
 	void DeathLowerUpdate(float _Delta);
 
@@ -94,10 +99,14 @@ protected:
 
 	void FireUpperStart();
 	void FireUpperUpdate(float _Delta);
+
+	void UpUpperStart();
+	void UpUpperUpdate(float _Delta);
 	
 	void DeathUpperStart();
 	void DeathUpperUpdate(float _Delta);
 
+	void DeathCollisionCheck();
 
 private:
 	GameEngineCollision* CamelArabianCollision = nullptr;

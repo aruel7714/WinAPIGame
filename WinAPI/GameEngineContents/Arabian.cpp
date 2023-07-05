@@ -69,7 +69,7 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Left_Arabian_Idle2", "Left_Arabian_All.bmp", 4, 1, 0.1f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_Ready1", "Left_Arabian_All.bmp", 6, 9, 0.08f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_Ready2", "Left_Arabian_All.bmp", 8, 7, 0.08f, false);
-		ArabianRenderer->CreateAnimation("Left_Arabian_Move", "Left_Arabian_All.bmp", 10, 21, 1.0f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_Move", "Left_Arabian_All.bmp", 10, 21, 0.1f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_JumpReady", "Left_Arabian_All.bmp", 22, 26, 0.05f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_Jump", "Left_Arabian_All.bmp", 27, 30, 0.05f, false);
 		
@@ -77,8 +77,8 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Left_Arabian_AttackReady", "Left_Arabian_All.bmp", 35, 38, 0.1f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeAttack", "Left_Arabian_All.bmp", 39, 45, 0.02f, true);
 		//ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 0.2f, true);
-		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack1", "Left_Arabian_All.bmp", 46, 52, 0.1f, true);
-		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack2", "Left_Arabian_All.bmp", 53, 64, 0.1f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack1", "Left_Arabian_All.bmp", 46, 52, 0.1f, false);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack2", "Left_Arabian_All.bmp", 53, 64, 0.1f, false);
 
 		ArabianRenderer->CreateAnimation("Left_Arabian_RangeDeath", "Left_Arabian_Death.bmp", 0, 10, 0.05f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeDeath", "Left_Arabian_Death.bmp", 11, 30, 0.05f, false);
@@ -409,6 +409,14 @@ void Arabian::MoveUpdate(float _Delta)
 			GravityReset();
 		}
 	}
+
+	float Speed = 200.0f;
+
+	float4 MovePos = float4::ZERO;
+
+	MovePos = { -Speed * _Delta, 0.0f };
+
+	AddPos(MovePos);
 
 	DeathCollisionCheck();
 

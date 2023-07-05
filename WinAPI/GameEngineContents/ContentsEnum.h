@@ -35,8 +35,9 @@ enum class CollisionOrder
 	ItemCollision,
 	EnemySwordCollision,
 	EnemyMeleeCollision,
+	EnemyBulletCollision,
 	EnemyCollision,
 	NPCCollision,
-	FinalBossCollision,
-	FinalBossAttackCollision
+	BossCollision,
+	BossAttackCollision
 };

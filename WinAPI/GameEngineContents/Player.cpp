@@ -439,6 +439,7 @@ void Player::Start()
 		//LowerRenderer->GetActor()->SetPos({ 2400, 864 });
 		//LowerRenderer->GetActor()->SetPos({ 8600, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 12300, 850 });
+		//LowerRenderer->GetActor()->SetPos({ 4000, 860 });
 
 		
 		// UpperRenderer->SetRenderPos({ 20, -60 });

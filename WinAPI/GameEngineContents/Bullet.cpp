@@ -190,6 +190,25 @@ void Bullet::Update(float _Delta)
 		ChangeState(BulletState::Explosion);
 	}
 
+	if (true == BulletCollision->Collision(CollisionOrder::BossCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+
+
+		}
+		//Renderer->Off();
+		Dir = float4::ZERO;
+		ResetLiveTime();
+		ChangeState(BulletState::Explosion);
+	}
+
 	if (GetLevel()->GetMainCamera()->GetPos().Y > Renderer->GetActor()->GetPos().Y ||
 		GetLevel()->GetMainCamera()->GetPos().X + GlobalValue::WinScale.X < Renderer->GetActor()->GetPos().X ||
 		GetLevel()->GetMainCamera()->GetPos().X > Renderer->GetActor()->GetPos().X)
@@ -224,7 +243,7 @@ void Bullet::ChangeState(BulletState _State)
 	}
 	State = _State;
 }
-void Bullet::StateUpdate(float _Delta)
+void Bullet::StateUpdate(float _Delta) 
 {
 	switch (State)
 	{

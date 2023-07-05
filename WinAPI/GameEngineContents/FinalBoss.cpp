@@ -91,7 +91,7 @@ void FinalBoss::Start()
 	}
 
 	{
-		FinalBossBodyCollision = CreateCollision(CollisionOrder::FinalBossCollision);
+		FinalBossBodyCollision = CreateCollision(CollisionOrder::BossCollision);
 
 		FinalBossBodyCollision->SetCollisionScale({ 320, 420 });
 		FinalBossBodyCollision->SetCollisionType(CollisionType::Rect);
@@ -99,7 +99,7 @@ void FinalBoss::Start()
 	}
 
 	{
-		FinalBossWingCollision = CreateCollision(CollisionOrder::FinalBossCollision);
+		FinalBossWingCollision = CreateCollision(CollisionOrder::BossCollision);
 
 		FinalBossWingCollision->SetCollisionScale({ 900, 280 });
 		FinalBossWingCollision->SetCollisionType(CollisionType::Rect);
@@ -107,7 +107,7 @@ void FinalBoss::Start()
 	}
 
 	{
-		FinalBossLeftAttackCollision = CreateCollision(CollisionOrder::FinalBossAttackCollision);
+		FinalBossLeftAttackCollision = CreateCollision(CollisionOrder::BossAttackCollision);
 		
 		FinalBossLeftAttackCollision->SetCollisionScale({ 140, 560 });
 		FinalBossLeftAttackCollision->SetCollisionType(CollisionType::Rect);
@@ -115,7 +115,7 @@ void FinalBoss::Start()
 	}
 
 	{
-		FinalBossRightAttackCollision = CreateCollision(CollisionOrder::FinalBossAttackCollision);
+		FinalBossRightAttackCollision = CreateCollision(CollisionOrder::BossAttackCollision);
 
 		FinalBossRightAttackCollision->SetCollisionScale({ 140, 560 });
 		FinalBossRightAttackCollision->SetCollisionType(CollisionType::Rect);

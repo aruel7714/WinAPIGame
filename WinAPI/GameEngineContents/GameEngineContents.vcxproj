@@ -198,6 +198,10 @@
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="DebugCollision.h" />
+    <ClInclude Include="EnemyBullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FinalBoss.h">
       <SubType>
       </SubType>
@@ -277,6 +281,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DebugCollision.cpp" />
+    <ClCompile Include="EnemyBullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="FinalBoss.cpp">
       <SubType>
       </SubType>

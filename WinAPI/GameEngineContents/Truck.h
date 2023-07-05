@@ -3,6 +3,7 @@
 
 enum class TruckState
 {
+	Spawn,
 	Idle,
 	Drive,
 	Deploy,
@@ -31,6 +32,9 @@ protected:
 	void StateUpdate(float _Delta);
 
 	void ChangeAnimationState(const std::string& _State);
+
+	void SpawnStart();
+	void SpawnUpdate(float _Delta);
 
 	void IdleStart();
 	void IdleUpdate(float _Delat);

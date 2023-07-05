@@ -85,6 +85,9 @@
     <ClInclude Include="ArabianSword.h">
       <Filter>Global\WeaponSFX</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>Global\WeaponSFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -146,6 +149,9 @@
       <Filter>Global\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ArabianSword.cpp">
+      <Filter>Global\WeaponSFX</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
       <Filter>Global\WeaponSFX</Filter>
     </ClCompile>
   </ItemGroup>

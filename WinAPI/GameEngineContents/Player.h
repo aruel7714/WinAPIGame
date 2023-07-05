@@ -111,6 +111,7 @@ class Player : public PlayActor
 	friend class HeavyMachineGun;
 	friend class Bullet;
 	friend class Granade;
+	friend class EnemyBullet;
 private:
 	static Player* MainPlayer;
 
