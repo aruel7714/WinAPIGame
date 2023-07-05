@@ -277,13 +277,13 @@ void Player::MoveUpperUpdate(float _Delta)
 
 void Player::IdleJumpLowerStart()
 {
-	SetGravityVector(float4::UP * 1000.0f);
+	//SetGravityVector(float4::UP * 1000.0f);
 	ChangeLowerAnimationState("IdleJump");
 }
 void Player::IdleJumpLowerUpdate(float _Delta)
 {
 	DirCheck();
-	Gravity(_Delta);
+	/*Gravity(_Delta);
 	if(0 <= GetGravityVector().Y)
 	{
 		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
@@ -293,7 +293,7 @@ void Player::IdleJumpLowerUpdate(float _Delta)
 			ChangeLowerState(PlayerLowerState::Idle);
 			return;
 		}
-	}
+	}*/
 }
 
 void Player::IdleJumpUpperStart()

@@ -403,7 +403,7 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Move", "Left_Rifle_Upper.bmp", 6, 17, 0.04f, true);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_IdleJump", "Left_Rifle_Upper.bmp", 18, 23, 0.1f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MoveJump", "Left_Rifle_Upper.bmp", 24, 29, 0.1f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 30, 33, 0.05f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 30, 33, 0.02f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Granade", "Left_Rifle_Upper.bmp", 34, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt1", "Left_Rifle_Upper.bmp", 40, 45, 0.01f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt2", "Left_Rifle_Upper.bmp", 46, 51, 0.02f, false);
@@ -411,14 +411,14 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDown", "Left_Rifle_Upper.bmp", 53, 52, 0.05f, false);
 		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle1", "Left_Rifle_Upper.bmp", 54, 57, 0.1f, false);
 		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle2", "Left_Rifle_Upper.bmp", 56, 55, 0.1f, false);
-		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 58, 61, 0.05f, false);
+		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 58, 61, 0.02f, false);
 		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_FireEnd", "Left_Rifle_Upper.bmp", 62, 67, 0.1f, false);
 		// Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation("")
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookDown", "Left_Rifle_Upper.bmp", 72, 73, 1.0f, false);
-		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookUp", "Left_Rifle_Upper.bmp", 73, 72, 1.0f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookDown", "Left_Rifle_Upper.bmp", 72, 73, 0.05f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookUp", "Left_Rifle_Upper.bmp", 73, 72, 0.05f, false);
 		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Idle", "Left_Rifle_Upper.bmp", 74, 74, 1.0f, false);
-		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 75, 78, 1.0f, false);
+		UpperRenderer->CreateAnimation("LeftDown_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 75, 78, 0.02f, false);
 		// ¾Æ·¡·Î Èð»Ñ¸®±â
 		//UpperRenderer->CreateAnimation()
 
@@ -470,8 +470,8 @@ void Player::Start()
 	}
 
 
-	WeaponName = "Pistol_";
-	//WeaponName = "Rifle_";
+	//WeaponName = "Pistol_";
+	WeaponName = "Rifle_";
 
 	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
