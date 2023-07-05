@@ -29,6 +29,7 @@ enum class ArabianDir
 // ¼³¸í : 
 class Arabian : public PlayActor
 {
+	friend class ArabianSword;
 public:
 	// constrcuter destructer
 	Arabian();
@@ -55,7 +56,7 @@ public:
 protected:
 	ArabianState State = ArabianState::Max;
 	//ArabianDir Dir = ArabianDir::Left;
-	ArabianDir Dir = ArabianDir::Left;
+	static ArabianDir Dir;
 
 	void ChangeState(ArabianState _State);
 	void StateUpdate(float _Delta);

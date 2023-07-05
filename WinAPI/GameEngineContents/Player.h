@@ -107,6 +107,7 @@ enum class PlayerRifleBulletDir
 class Player : public PlayActor
 {
 	friend class Arabian;
+	friend class ArabianSword;
 	friend class HeavyMachineGun;
 	friend class Bullet;
 	friend class Granade;

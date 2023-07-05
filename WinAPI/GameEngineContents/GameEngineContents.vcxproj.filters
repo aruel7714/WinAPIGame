@@ -82,6 +82,9 @@
     <ClInclude Include="Truck.h">
       <Filter>Global\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="ArabianSword.h">
+      <Filter>Global\WeaponSFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -141,6 +144,9 @@
     </ClCompile>
     <ClCompile Include="Truck.cpp">
       <Filter>Global\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ArabianSword.cpp">
+      <Filter>Global\WeaponSFX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,11 +3,15 @@
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnum.h"
 #include "Player.h"
+#include "ArabianSword.h"
 
 std::list<Arabian*> Arabian::AllArabian;
+
+ArabianDir Arabian::Dir = ArabianDir::Left;
 
 Arabian::Arabian()
 {
@@ -71,7 +75,9 @@ void Arabian::Start()
 		ArabianRenderer->CreateAnimation("Left_Arabian_BackStep", "Left_Arabian_All.bmp", 31, 34, 0.1f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_AttackReady", "Left_Arabian_All.bmp", 35, 38, 0.1f, true);
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeAttack", "Left_Arabian_All.bmp", 39, 45, 0.02f, true);
-		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 1.0f, true);
+		//ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack", "Left_Arabian_All.bmp", 46, 64, 0.2f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack1", "Left_Arabian_All.bmp", 46, 52, 0.1f, true);
+		ArabianRenderer->CreateAnimation("Left_Arabian_RangeAttack2", "Left_Arabian_All.bmp", 53, 64, 0.1f, true);
 
 		ArabianRenderer->CreateAnimation("Left_Arabian_RangeDeath", "Left_Arabian_Death.bmp", 0, 10, 0.05f, false);
 		ArabianRenderer->CreateAnimation("Left_Arabian_MeleeDeath", "Left_Arabian_Death.bmp", 11, 30, 0.05f, false);
@@ -116,7 +122,7 @@ void Arabian::Start()
 	}
 
 	ChangeState(ArabianState::Idle);
-	//ChangeState(ArabianState::Ready);
+	//ChangeState(ArabianState::RangeAttack);
 }
 
 void Arabian::Update(float _Delta)
@@ -487,22 +493,42 @@ void Arabian::MeleeAttackUpdate(float _Delta)
 
 void Arabian::RangeAttackStart()
 {
-	ChangeAnimationState("RangeAttack");
+	ChangeAnimationState("RangeAttack1");
+
+	
 }
 void Arabian::RangeAttackUpdate(float _Delta)
 {
-	Gravity(_Delta);
-	{
-		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
-		if (Color != RGB(255, 255, 255))
-		{
-			ChangeState(ArabianState::Idle);
-		}
-	}
-
 	if (ArabianRenderer->IsAnimationEnd())
 	{
-		ChangeState(ArabianState::Idle);
+		if (ArabianRenderer->IsAnimation("Left_Arabian_RangeAttack1"))
+		{
+			ArabianSword* NewSword = GetLevel()->CreateActor<ArabianSword>();
+
+			NewSword->SetGroundTexture("Mission1_Debug_Test.bmp");
+
+			float4 Pos = GetPos();
+
+			if (Dir == ArabianDir::Left)
+			{
+				Pos.X -= 40;
+			}
+			else if (Dir == ArabianDir::Right)
+			{
+				Pos.X += 40;
+			}
+
+			Pos.Y -= 70;
+
+			NewSword->SetPos(Pos);
+			
+			ChangeAnimationState("RangeAttack2");
+		}
+		else if (ArabianRenderer->IsAnimation("Left_Arabian_RangeAttack2"))
+		{
+			ChangeAnimationState("RangeAttack1");
+		}
+
 	}
 }
 
