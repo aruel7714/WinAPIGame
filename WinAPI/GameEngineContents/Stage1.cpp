@@ -17,6 +17,9 @@
 #include "FinalBoss.h"
 #include "DebugCollision.h"
 #include "CamelArabian.h"
+#include "Berserker.h"
+#include "Truck.h"
+
 
 Stage1::Stage1()
 {
@@ -193,6 +196,10 @@ void Stage1::Start()
 	// 6412 380
 	// 6678 380
 
+	/*NewBerserker = CreateActor<Berserker>();
+	NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");*/
+
+	NewTruck = CreateActor<Truck>();
 
 	MiddleBossPtr = CreateActor<MiddleBoss>();
 	FinalBossPtr = CreateActor<FinalBoss>();

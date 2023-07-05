@@ -3,6 +3,7 @@
 
 enum class CamelArabianLowerState
 {
+	Spawn,
 	Idle,
 	Move,
 	Down,
@@ -60,6 +61,9 @@ protected:
 	void ChangeLowerAnimationState(const std::string& _State);
 	void ChangeUpperAnimationState(const std::string& _State);
 	void ChangeUpperDownAnimationState(const std::string& _State);
+
+	void SpawnLowerStart();
+	void SpawnLowerUpdate(float _Delta);
 
 	void IdleLowerStart();
 	void IdleLowerUpdate(float _Delta);

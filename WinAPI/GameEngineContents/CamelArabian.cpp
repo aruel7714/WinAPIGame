@@ -80,6 +80,8 @@ void CamelArabian::Start()
 
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Idle", "CamelArabian_Lower.bmp", 0, 3, 1.0f, true);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Move", "CamelArabian_Lower.bmp", 15, 4, 2.0f, true);
+		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Move1", "CamelArabian_Lower.bmp", 15, 10, 2.0f, false);
+		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Move2", "CamelArabian_Lower.bmp", 9, 4, 2.0f, false);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Down", "CamelArabian_Lower.bmp", 16, 18, 5.0f, true);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_DownIdle", "CamelArabian_Lower.bmp", 19, 22, 1.0f, true);
 		LowerCamelArabianRenderer->CreateAnimation("CamelArabian_Lower_Death", "CamelArabian_Lower_Death.bmp", 0, 11, 1.0f, true);
@@ -111,7 +113,7 @@ void CamelArabian::Start()
 
 	
 
-	ChangeLowerState(CamelArabianLowerState::Idle);
+	ChangeLowerState(CamelArabianLowerState::Spawn);
 	ChangeUpperState(CamelArabianUpperState::Idle);
 	ChangeUpperState(CamelArabianUpperState::DownIdle);
 
@@ -146,6 +148,8 @@ void CamelArabian::ChangeLowerState(CamelArabianLowerState _LowerState)
 	{
 		switch (_LowerState)
 		{
+		case CamelArabianLowerState::Spawn:
+			SpawnLowerStart();
 		case CamelArabianLowerState::Idle:
 			IdleLowerStart();
 			break;
@@ -171,6 +175,8 @@ void CamelArabian::StateLowerUpdate(float _Delta)
 {
 	switch (LowerState)
 	{
+	case CamelArabianLowerState::Spawn:
+		return SpawnLowerUpdate(_Delta);
 	case CamelArabianLowerState::Idle:
 		return IdleLowerUpdate(_Delta);
 	case CamelArabianLowerState::Move:
@@ -284,6 +290,15 @@ void CamelArabian::ChangeUpperDownAnimationState(const std::string& _State)
 	AnimationName += _State;
 
 	UpperDownCamelArabianRenderer->ChangeAnimation(AnimationName);
+}
+
+void CamelArabian::SpawnLowerStart()
+{
+	ChangeLowerAnimationState("Move");
+}
+void CamelArabian::SpawnLowerUpdate(float _Delta)
+{
+
 }
 
 void CamelArabian::IdleLowerStart()

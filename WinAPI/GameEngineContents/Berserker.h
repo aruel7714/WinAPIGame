@@ -52,10 +52,11 @@ protected:
 private:
 	GameEngineRenderer* BerserkerRenderer = nullptr;
 
-	GameEngineCollision* BerserkerCollision = nullptr;
-	GameEngineCollision* BerserkerMeleeAttCollision = nullptr;
+	//GameEngineCollision* BerserkerCollision = nullptr;
+	//GameEngineCollision* BerserkerMeleeAttCollision = nullptr;
 
 	void Start() override;
 	void Update(float _Delta) override;
+	void Render(float _Delta) override;
 };
 

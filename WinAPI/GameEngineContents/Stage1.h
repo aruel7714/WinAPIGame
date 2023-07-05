@@ -32,9 +32,9 @@ private:
 	//Enemy
 	class Arabian* NewArabian = nullptr;
 	
+	class Berserker* NewBerserker = nullptr;
 	
-	
-	
+	class Truck* NewTruck = nullptr;
 	
 	
 	
@@ -63,7 +63,9 @@ private:
 
 	class HeavyMachineGun* NewHeavyMachineGun = nullptr;
 	
+
 	class DebugCollision* FirstCollision = nullptr;
+	//class DebugCollision* SecondCollision = nullptr;
 
 	//class Arabian* EnemyArabian = nullptr;
 	
