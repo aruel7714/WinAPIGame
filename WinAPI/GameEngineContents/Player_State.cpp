@@ -1,10 +1,13 @@
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineRenderer.h>
-#include "Bullet.h"
+#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include "Bullet.h"
 #include "Granade.h"
 #include "BackGround.h"
+#include "ContentsEnum.h"
+
 
 // 왼쪽 방향키 : 왼쪽 바라보기, 왼쪽으로 이동
 // 오른쪽 방향키 : 오른쪽 바라보기, 오른쪽으로 이동
@@ -106,11 +109,26 @@ void Player::IdleUpperUpdate(float _Delta)
 	}
 	if (true == GameEngineInput::IsDown('A'))
 	{
-		//FireUpdate(_Delta);
+		std::vector<GameEngineCollision*> _Collision;
+		if (true == MeleeAttCollision->Collision(CollisionOrder::EnemyCollision, _Collision
+			, CollisionType::Rect
+			, CollisionType::Rect
+		))
+		{
+			for (size_t i = 0; i < _Collision.size(); i++)
+			{
+				GameEngineCollision* Collision = _Collision[i];
 
-		PrevState = "Idle";
+				GameEngineActor* Actor = Collision->GetActor();
+			}
 
-		ChangeUpperState(PlayerUpperState::Fire);
+			ChangeUpperState(PlayerUpperState::MeleeAtt);
+		}
+		else
+		{
+			ChangeUpperState(PlayerUpperState::Fire);
+		}
+		
 		//ChangeUpperState(PlayerUpperState::MeleeAtt);
 	}
 	if (true == GameEngineInput::IsDown('D'))
@@ -227,7 +245,26 @@ void Player::MoveUpperUpdate(float _Delta)
 
 		DirCheck();
 
-		ChangeUpperState(PlayerUpperState::Fire);
+		std::vector<GameEngineCollision*> _Collision;
+		if (true == MeleeAttCollision->Collision(CollisionOrder::EnemyCollision, _Collision
+			, CollisionType::Rect
+			, CollisionType::Rect
+		))
+		{
+			for (size_t i = 0; i < _Collision.size(); i++)
+			{
+				GameEngineCollision* Collision = _Collision[i];
+
+				GameEngineActor* Actor = Collision->GetActor();
+			}
+
+			ChangeUpperState(PlayerUpperState::MeleeAtt);
+		}
+		else
+		{
+			ChangeUpperState(PlayerUpperState::Fire);
+		}
+
 	}
 
 	if (true == GameEngineInput::IsDown('D'))
@@ -272,7 +309,26 @@ void Player::IdleJumpUpperUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{
-		ChangeUpperState(PlayerUpperState::Fire);
+		std::vector<GameEngineCollision*> _Collision;
+		if (true == MeleeAttCollision->Collision(CollisionOrder::EnemyCollision, _Collision
+			, CollisionType::Rect
+			, CollisionType::Rect
+		))
+		{
+			for (size_t i = 0; i < _Collision.size(); i++)
+			{
+				GameEngineCollision* Collision = _Collision[i];
+
+				GameEngineActor* Actor = Collision->GetActor();
+			}
+
+			ChangeUpperState(PlayerUpperState::MeleeAtt);
+		}
+		else
+		{
+			ChangeUpperState(PlayerUpperState::Fire);
+		}
+
 	}
 
 	if (true == GameEngineInput::IsDown('D'))
@@ -337,7 +393,26 @@ void Player::MoveJumpUpperUpdate(float _Delta)
 
 	if (true == GameEngineInput::IsDown('A'))
 	{
-		ChangeUpperState(PlayerUpperState::Fire);
+		std::vector<GameEngineCollision*> _Collision;
+		if (true == MeleeAttCollision->Collision(CollisionOrder::EnemyCollision, _Collision
+			, CollisionType::Rect
+			, CollisionType::Rect
+		))
+		{
+			for (size_t i = 0; i < _Collision.size(); i++)
+			{
+				GameEngineCollision* Collision = _Collision[i];
+
+				GameEngineActor* Actor = Collision->GetActor();
+			}
+
+			ChangeUpperState(PlayerUpperState::MeleeAtt);
+		}
+		else
+		{
+			ChangeUpperState(PlayerUpperState::Fire);
+		}
+
 	}
 
 	if (true == GameEngineInput::IsDown('D'))
@@ -975,7 +1050,14 @@ void Player::SitGranadeIdleUpdate(float _Delta)
 
 void Player::MeleeAttStart()
 {
-	ChangeUpperAnimationState("MeleeAtt2");
+	if (MeleeAttCount % 2 == 0)
+	{
+		ChangeUpperAnimationState("MeleeAtt1");
+	}
+	else if (MeleeAttCount % 2 == 1)
+	{
+		ChangeUpperAnimationState("MeleeAtt2");
+	}
 
 	
 }
@@ -986,10 +1068,19 @@ void Player::MeleeAttUpdate(float _Delta)
 		if (UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
 			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1"))
 		{
+			MeleeAttCount++;
 			ChangeUpperAnimationState("MeleeAtt1End");
 		}
+		else if (UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2"))
+		{
+			MeleeAttCount++;
+			ChangeUpperAnimationState("MeleeAtt2End");
+		}
 		else if(UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1End") ||
-			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1End"))
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1End") ||
+			UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2End") ||
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2End"))
 		{
 			ChangeUpperState(PlayerUpperState::Idle);
 		}

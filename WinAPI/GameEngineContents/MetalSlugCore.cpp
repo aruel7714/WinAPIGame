@@ -3,6 +3,7 @@
 #include "CharacterSelectLevel.h"
 #include "Stage1.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include "GlobalValue.h"
 
 MetalSlugCore::MetalSlugCore()
 {
@@ -28,12 +29,16 @@ void MetalSlugCore::Start()
 	//GameEngineWindow::MainWindow.SetPosAndScale({ 100, 100 }, { 912, 672 });
 	GameEngineWindow::MainWindow.SetPosAndScale({ 100, 100 }, { 1216, 896 });
 
+	GlobalValue::WinScale = GameEngineWindow::MainWindow.GetScale();
+
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	//GameEngineCore::CreateLevel<CharacterSelectLevel>("CharacterSelectLevel");
 	GameEngineCore::CreateLevel<Stage1>("Stage1");
 
 	//GameEngineCore::ChangeLevel("TitleLevel");
 	GameEngineCore::ChangeLevel("Stage1");
+
+
 }
 
 void MetalSlugCore::Update(float _Delta)

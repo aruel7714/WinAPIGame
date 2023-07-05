@@ -16,6 +16,7 @@ public:
 	GlobalValue& operator=(GlobalValue && _Other) noexcept = delete;
 
 	static float4 MapScale;
+	static float4 WinScale;
 
 protected:
 

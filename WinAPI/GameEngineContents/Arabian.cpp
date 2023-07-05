@@ -8,6 +8,7 @@
 #include "ContentsEnum.h"
 #include "Player.h"
 #include "ArabianSword.h"
+#include "GlobalValue.h"
 
 std::list<Arabian*> Arabian::AllArabian;
 
@@ -288,6 +289,18 @@ void Arabian::IdleUpdate(float _Delta)
 
 	DeathCollisionCheck();
 
+	/*float x = ArabianRenderer->GetActor()->GetPos().X;
+	float y = Player::GetMainPlayer()->GetPos().X;
+	float z = ArabianRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X;
+
+	int a = 0;*/
+
+	if (Player::GetMainPlayer()->GetPos().X >= (ArabianRenderer->GetActor()->GetPos().X - GlobalValue::WinScale.hX()) &&
+		400.0f <= ArabianRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
+	{
+		ChangeState(ArabianState::Move);
+	}
+
 
 
 	if (ArabianRenderer->IsAnimationEnd())
@@ -298,8 +311,8 @@ void Arabian::IdleUpdate(float _Delta)
 		}
 		else if (ArabianRenderer->IsAnimation("Left_Arabian_Idle2") || ArabianRenderer->IsAnimation("Right_Arabian_Idle2"))
 		{
-			//ChangeAnimationState("Idle1");
-			ChangeState(ArabianState::Ready);
+			ChangeAnimationState("Idle1");
+			//ChangeState(ArabianState::Idle);
 			
 			//ChangeState(ArabianState::MeleeAttack);
 		}
@@ -313,6 +326,13 @@ void Arabian::ReadyStart()
 void Arabian::ReadyUpdate(float _Delta)
 {
 	DeathCollisionCheck();
+
+	if (400.0f <= ArabianRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
+	{
+		ChangeState(ArabianState::Move);
+	}
+
+	
 
 
 	if (ArabianRenderer->IsAnimation("Left_Arabian_Ready1") || ArabianRenderer->IsAnimation("Right_Arabian_Ready1"))
@@ -344,8 +364,14 @@ void Arabian::ReadyUpdate(float _Delta)
 			}
 			else
 			{
-				ChangeAnimationState("Ready1");
+				//ChangeAnimationState("Ready1");
+				ChangeState(ArabianState::RangeAttack);
 			}
+
+			/*if (350.0f >= ArabianRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
+			{
+				
+			}*/
 			
 		}
 	}
@@ -359,7 +385,37 @@ void Arabian::MoveStart()
 }
 void Arabian::MoveUpdate(float _Delta)
 {
+	{
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
+
 	DeathCollisionCheck();
+
+	if (400.0f >= ArabianRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
+	{
+		ChangeState(ArabianState::Ready);
+	}
 
 }
 
@@ -481,12 +537,12 @@ void Arabian::MeleeAttackUpdate(float _Delta)
 				
 			}
 			Player::GetMainPlayer()->ChangeLowerState(PlayerLowerState::MeleeDeath);
-			ChangeState(ArabianState::AttackReady);
+			ChangeState(ArabianState::Ready);
 			
 		}
 		else
 		{
-			ChangeState(ArabianState::AttackReady);
+			ChangeState(ArabianState::Ready);
 		}
 	}
 }
@@ -499,9 +555,11 @@ void Arabian::RangeAttackStart()
 }
 void Arabian::RangeAttackUpdate(float _Delta)
 {
+	DeathCollisionCheck();
 	if (ArabianRenderer->IsAnimationEnd())
 	{
-		if (ArabianRenderer->IsAnimation("Left_Arabian_RangeAttack1"))
+		if (ArabianRenderer->IsAnimation("Left_Arabian_RangeAttack1") ||
+			ArabianRenderer->IsAnimation("Right_Arabian_RangeAttack1"))
 		{
 			ArabianSword* NewSword = GetLevel()->CreateActor<ArabianSword>();
 
@@ -524,9 +582,10 @@ void Arabian::RangeAttackUpdate(float _Delta)
 			
 			ChangeAnimationState("RangeAttack2");
 		}
-		else if (ArabianRenderer->IsAnimation("Left_Arabian_RangeAttack2"))
+		else if (ArabianRenderer->IsAnimation("Left_Arabian_RangeAttack2") ||
+			ArabianRenderer->IsAnimation("Right_Arabian_RangeAttack2"))
 		{
-			ChangeAnimationState("RangeAttack1");
+			ChangeState(ArabianState::Ready);
 		}
 
 	}

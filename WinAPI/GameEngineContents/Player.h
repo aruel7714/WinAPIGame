@@ -304,5 +304,7 @@ private:
 	float4 RifleBulletDir = float4::ZERO;
 	float BulletPlusDir = 0.25f;
 	int AngleCount = 0;
+
+	int MeleeAttCount = 1;
 };
 

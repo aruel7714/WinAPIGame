@@ -7,6 +7,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include "ContentsEnum.h"
 #include "Player.h"
+#include "GlobalValue.h"
 
 
 Bullet::Bullet()
@@ -190,7 +191,7 @@ void Bullet::Update(float _Delta)
 	}
 
 	if (GetLevel()->GetMainCamera()->GetPos().Y > Renderer->GetActor()->GetPos().Y ||
-		GetLevel()->GetMainCamera()->GetPos().X + GameEngineWindow::MainWindow.GetScale().X < Renderer->GetActor()->GetPos().X ||
+		GetLevel()->GetMainCamera()->GetPos().X + GlobalValue::WinScale.X < Renderer->GetActor()->GetPos().X ||
 		GetLevel()->GetMainCamera()->GetPos().X > Renderer->GetActor()->GetPos().X)
 	{
 		Renderer->Off();
