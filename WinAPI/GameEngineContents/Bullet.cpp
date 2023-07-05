@@ -2,6 +2,9 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include "ContentsEnum.h"
 #include "Player.h"
 
@@ -135,7 +138,7 @@ void Bullet::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftDown90.bmp"));
 	}
 
-	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.01f, false);
+	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.05f, false);
 	
 	if (Player::WeaponName == "Pistol_")
 	{
@@ -180,17 +183,71 @@ void Bullet::Update(float _Delta)
 
 			
 		}
-		Renderer->Off();
+		//Renderer->Off();
+		Dir = float4::ZERO;
+		ResetLiveTime();
+		ChangeState(BulletState::Explosion);
 	}
 
-	if (0.3f < GetLiveTime())
+	if (GetLevel()->GetMainCamera()->GetPos().Y > Renderer->GetActor()->GetPos().Y ||
+		GetLevel()->GetMainCamera()->GetPos().X + GameEngineWindow::MainWindow.GetScale().X < Renderer->GetActor()->GetPos().X ||
+		GetLevel()->GetMainCamera()->GetPos().X > Renderer->GetActor()->GetPos().X)
+	{
+		Renderer->Off();
+		BulletCollision->Off();
+	}
+
+	
+
+	if (1.5f < GetLiveTime())
 	{
 		if (nullptr != Renderer)
 		{
 			Renderer->Off();
-			BulletCollision->Off();
 		}
 	}
+}
+
+void Bullet::ChangeState(BulletState _State)
+{
+	if (_State != State)
+	{
+		switch (_State)
+		{
+		case BulletState::Explosion:
+			ExplosionStart();
+			break;
+		default:
+			break;
+		}
+	}
+	State = _State;
+}
+void Bullet::StateUpdate(float _Delta)
+{
+	switch (State)
+	{
+	case BulletState::Explosion:
+		return ExplosionUpdate(_Delta);
+	default:
+		break;
+	}
+}
+void Bullet::ChangeAnimationState(const std::string& _State)
+{
+	std::string AnimationName;
+	AnimationName = "Bullet";
+	AnimationName += _State;
+	Renderer->ChangeAnimation(AnimationName);
+}
+
+void Bullet::ExplosionStart()
+{
+	ChangeAnimationState("Explosion");
+}
+void Bullet::ExplosionUpdate(float _Delta)
+{
+	
 }
 
 void Bullet::SetPistolDirTexture()

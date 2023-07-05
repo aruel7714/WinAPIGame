@@ -640,7 +640,6 @@ void Arabian::DeathCollisionCheck()
 			GameEngineCollision* Collision = _Collision[i];
 
 			GameEngineActor* Actor = Collision->GetActor();
-			Actor->Death();
 			Collision->Off();
 		}
 		ArabianCollision->Off();

@@ -3,9 +3,7 @@
 
 enum class BulletState
 {
-	EnemyColide,
-	GroundColide,
-	WallColide,
+	Explosion,
 	Max
 };
 
@@ -35,16 +33,20 @@ public:
 		Speed = _Speed;
 	}
 
-	
 
 	void SetPistolDirTexture();
 
 	void SetRifleDirTexture();
 
 protected:
-
+	BulletState State = BulletState::Max;
 	
+	void ChangeState(BulletState _State);
+	void StateUpdate(float _Delta);
+	void ChangeAnimationState(const std::string& _State);
 	
+	void ExplosionStart();
+	void ExplosionUpdate(float _Delta);
 
 private:
 	float4 Dir;
