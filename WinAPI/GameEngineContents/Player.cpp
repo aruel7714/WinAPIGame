@@ -238,6 +238,32 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Rifle_All.bmp"), 5, 2);
 	}
 
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Right_Rifle_Sit.bmp"))
+	{
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Rifle_Sit.bmp"), 5, 8);
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Left_Rifle_Sit.bmp"))
+	{
+		GameEnginePath FilePath;
+
+		FilePath.SetCurrentPath();
+
+		FilePath.MoveParentToExistsChild("ContentsResources");
+
+		FilePath.MoveChild("ContentsResources\\Texture\\Player\\");
+
+		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Rifle_Sit.bmp"), 5, 8);
+	}
+
 	{
 		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
 		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
@@ -280,6 +306,15 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Right_Rifle_Lower_MoveStop2", "Right_Rifle_All.bmp", 3, 0, 0.05f, false);
 		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitDown", "Right_Rifle_All.bmp", 4, 6, 0.05f, false);
 		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitUp", "Right_Rifle_All.bmp", 5, 4, 0.05f, false);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitIdle1", "Right_Rifle_Sit.bmp", 0, 3, 2.0f, false);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitIdle2", "Right_Rifle_Sit.bmp", 3, 1, 2.0f, false);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitMove", "Right_Rifle_Sit.bmp", 4, 10, 2.0f, true);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitFire", "Right_Rifle_Sit.bmp", 11, 14, 2.0f, true);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitGranade", "Right_Rifle_Sit.bmp", 15, 20, 2.0f, true);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitFireIdle1", "Right_Rifle_Sit.bmp", 21, 24, 2.0f, true);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitFireIdle2", "Right_Rifle_Sit.bmp", 24, 22, 2.0f, true);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitGranadeIdle1", "Right_Rifle_Sit.bmp", 21, 24, 2.0f, true);
+		LowerRenderer->CreateAnimation("Right_Rifle_Lower_SitGranadeIdle2", "Right_Rifle_Sit.bmp", 24, 22, 2.0f, true);
 
 		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathJump", "Right_Death.bmp", 0, 9, 0.1f, false);
 		LowerRenderer->CreateAnimation("Right_Lower_RangeDeathGround", "Right_Death.bmp", 9, 18, 0.1f, false);
@@ -309,6 +344,15 @@ void Player::Start()
 		LowerRenderer->CreateAnimation("Left_Rifle_Lower_MoveStop2", "Left_Rifle_All.bmp", 3, 0, 0.05f, false);
 		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitDown", "Left_Rifle_All.bmp", 4, 6, 0.05f, false);
 		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitUp", "Left_Rifle_All.bmp", 5, 4, 0.05f, false);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitIdle1", "Left_Rifle_Sit.bmp", 0, 3, 2.0f, false);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitIdle2", "Left_Rifle_Sit.bmp", 3, 1, 2.0f, false);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitMove", "Left_Rifle_Sit.bmp", 4, 10, 2.0f, true);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitFire", "Left_Rifle_Sit.bmp", 11, 14, 2.0f, true);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitGranade", "Left_Rifle_Sit.bmp", 15, 20, 2.0f, true);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitFireIdle1", "Left_Rifle_Sit.bmp", 21, 24, 2.0f, true);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitFireIdle2", "Left_Rifle_Sit.bmp", 24, 22, 2.0f, true);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitGranadeIdle1", "Left_Rifle_Sit.bmp", 21, 24, 2.0f, true);
+		LowerRenderer->CreateAnimation("Left_Rifle_Lower_SitGranadeIdle2", "Left_Rifle_Sit.bmp", 24, 22, 2.0f, true);
 
 		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathJump", "Left_Death.bmp", 0, 9, 0.1f, false);
 		LowerRenderer->CreateAnimation("Left_Lower_RangeDeathGround", "Left_Death.bmp", 10, 18, 0.1f, false);
