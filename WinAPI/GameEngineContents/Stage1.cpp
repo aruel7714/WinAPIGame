@@ -308,10 +308,14 @@ void Stage1::Update(float _Delta)
 		IsCamelArabian = true;
 	}
 
-	/*if (NewCamelArabian1 != nullptr && true == NewCamelArabian1->IsDeath())
+	if (NewCamelArabian1 != nullptr && IsCamelArabian == true)
 	{
-		LevelPlayer->SetFocusOn();
-	}*/
+		//LevelPlayer->SetFocusOn();
+		if (true == NewCamelArabian1->CamelDeath)
+		{
+			LevelPlayer->SetFocusOn();
+		}
+	}
 
 	//if (NewCamelArabian1->IsDeath())
 	//{

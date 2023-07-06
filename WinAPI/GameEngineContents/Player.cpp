@@ -458,6 +458,12 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 58, 61, 0.02f, false);
 		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_FireEnd", "Left_Rifle_Upper.bmp", 62, 67, 0.1f, false);
 		// Èð»Ñ¸®±â
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookUpFire1", "Left_Rifle_Upper.bmp", 68, 68, 0.03f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookUpFire2", "Left_Rifle_Upper.bmp", 69, 69, 0.03f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookUpFire3", "Left_Rifle_Upper.bmp", 53, 53, 0.03f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDownFire1", "Left_Rifle_Upper.bmp", 70, 70, 0.03f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDownFire2", "Left_Rifle_Upper.bmp", 71, 71, 0.03f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDownFire3", "Left_Rifle_Upper.bmp", 52, 52, 0.03f, false);
 		//UpperRenderer->CreateAnimation("")
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookDown", "Left_Rifle_Upper.bmp", 72, 73, 0.05f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_JumpLookUp", "Left_Rifle_Upper.bmp", 73, 72, 0.05f, false);
@@ -928,18 +934,25 @@ void Player::BulletDirCheck()
 
 void Player::RifleDirCheck()
 {
-	if (true == GameEngineInput::IsFree(VK_UP) &&
-		true == GameEngineInput::IsFree(VK_DOWN) &&
-		Dir == PlayerDir::Left)
+	if (true == GameEngineInput::IsPress(VK_UP) &&
+		Dir == PlayerDir::Left &&
+		RifleBulletDir.Y == -0.25f || RifleBulletDir.X == -0.75f)
 	{
-		RifleDir = PlayerRifleBulletDir::Left;
+		RifleDir = PlayerRifleBulletDir::LeftUp30;
 		return;
 	}
-	
 	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Left)
+		Dir == PlayerDir::Right &&
+		RifleBulletDir.Y == -0.5f || RifleBulletDir.X == -0.5f)
 	{
-		RifleDir = PlayerRifleBulletDir::LeftUp90;
+		RifleDir = PlayerRifleBulletDir::LeftUp45;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_UP) &&
+		Dir == PlayerDir::Right &&
+		RifleBulletDir.Y == -0.75f || RifleBulletDir.X == -0.25f)
+	{
+		RifleDir = PlayerRifleBulletDir::LeftUp60;
 		return;
 	}
 	if (true == GameEngineInput::IsPress(VK_UP) &&
@@ -963,6 +976,7 @@ void Player::RifleDirCheck()
 		RifleDir = PlayerRifleBulletDir::RightUp60;
 		return;
 	}
+	
 	if (true == GameEngineInput::IsFree(VK_UP) &&
 		true == GameEngineInput::IsFree(VK_DOWN) &&
 		Dir == PlayerDir::Right)
@@ -970,10 +984,23 @@ void Player::RifleDirCheck()
 		RifleDir = PlayerRifleBulletDir::Right;
 		return;
 	}
+	if (true == GameEngineInput::IsFree(VK_UP) &&
+		true == GameEngineInput::IsFree(VK_DOWN) &&
+		Dir == PlayerDir::Left)
+	{
+		RifleDir = PlayerRifleBulletDir::Left;
+		return;
+	}
 	if (true == GameEngineInput::IsPress(VK_UP) &&
 		Dir == PlayerDir::Right)
 	{
 		RifleDir = PlayerRifleBulletDir::RightUp90;
+		return;
+	}
+	if (true == GameEngineInput::IsPress(VK_UP) &&
+		Dir == PlayerDir::Left)
+	{
+		RifleDir = PlayerRifleBulletDir::LeftUp90;
 		return;
 	}
 	
@@ -1299,6 +1326,29 @@ void Player::BulletFire()
 			NewBullet->SetDir(float4::UP);
 			Pos.X += 0;
 			Pos.Y -= 224;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::LeftUp30)
+		{
+			MachineGunCount = 1;
+
+			NewBullet->SetDir(RifleBulletDir);
+			Pos.X -= 99;
+			Pos.Y -= 116;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::LeftUp45)
+		{
+			MachineGunCount = 1;
+
+			NewBullet->SetDir(RifleBulletDir);
+			Pos.X -= 66;
+			Pos.Y -= 152;
+		}
+		else if (RifleDir == PlayerRifleBulletDir::LeftUp60)
+		{
+			MachineGunCount = 1;
+			NewBullet->SetDir(RifleBulletDir);
+			Pos.X -= 33;
+			Pos.Y -= 188;
 		}
 		else if (RifleDir == PlayerRifleBulletDir::LeftUp90)
 		{

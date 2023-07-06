@@ -112,6 +112,33 @@ void Bullet::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunRightUp90.bmp"));
 	}
 
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeftUp30.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftUp30.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeftUp45.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftUp45.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeftUp60.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Texture\\SFX\\HeavyMachineGunSFX\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftUp60.bmp"));
+	}
+
 	if (false == ResourcesManager::GetInst().IsLoadTexture("HeavyMachineGunLeftUp90.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -319,6 +346,21 @@ void Bullet::SetRifleDirTexture()
 	{
 		ResourcesManager::GetInst().FindTexture("HeavyMachineGunRightUp90.bmp");
 		Renderer->SetTexture("HeavyMachineGunRightUp90.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp30)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp30.bmp");
+		Renderer->SetTexture("HeavyMachineGunRightUp30.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp45)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp45.bmp");
+		Renderer->SetTexture("HeavyMachineGunRightUp45.bmp");
+	}
+	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp60)
+	{
+		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp60.bmp");
+		Renderer->SetTexture("HeavyMachineGunRightUp60.bmp");
 	}
 	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp90)
 	{

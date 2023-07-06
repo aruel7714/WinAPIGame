@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 // Ό³Έν : 
 class TitleLevel : public GameEngineLevel
@@ -21,5 +22,6 @@ protected:
 private:
 	class BackGround* BackGroundPtr;
 
+	GameEngineSoundPlayer BGMPlayer;
 };
 

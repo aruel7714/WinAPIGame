@@ -445,7 +445,15 @@ void Player::FireStart()
 	{
 		RifleBulletDir = float4::RIGHT;
 	}
+	if (RifleDir == PlayerRifleBulletDir::Left)
+	{
+		RifleBulletDir = float4::LEFT;
+	}
 	if (RifleDir == PlayerRifleBulletDir::RightUp90)
+	{
+		RifleBulletDir = float4::UP;
+	}
+	if (RifleDir == PlayerRifleBulletDir::LeftUp90)
 	{
 		RifleBulletDir = float4::UP;
 	}
@@ -1185,9 +1193,19 @@ void Player::SwordDeathUpdate(float _Delta)
 
 void Player::LookUpFireStart()
 {
-	ChangeUpperAnimationState("LookUpFire1", true);
-	RifleBulletDir.X -= 0.1f;
-	RifleBulletDir.Y -= BulletPlusDir;
+	if (Dir == PlayerDir::Right)
+	{
+		ChangeUpperAnimationState("LookUpFire1", true);
+		RifleBulletDir.X -= 0.1f;
+		RifleBulletDir.Y -= BulletPlusDir;
+	}
+	else if (Dir == PlayerDir::Left)
+	{
+		ChangeUpperAnimationState("LookUpFire1", true);
+		RifleBulletDir.X += 0.1f;
+		RifleBulletDir.Y -= BulletPlusDir;
+	}
+	
 	BulletFire();
 }
 void Player::LookUpFireUpdate(float _Delta)
@@ -1219,6 +1237,31 @@ void Player::LookUpFireUpdate(float _Delta)
 			BulletFire();
 			ChangeUpperState(PlayerUpperState::Fire);
 			
+		}
+
+		if (UpperRenderer->IsAnimation("Left_Rifle_Upper_LookUpFire1"))
+		{
+			RifleBulletDir.X += 0.1f;
+			RifleBulletDir.Y -= BulletPlusDir;
+			BulletFire();
+			ChangeUpperAnimationState("LookUpFire2", true);
+
+		}
+		if (UpperRenderer->IsAnimation("Left_Rifle_Upper_LookUpFire2"))
+		{
+			RifleBulletDir.X += 0.1f;
+			RifleBulletDir.Y -= BulletPlusDir;
+			BulletFire();
+			ChangeUpperAnimationState("LookUpFire3", true);
+
+		}
+		if (UpperRenderer->IsAnimation("Left_Rifle_Upper_LookUpFire3"))
+		{
+			RifleBulletDir.X += 0.1f;
+			RifleBulletDir.Y -= BulletPlusDir;
+			BulletFire();
+			ChangeUpperState(PlayerUpperState::Fire);
+
 		}
 	}
 }
@@ -1254,6 +1297,31 @@ void Player::LookDownFireUpdate(float _Delta)
 		if (UpperRenderer->IsAnimation("Right_Rifle_Upper_LookDownFire3"))
 		{
 			RifleBulletDir.X += BulletPlusDir;
+			RifleBulletDir.Y += 0.1f;
+			BulletFire();
+			ChangeUpperState(PlayerUpperState::Fire);
+
+		}
+
+		if (UpperRenderer->IsAnimation("Left_Rifle_Upper_LookDownFire1"))
+		{
+			RifleBulletDir.X -= BulletPlusDir;
+			RifleBulletDir.Y += 0.1f;
+			BulletFire();
+			ChangeUpperAnimationState("LookDownFire2", true);
+
+		}
+		if (UpperRenderer->IsAnimation("Left_Rifle_Upper_LookDownFire2"))
+		{
+			RifleBulletDir.X -= BulletPlusDir;
+			RifleBulletDir.Y += 0.1f;
+			BulletFire();
+			ChangeUpperAnimationState("LookDownFire3", true);
+
+		}
+		if (UpperRenderer->IsAnimation("Left_Rifle_Upper_LookDownFire3"))
+		{
+			RifleBulletDir.X -= BulletPlusDir;
 			RifleBulletDir.Y += 0.1f;
 			BulletFire();
 			ChangeUpperState(PlayerUpperState::Fire);
