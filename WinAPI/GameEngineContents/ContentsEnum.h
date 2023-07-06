@@ -12,6 +12,7 @@ enum class RenderOrder
 	CamelUpper,
 	CamelLower,
 	CamelUpperDown,
+	EnemyTruck,
 	Enemy,
 	EnemyAttack,
 	Boss,

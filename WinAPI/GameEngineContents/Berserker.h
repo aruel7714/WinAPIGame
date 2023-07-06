@@ -25,6 +25,11 @@ public:
 	Berserker& operator=(const Berserker & _Other) = delete;
 	Berserker& operator=(Berserker && _Other) noexcept = delete;
 
+	void SetMove()
+	{
+		ChangeState(BerserkerState::Move);
+	}
+
 protected:
 	BerserkerState State = BerserkerState::Max;
 
@@ -48,12 +53,13 @@ protected:
 	void DeathStart();
 	void DeathUpdate(float _Delta);
 
+	void DeathCollisionCheck();
 
 private:
 	GameEngineRenderer* BerserkerRenderer = nullptr;
 
-	//GameEngineCollision* BerserkerCollision = nullptr;
-	//GameEngineCollision* BerserkerMeleeAttCollision = nullptr;
+	GameEngineCollision* BerserkerCollision = nullptr;
+	GameEngineCollision* BerserkerMeleeAttCollision = nullptr;
 
 	void Start() override;
 	void Update(float _Delta) override;

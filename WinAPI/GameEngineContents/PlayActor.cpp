@@ -27,26 +27,51 @@ void PlayActor::CameraFocus()
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
-
-	if (0 >= CameraPos.X)
+	if (4700.0f >= CameraPos.X + WindowScale.X)
 	{
-		CameraPos.X = 0.0f;
-	}
+		if (0 >= CameraPos.X)
+		{
+			CameraPos.X = 0.0f;
+		}
 
-	if ((GlobalValue::MapScale.Y - WindowScale.Y) >= CameraPos.Y)
-	{
-		CameraPos.Y = 0.0f + (GlobalValue::MapScale.Y - WindowScale.Y);
-	}
+		if ((GlobalValue::MapScale.Y - WindowScale.Y) >= CameraPos.Y)
+		{
+			CameraPos.Y = 0.0f + (GlobalValue::MapScale.Y - WindowScale.Y);
+		}
 
-	if (GlobalValue::MapScale.X <= CameraPos.X + WindowScale.X)
-	{
-		CameraPos.X = GlobalValue::MapScale.X - WindowScale.X;
-	}
+		if (GlobalValue::MapScale.X <= CameraPos.X + WindowScale.X)
+		{
+			CameraPos.X = GlobalValue::MapScale.X - WindowScale.X;
+		}
 
-	if (GlobalValue::MapScale.Y <= CameraPos.Y + WindowScale.Y)
-	{
-		CameraPos.Y = GlobalValue::MapScale.Y - WindowScale.Y;
+		if (GlobalValue::MapScale.Y <= CameraPos.Y + WindowScale.Y)
+		{
+			CameraPos.Y = GlobalValue::MapScale.Y - WindowScale.Y;
+		}
 	}
+	else if (4700.0f <= CameraPos.X + WindowScale.X) 
+	{
+		if (0 >= CameraPos.X)
+		{
+			CameraPos.X = 0.0f;
+		}
+
+		if ((GlobalValue::MapScale.Y - WindowScale.Y) >= CameraPos.Y)
+		{
+			CameraPos.Y = 0.0f + (GlobalValue::MapScale.Y - WindowScale.Y);
+		}
+
+		if (GlobalValue::MapScale.X <= CameraPos.X + WindowScale.X)
+		{
+			CameraPos.X = GlobalValue::MapScale.X - WindowScale.X;
+		}
+
+		if (GlobalValue::MapScale.Y <= CameraPos.Y + WindowScale.Y - 65.0f)
+		{
+			CameraPos.Y = GlobalValue::MapScale.Y - WindowScale.Y - 65.0f;
+		}
+	}
+	
 
 	GetLevel()->GetMainCamera()->SetPos(CameraPos);
 }

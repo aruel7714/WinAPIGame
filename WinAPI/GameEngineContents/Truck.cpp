@@ -27,14 +27,14 @@ void Truck::Start()
 	}
 
 	{
-		TruckRenderer = CreateRenderer(RenderOrder::Enemy);
+		TruckRenderer = CreateRenderer(RenderOrder::EnemyTruck);
 
 		TruckRenderer->CreateAnimation("Truck_Idle", "Truck.bmp", 0, 0, 1.0f, true);
 		TruckRenderer->CreateAnimation("Truck_Drive", "Truck.bmp", 1, 4, 2.0f, true);
 		TruckRenderer->CreateAnimation("Truck_Deploy", "Truck.bmp", 5, 16, 2.0f, true);
 		TruckRenderer->CreateAnimation("Truck_Destroy", "Truck.bmp", 17, 22, 2.0f, true);
 	}
-	TruckRenderer->GetActor()->SetPos({ 12500, 860 });
+	TruckRenderer->GetActor()->SetPos({ 6750, 864 });
 
 	ChangeState(TruckState::Idle);
 }

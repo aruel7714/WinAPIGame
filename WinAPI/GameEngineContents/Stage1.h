@@ -65,7 +65,7 @@ private:
 	
 
 	class DebugCollision* FirstCollision = nullptr;
-	//class DebugCollision* SecondCollision = nullptr;
+	class DebugCollision* SecondCollision = nullptr;
 
 	//class Arabian* EnemyArabian = nullptr;
 	

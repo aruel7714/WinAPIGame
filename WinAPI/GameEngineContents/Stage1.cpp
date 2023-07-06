@@ -117,7 +117,10 @@ void Stage1::Start()
 	{
 		FirstCollision = CreateActor<DebugCollision>();
 		FirstCollision->FocusCollision->SetCollisionPos({ 4150, 400 });
-		// 5800 864
+
+		SecondCollision = CreateActor<DebugCollision>();
+		SecondCollision->FocusCollision->SetCollisionPos({ 5850, 400 });
+		// 5850 864
 		// 8170
 		// 9950
 
@@ -196,8 +199,24 @@ void Stage1::Start()
 	// 6412 380
 	// 6678 380
 
-	/*NewBerserker = CreateActor<Berserker>();
-	NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");*/
+	{
+		NewBerserker = CreateActor<Berserker>();
+		NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewBerserker->SetPos({ 6640, 864 });
+
+		NewBerserker = CreateActor<Berserker>();
+		NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewBerserker->SetPos({ 6740, 864 });
+
+		NewBerserker = CreateActor<Berserker>();
+		NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewBerserker->SetPos({ 6840, 864 });
+	}
+	
+
+	// 6640
+	// 6740
+	// 6840
 
 	NewTruck = CreateActor<Truck>();
 
@@ -306,6 +325,11 @@ void Stage1::Update(float _Delta)
 		NewCamelArabian1->SetGroundTexture("Mission1_Debug_Test.bmp");
 		NewCamelArabian1->LowerCamelArabianRenderer->GetActor()->SetPos({ 4774, 860 });
 		IsCamelArabian = true;
+	}
+
+	if (true == SecondCollision->FocusCollision->IsDeath())
+	{
+		LevelPlayer->SetFocusOff();
 	}
 
 	if (NewCamelArabian1 != nullptr && IsCamelArabian == true)

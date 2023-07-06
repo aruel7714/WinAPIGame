@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include "ContentsEnum.h"
+#include "Player.h"
 
 Berserker::Berserker()
 {
@@ -29,15 +30,35 @@ void Berserker::Start()
 	{
 		BerserkerRenderer = CreateRenderer(RenderOrder::Enemy);
 
-		BerserkerRenderer->CreateAnimation("Berserker_SitIdle", "Berserker.bmp", 0, 3, 2.0f, true);
-		BerserkerRenderer->CreateAnimation("Berserker_StandIdle", "Berserker.bmp", 4, 7, 2.0f, true);
-		BerserkerRenderer->CreateAnimation("Berserker_Move", "Berserker.bmp", 8, 13, 2.0f, true);
-		BerserkerRenderer->CreateAnimation("Berserker_Attack", "Berserker.bmp", 14, 19, 2.0f, true);
-		BerserkerRenderer->CreateAnimation("Berserker_Death", "Berserker.bmp", 20, 28, 2.0f, true);
+		BerserkerRenderer->CreateAnimation("Berserker_SitIdle1", "Berserker.bmp", 0, 3, 0.1f, false);
+		BerserkerRenderer->CreateAnimation("Berserker_SitIdle2", "Berserker.bmp", 2, 1, 0.1f, false);
+		BerserkerRenderer->CreateAnimation("Berserker_StandIdle1", "Berserker.bmp", 4, 7, 0.3f, false);
+		BerserkerRenderer->CreateAnimation("Berserker_StandIdle2", "Berserker.bmp", 6, 5, 0.3f, false);
+		BerserkerRenderer->CreateAnimation("Berserker_Move", "Berserker.bmp", 8, 13, 0.05f, true);
+		BerserkerRenderer->CreateAnimation("Berserker_Attack", "Berserker.bmp", 14, 19, 0.05f, false);
+		BerserkerRenderer->CreateAnimation("Berserker_Death", "Berserker.bmp", 20, 28, 1.0f, true);
 	}
-	BerserkerRenderer->GetActor()->SetPos({ 12500, 860 });
 
-	ChangeState(BerserkerState::Death);
+	{
+		BerserkerCollision = CreateCollision(CollisionOrder::EnemyCollision);
+
+		BerserkerCollision->SetCollisionScale({ 100, 120 });
+		BerserkerCollision->SetCollisionType(CollisionType::Rect);
+		BerserkerCollision->SetCollisionPos({ 0, -60 });
+	}
+
+	{
+		BerserkerMeleeAttCollision = CreateCollision(CollisionOrder::EnemyMeleeCollision);
+
+		BerserkerMeleeAttCollision->SetCollisionScale({ 160, 120 });
+		BerserkerMeleeAttCollision->SetCollisionType(CollisionType::Rect);
+		BerserkerMeleeAttCollision->SetCollisionPos({ -30, -60 });
+	}
+
+
+	//BerserkerRenderer->GetActor()->SetPos({ 12500, 860 });
+
+	ChangeState(BerserkerState::SitIdle);
 }
 
 void Berserker::Update(float _Delta)
@@ -117,20 +138,40 @@ void Berserker::ChangeAnimationState(const std::string& _State)
 
 void Berserker::SitIdleStart()
 {
-	ChangeAnimationState("SitIdle");
+	ChangeAnimationState("SitIdle1");
 }
 void Berserker::SitIdleUpdate(float _Delta)
 {
-
+	if (BerserkerRenderer->IsAnimationEnd())
+	{
+		if (BerserkerRenderer->IsAnimation("Berserker_SitIdle1"))
+		{
+			ChangeAnimationState("SitIdle2");
+		}
+		else if (BerserkerRenderer->IsAnimation("Berserker_SitIdle2"))
+		{
+			ChangeAnimationState("SitIdle1");
+		}
+	}
 }
 
 void Berserker::StandIdleStart()
 {
-	ChangeAnimationState("StandIdle");
+	ChangeAnimationState("StandIdle1");
 }
 void Berserker::StandIdleUpdate(float _Delta)
 {
-
+	if (BerserkerRenderer->IsAnimationEnd())
+	{
+		if (BerserkerRenderer->IsAnimation("Berserker_StandIdle1"))
+		{
+			ChangeAnimationState("StandIdle2");
+		}
+		else if (BerserkerRenderer->IsAnimation("Berserker_StandIdle2"))
+		{
+			ChangeAnimationState("StandIdle1");
+		}
+	}
 }
 
 void Berserker::MoveStart()
@@ -139,7 +180,43 @@ void Berserker::MoveStart()
 }
 void Berserker::MoveUpdate(float _Delta)
 {
+	DeathCollisionCheck();
+	{
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
 
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
+	float Speed = 200.0f;
+	float4 MovePos = float4::ZERO;
+	MovePos = { -Speed * _Delta, 0.0f };
+
+	AddPos(MovePos);
+
+	if (300.0f >= BerserkerRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X &&
+		0.0f <= BerserkerRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
+	{
+		
+		ChangeState(BerserkerState::Attack);
+	}
 }
 
 void Berserker::AttackStart()
@@ -148,14 +225,127 @@ void Berserker::AttackStart()
 }
 void Berserker::AttackUpdate(float _Delta)
 {
+	DeathCollisionCheck();
+	{
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
 
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
+	float Speed = 200.0f;
+	float4 MovePos = float4::ZERO;
+	MovePos = { -Speed * _Delta, 0.0f };
+
+	AddPos(MovePos);
+
+	if (0.0f >= BerserkerRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
+	{
+		ChangeState(BerserkerState::Move);
+	}
 }
 
 void Berserker::DeathStart()
 {
+	float4 GravityDir = (float4::UP);
+	GravityDir += (float4::RIGHT);
+	SetGravityVector(GravityDir * 300.0f);
 	ChangeAnimationState("Death");
 }
 void Berserker::DeathUpdate(float _Delta)
 {
+	{
+		Gravity(_Delta);
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
 
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
+
+	
+}
+void Berserker::DeathCollisionCheck()
+{
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == BerserkerCollision->Collision(CollisionOrder::BulletCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+			Collision->Off();
+		}
+		BerserkerCollision->Off();
+		BerserkerMeleeAttCollision->Off();
+		ChangeState(BerserkerState::Death);
+	}
+	else if (true == BerserkerCollision->Collision(CollisionOrder::PlayerMeleeCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+
+		}
+		if (Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAt1") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAt2") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAt1") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAt2")
+			)
+		{
+			if (Player::GetMainPlayer()->UpperRenderer->IsAnimationEnd())
+			{
+				BerserkerCollision->Off();
+				BerserkerMeleeAttCollision->Off();
+				ChangeState(BerserkerState::Death);
+			}
+		}
+	}
 }

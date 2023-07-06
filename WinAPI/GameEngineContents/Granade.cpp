@@ -187,7 +187,7 @@ void Granade::FireStart()
 	{
 		GravityDir += (float4::LEFT);
 	}
-	SetGravityVector(GravityDir * 600.0f);
+	SetGravityVector(GravityDir * 650.0f);
 	ChangeAnimationState("Fire");
 }
 void Granade::FireUpdate(float _Delta)
