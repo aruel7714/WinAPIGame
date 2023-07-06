@@ -620,6 +620,9 @@ void Player::Render(float _Delta)
 		WeaponText += WeaponName;
 		TextOutA(dc, 2, 20, WeaponText.c_str(), static_cast<int>(WeaponText.size()));
 	}
+	{
+		
+	}
 
 	CollisionData Data;
 

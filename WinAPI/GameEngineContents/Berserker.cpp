@@ -316,6 +316,22 @@ void Berserker::AttackUpdate(float _Delta)
 
 	AddPos(MovePos);
 
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == BerserkerMeleeAttCollision->Collision(CollisionOrder::PlayerCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+
+		}
+		Player::GetMainPlayer()->ChangeLowerState(PlayerLowerState::MeleeDeath);
+	}
+
 	if (0.0f >= BerserkerRenderer->GetActor()->GetPos().X - Player::GetMainPlayer()->GetPos().X)
 	{
 		ChangeState(BerserkerState::Move);

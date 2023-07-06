@@ -27,7 +27,7 @@ void PlayActor::CameraFocus()
 	GetLevel()->GetMainCamera()->SetPos(GetPos() + float4{ -WindowScale.hX(), -WindowScale.hY() });
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
-	if (4700.0f >= CameraPos.X + WindowScale.X)
+	if (4800.0f >= CameraPos.X + WindowScale.X)
 	{
 		if (0 >= CameraPos.X)
 		{
@@ -49,7 +49,7 @@ void PlayActor::CameraFocus()
 			CameraPos.Y = GlobalValue::MapScale.Y - WindowScale.Y;
 		}
 	}
-	else if (4700.0f <= CameraPos.X + WindowScale.X) 
+	else if (4800.0f <= CameraPos.X + WindowScale.X) 
 	{
 		if (0 >= CameraPos.X)
 		{

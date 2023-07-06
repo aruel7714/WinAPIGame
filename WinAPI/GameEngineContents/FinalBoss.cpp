@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "ContentsEnum.h"
+#include "Player.h"
 
 FinalBoss::FinalBoss()
 {
@@ -561,6 +562,7 @@ void FinalBoss::AttackUpdate(float _Delta)
 
 			GameEngineActor* Actor = Collision->GetActor();
 		}
+		Player::GetMainPlayer()->ChangeLowerState(PlayerLowerState::RangeDeathJump);
 	}
 	if (true == FinalBossRightAttackCollision->Collision(CollisionOrder::PlayerCollision, _Collision
 		, CollisionType::Rect
@@ -573,6 +575,7 @@ void FinalBoss::AttackUpdate(float _Delta)
 
 			GameEngineActor* Actor = Collision->GetActor();
 		}
+		Player::GetMainPlayer()->ChangeLowerState(PlayerLowerState::RangeDeathJump);
 	}
 
 
