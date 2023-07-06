@@ -108,6 +108,8 @@ class Player : public PlayActor
 {
 	friend class Arabian;
 	friend class ArabianSword;
+	friend class Berserker;
+	friend class FinalBoss;
 	friend class HeavyMachineGun;
 	friend class Bullet;
 	friend class Granade;

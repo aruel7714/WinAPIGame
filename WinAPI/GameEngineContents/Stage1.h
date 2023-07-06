@@ -86,5 +86,8 @@ private:
 
 	bool ThirdFocus = true;
 	bool ThirdTriger = false;
+
+	bool FinalBossFocus = true;
+	bool FinalBossTriger = false;
 };
 

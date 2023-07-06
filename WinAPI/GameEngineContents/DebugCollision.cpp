@@ -15,7 +15,7 @@ void DebugCollision::Start()
 	{
 		FocusCollision = CreateCollision(CollisionOrder::DebugCollision);
 
-		FocusCollision->SetCollisionScale({ 50, 1000 });
+		FocusCollision->SetCollisionScale({ 20, 1000 });
 		FocusCollision->SetCollisionType(CollisionType::Rect);
 		
 	}

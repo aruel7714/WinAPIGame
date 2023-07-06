@@ -123,6 +123,9 @@ void Stage1::Start()
 
 		ThirdCollision = CreateActor<DebugCollision>();
 		ThirdCollision->FocusCollision->SetCollisionPos({ 8350, 400 });
+
+		BossSceneCollision = CreateActor<DebugCollision>();
+		BossSceneCollision->FocusCollision->SetCollisionPos({ GlobalValue::MapScale.X - GlobalValue::WinScale.hX()+40, 400});
 		// 5850 864
 		// 8170
 
@@ -238,6 +241,7 @@ void Stage1::Start()
 
 	MiddleBossPtr = CreateActor<MiddleBoss>();
 	FinalBossPtr = CreateActor<FinalBoss>();
+	FinalBossPtr->SetPos({ GlobalValue::MapScale.X - GlobalValue::WinScale.hX(), 0 });
 	
 
 	/*NewItem = CreateActor<HeavyMachineGun>();
@@ -383,6 +387,13 @@ void Stage1::Update(float _Delta)
 	{
 		ThirdFocus = false;
 		LevelPlayer->SetFocusOn();
+	}
+
+	if (true == BossSceneCollision->FocusCollision->IsDeath() && FinalBossTriger == false)
+	{
+		FinalBossTriger = true;
+		FinalBossPtr->SetSpawn();
+		
 	}
 
 	//if (NewCamelArabian1->IsDeath())

@@ -3,6 +3,8 @@
 
 enum class BossState
 {
+	Idle,
+	Spawn,
 	Pattern1,
 	Pattern2,
 	Pattern3,
@@ -21,6 +23,12 @@ enum class BossAttackState
 	Attack,
 	AttackEnd,
 	Max
+};
+
+enum class BossDir
+{
+	Left,
+	Right
 };
 
 // Ό³Έν : 
@@ -44,10 +52,16 @@ public:
 	GameEngineCollision* FinalBossWingCollision = nullptr;
 	GameEngineCollision* FinalBossLeftAttackCollision = nullptr;
 	GameEngineCollision* FinalBossRightAttackCollision = nullptr;
+	
+	void SetSpawn()
+	{
+		ChangeMainState(BossState::Spawn);
+	}
 
 protected:
 	BossState State = BossState::Max;
 	BossAttackState AttackState = BossAttackState::Max;
+	BossDir Dir = BossDir::Left;
 
 	void ChangeMainState(BossState _State);
 	void MainStateUpdate(float _Delta);
@@ -57,6 +71,12 @@ protected:
 
 	void ChangeMainAnimationState(const std::string& _State);
 	void ChangeAttackAnimationState(const std::string& _State);
+
+	void IdleStart();
+	void IdleUpdate(float _Delta);
+
+	void SpawnStart();
+	void SpawnUpdate(float _Delta);
 
 	void Pattern1Start();
 	void Pattern1Update(float _Delta);
@@ -94,8 +114,15 @@ protected:
 	void AttackEndStart();
 	void AttackEndUpdate(float _Delta);
 
+	void CollisionCheck();
+
 private:
 	void Start() override;
 	void Update(float _Delta) override;
+
+	int Hp = 100;
+
+	float Speed = 200.0f;
+	float4 MovePos = float4::ZERO;
 };
 

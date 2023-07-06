@@ -567,6 +567,11 @@ void Player::Update(float _Delta)
 		{
 			BodyCollision->On();
 		}
+
+		if (true == GameEngineInput::IsDown(VK_F9))
+		{
+			LowerRenderer->GetActor()->SetPos({ 12300, 850 });
+		}
 	}
 	
 
