@@ -484,11 +484,11 @@ void Player::Start()
 		// MainRenderer->SetRenderScaleToTexture();
 
 		// UpperRenderer->GetActor()->SetPos({ LowerRenderer->GetActor()->GetPos().X, LowerRenderer->GetActor()->GetPos().Y + 10.0f });
-		LowerRenderer->GetActor()->SetPos({ 500, 400 });
+		//LowerRenderer->GetActor()->SetPos({ 500, 400 });
 		//LowerRenderer->GetActor()->SetPos({ 1216, 864 });
 		//LowerRenderer->GetActor()->SetPos({ 2400, 864 });
 		//LowerRenderer->GetActor()->SetPos({ 8600, 850 });
-		//LowerRenderer->GetActor()->SetPos({ 12300, 850 });
+		LowerRenderer->GetActor()->SetPos({ 12300, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 4000, 860 });
 
 		
@@ -934,90 +934,101 @@ void Player::BulletDirCheck()
 
 void Player::RifleDirCheck()
 {
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Left &&
-		RifleBulletDir.Y == -0.25f || RifleBulletDir.X == -0.75f)
+	if (Dir == PlayerDir::Left)
 	{
-		RifleDir = PlayerRifleBulletDir::LeftUp30;
-		return;
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Left &&
+			RifleBulletDir.Y == -0.25f || RifleBulletDir.X == -0.75f)
+		{
+			RifleDir = PlayerRifleBulletDir::LeftUp30;
+			return;
+		}
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Left &&
+			RifleBulletDir.Y == -0.5f || RifleBulletDir.X == -0.5f)
+		{
+			RifleDir = PlayerRifleBulletDir::LeftUp45;
+			return;
+		}
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Left &&
+			RifleBulletDir.Y == -0.75f || RifleBulletDir.X == -0.25f)
+		{
+			RifleDir = PlayerRifleBulletDir::LeftUp60;
+			return;
+		}
+		if (true == GameEngineInput::IsFree(VK_UP) &&
+			true == GameEngineInput::IsFree(VK_DOWN) &&
+			Dir == PlayerDir::Left)
+		{
+			RifleDir = PlayerRifleBulletDir::Left;
+			return;
+		}
+
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Left)
+		{
+			RifleDir = PlayerRifleBulletDir::LeftUp90;
+			return;
+		}
+
+		if (true == GameEngineInput::IsPress(VK_DOWN) &&
+			Dir == PlayerDir::Left &&
+			(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
+		{
+			RifleDir = PlayerRifleBulletDir::LeftDown90;
+			return;
+		}
 	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Right &&
-		RifleBulletDir.Y == -0.5f || RifleBulletDir.X == -0.5f)
+
+	else if (Dir == PlayerDir::Right)
 	{
-		RifleDir = PlayerRifleBulletDir::LeftUp45;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Right &&
-		RifleBulletDir.Y == -0.75f || RifleBulletDir.X == -0.25f)
-	{
-		RifleDir = PlayerRifleBulletDir::LeftUp60;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Right &&
-		RifleBulletDir.Y == -0.25f || RifleBulletDir.X == 0.75f)
-	{
-		RifleDir = PlayerRifleBulletDir::RightUp30;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Right &&
-		RifleBulletDir.Y == -0.5f || RifleBulletDir.X == 0.5f)
-	{
-		RifleDir = PlayerRifleBulletDir::RightUp45;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Right &&
-		RifleBulletDir.Y == -0.75f || RifleBulletDir.X == 0.25f)
-	{
-		RifleDir = PlayerRifleBulletDir::RightUp60;
-		return;
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Right &&
+			RifleBulletDir.Y == -0.25f || RifleBulletDir.X == 0.75f)
+		{
+			RifleDir = PlayerRifleBulletDir::RightUp30;
+			return;
+		}
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Right &&
+			RifleBulletDir.Y == -0.5f || RifleBulletDir.X == 0.5f)
+		{
+			RifleDir = PlayerRifleBulletDir::RightUp45;
+			return;
+		}
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Right &&
+			RifleBulletDir.Y == -0.75f || RifleBulletDir.X == 0.25f)
+		{
+			RifleDir = PlayerRifleBulletDir::RightUp60;
+			return;
+		}
+
+		if (true == GameEngineInput::IsFree(VK_UP) &&
+			true == GameEngineInput::IsFree(VK_DOWN) &&
+			Dir == PlayerDir::Right)
+		{
+			RifleDir = PlayerRifleBulletDir::Right;
+			return;
+		}
+
+		if (true == GameEngineInput::IsPress(VK_UP) &&
+			Dir == PlayerDir::Right)
+		{
+			RifleDir = PlayerRifleBulletDir::RightUp90;
+			return;
+		}
+
+		if (true == GameEngineInput::IsPress(VK_DOWN) &&
+			Dir == PlayerDir::Right &&
+			(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
+		{
+			RifleDir = PlayerRifleBulletDir::RightDown90;
+			return;
+		}
 	}
 	
-	if (true == GameEngineInput::IsFree(VK_UP) &&
-		true == GameEngineInput::IsFree(VK_DOWN) &&
-		Dir == PlayerDir::Right)
-	{
-		RifleDir = PlayerRifleBulletDir::Right;
-		return;
-	}
-	if (true == GameEngineInput::IsFree(VK_UP) &&
-		true == GameEngineInput::IsFree(VK_DOWN) &&
-		Dir == PlayerDir::Left)
-	{
-		RifleDir = PlayerRifleBulletDir::Left;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Right)
-	{
-		RifleDir = PlayerRifleBulletDir::RightUp90;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_UP) &&
-		Dir == PlayerDir::Left)
-	{
-		RifleDir = PlayerRifleBulletDir::LeftUp90;
-		return;
-	}
-	
-	if (true == GameEngineInput::IsPress(VK_DOWN) &&
-		Dir == PlayerDir::Left &&
-		(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
-	{
-		RifleDir = PlayerRifleBulletDir::LeftDown90;
-		return;
-	}
-	if (true == GameEngineInput::IsPress(VK_DOWN) &&
-		Dir == PlayerDir::Right &&
-		(LowerState == PlayerLowerState::IdleJump || LowerState == PlayerLowerState::MoveJump))
-	{
-		RifleDir = PlayerRifleBulletDir::RightDown90;
-		return;
-	}
 	
 
 }

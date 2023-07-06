@@ -486,7 +486,7 @@ void Player::FireUpdate(float _Delta)
 	}
 
 	if (WeaponName == "Rifle_" &&
-		RifleDir == PlayerRifleBulletDir::RightUp90 &&
+		(RifleDir == PlayerRifleBulletDir::RightUp90 || RifleDir == PlayerRifleBulletDir::LeftUp90)&&
 		GameEngineInput::IsFree(VK_UP))
 	{
 		ChangeUpperState(PlayerUpperState::LookDownFire);
@@ -1268,9 +1268,19 @@ void Player::LookUpFireUpdate(float _Delta)
 
 void Player::LookDownFireStart()
 {
-	ChangeUpperAnimationState("LookDownFire1", true);
-	RifleBulletDir.X += BulletPlusDir;
-	RifleBulletDir.Y += 0.1f;
+	if (Dir == PlayerDir::Right)
+	{
+		ChangeUpperAnimationState("LookDownFire1", true);
+		RifleBulletDir.X += BulletPlusDir;
+		RifleBulletDir.Y += 0.1f;
+	}
+	else if (Dir == PlayerDir::Left)
+	{
+		ChangeUpperAnimationState("LookDownFire1", true);
+		RifleBulletDir.X -= BulletPlusDir;
+		RifleBulletDir.Y += 0.1f;
+	}
+	
 	BulletFire();
 }
 void Player::LookDownFireUpdate(float _Delta)

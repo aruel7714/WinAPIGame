@@ -350,17 +350,17 @@ void Bullet::SetRifleDirTexture()
 	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp30)
 	{
 		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp30.bmp");
-		Renderer->SetTexture("HeavyMachineGunRightUp30.bmp");
+		Renderer->SetTexture("HeavyMachineGunLeftUp30.bmp");
 	}
 	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp45)
 	{
 		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp45.bmp");
-		Renderer->SetTexture("HeavyMachineGunRightUp45.bmp");
+		Renderer->SetTexture("HeavyMachineGunLeftUp45.bmp");
 	}
 	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp60)
 	{
 		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftUp60.bmp");
-		Renderer->SetTexture("HeavyMachineGunRightUp60.bmp");
+		Renderer->SetTexture("HeavyMachineGunLeftUp60.bmp");
 	}
 	else if (Player::RifleDir == PlayerRifleBulletDir::LeftUp90)
 	{
