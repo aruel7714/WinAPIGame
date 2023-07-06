@@ -35,8 +35,8 @@ void Berserker::Start()
 		BerserkerRenderer->CreateAnimation("Berserker_StandIdle1", "Berserker.bmp", 4, 7, 0.3f, false);
 		BerserkerRenderer->CreateAnimation("Berserker_StandIdle2", "Berserker.bmp", 6, 5, 0.3f, false);
 		BerserkerRenderer->CreateAnimation("Berserker_Move", "Berserker.bmp", 8, 13, 0.05f, true);
-		BerserkerRenderer->CreateAnimation("Berserker_Attack", "Berserker.bmp", 14, 19, 0.05f, false);
-		BerserkerRenderer->CreateAnimation("Berserker_Death", "Berserker.bmp", 20, 28, 1.0f, true);
+		BerserkerRenderer->CreateAnimation("Berserker_Attack", "Berserker.bmp", 14, 19, 0.05f, true);
+		BerserkerRenderer->CreateAnimation("Berserker_Death", "Berserker.bmp", 20, 28, 0.01f, false);
 	}
 
 	{
@@ -58,7 +58,7 @@ void Berserker::Start()
 
 	//BerserkerRenderer->GetActor()->SetPos({ 12500, 860 });
 
-	ChangeState(BerserkerState::SitIdle);
+	ChangeState(BerserkerState::StandIdle);
 }
 
 void Berserker::Update(float _Delta)
@@ -85,6 +85,9 @@ void Berserker::ChangeState(BerserkerState _State)
 	{
 		switch (_State)
 		{
+		case BerserkerState::Spawn:
+			SpawnStart();
+			break;
 		case BerserkerState::SitIdle:
 			SitIdleStart();
 			break;
@@ -111,6 +114,8 @@ void Berserker::StateUpdate(float _Delta)
 {
 	switch (State)
 	{
+	case BerserkerState::Spawn:
+		return SpawnUpdate(_Delta);
 	case BerserkerState::SitIdle:
 		return SitIdleUpdate(_Delta);
 	case BerserkerState::StandIdle:
@@ -136,12 +141,37 @@ void Berserker::ChangeAnimationState(const std::string& _State)
 	BerserkerRenderer->ChangeAnimation(AnimationName);
 }
 
+void Berserker::SpawnStart()
+{
+	ResetLiveTime();
+	PrevState = BerserkerState::Spawn;
+	ChangeAnimationState("Move");
+}
+void Berserker::SpawnUpdate(float _Delta)
+{
+	float Speed = 200.0f;
+	float4 MovePos = { -Speed * _Delta, 0.0f };
+	AddPos(MovePos);
+
+	if (3.0f <= GetLiveTime())
+	{
+		ResetLiveTime();
+		ChangeState(BerserkerState::SitIdle);
+	}
+}
+
 void Berserker::SitIdleStart()
 {
 	ChangeAnimationState("SitIdle1");
 }
 void Berserker::SitIdleUpdate(float _Delta)
 {
+	if (PrevState == BerserkerState::Spawn && 2.0f <= GetLiveTime())
+	{
+		ChangeState(BerserkerState::Move);
+	}
+
+
 	if (BerserkerRenderer->IsAnimationEnd())
 	{
 		if (BerserkerRenderer->IsAnimation("Berserker_SitIdle1"))
@@ -161,6 +191,30 @@ void Berserker::StandIdleStart()
 }
 void Berserker::StandIdleUpdate(float _Delta)
 {
+	{
+		// 발밑의 색
+		unsigned int Color = GetGroundColor(RGB(255, 255, 255));
+		// 그 색이 흰색이라면 중력 적용(아래로 떨어지기)
+		if (RGB(255, 255, 255) == Color)
+		{
+			Gravity(_Delta);
+		}
+		// 그게 아니라면
+		else
+		{
+			// 내 발 위의 색 조사
+			unsigned int CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+
+			// 발 위의 색이 흰색이 아니라면 위로 이동
+			while (CheckColor != RGB(255, 255, 255))
+			{
+				CheckColor = GetGroundColor(RGB(255, 255, 255), float4::UP);
+				AddPos(float4::UP);
+			}
+
+			GravityReset();
+		}
+	}
 	if (BerserkerRenderer->IsAnimationEnd())
 	{
 		if (BerserkerRenderer->IsAnimation("Berserker_StandIdle1"))
@@ -176,6 +230,7 @@ void Berserker::StandIdleUpdate(float _Delta)
 
 void Berserker::MoveStart()
 {
+	ResetLiveTime();
 	ChangeAnimationState("Move");
 }
 void Berserker::MoveUpdate(float _Delta)
@@ -216,6 +271,11 @@ void Berserker::MoveUpdate(float _Delta)
 	{
 		
 		ChangeState(BerserkerState::Attack);
+	}
+
+	if (5.0f <= GetLiveTime())
+	{
+		ChangeState(BerserkerState::Death);
 	}
 }
 
@@ -264,9 +324,11 @@ void Berserker::AttackUpdate(float _Delta)
 
 void Berserker::DeathStart()
 {
+	GravityReset();
+	BerserkerDeath = true;
 	float4 GravityDir = (float4::UP);
 	GravityDir += (float4::RIGHT);
-	SetGravityVector(GravityDir * 300.0f);
+	SetGravityVector(GravityDir * 500.0f);
 	ChangeAnimationState("Death");
 }
 void Berserker::DeathUpdate(float _Delta)

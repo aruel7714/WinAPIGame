@@ -30,10 +30,20 @@ void Truck::Start()
 		TruckRenderer = CreateRenderer(RenderOrder::EnemyTruck);
 
 		TruckRenderer->CreateAnimation("Truck_Idle", "Truck.bmp", 0, 0, 1.0f, true);
-		TruckRenderer->CreateAnimation("Truck_Drive", "Truck.bmp", 1, 4, 2.0f, true);
-		TruckRenderer->CreateAnimation("Truck_Deploy", "Truck.bmp", 5, 16, 2.0f, true);
-		TruckRenderer->CreateAnimation("Truck_Destroy", "Truck.bmp", 17, 22, 2.0f, true);
+		TruckRenderer->CreateAnimation("Truck_Drive", "Truck.bmp", 1, 4, 0.1f, true);
+		TruckRenderer->CreateAnimation("Truck_Deploy", "Truck.bmp", 5, 16, 0.1f, false);
+		TruckRenderer->CreateAnimation("Truck_DeployEnd", "Truck.bmp", 16, 16, 1.0f, true);
+		TruckRenderer->CreateAnimation("Truck_Destroy", "Truck.bmp", 17, 22, 0.1f, true);
 	}
+
+	{
+		TruckCollision = CreateCollision(CollisionOrder::BossCollision);
+
+		TruckCollision->SetCollisionScale({ 450, 300 });
+		TruckCollision->SetCollisionType(CollisionType::Rect);
+		TruckCollision->SetCollisionPos({ 0, -150 });
+	}
+
 	TruckRenderer->GetActor()->SetPos({ 6750, 864 });
 
 	ChangeState(TruckState::Idle);
@@ -101,19 +111,21 @@ void Truck::IdleStart()
 }
 void Truck::IdleUpdate(float _Delat)
 {
-	if (2.0f <= GetLiveTime())
-	{
-		ChangeState(TruckState::Drive);
-	}
+	
 }
 
 void Truck::DriveStart()
 {
+	ResetLiveTime();
 	ChangeAnimationState("Drive");
 }
 void Truck::DriveUpdate(float _Delta)
 {
-	if (TruckRenderer->IsAnimationEnd())
+	float Speed = 200.0f;
+	float4 MovePos = { -Speed * _Delta, 0.0f };
+	AddPos(MovePos);
+
+	if (3.0f <= GetLiveTime())
 	{
 		ChangeState(TruckState::Deploy);
 	}
@@ -125,14 +137,38 @@ void Truck::DeployStart()
 }
 void Truck::DeployUpdate(float _Delta)
 {
-	if (TruckRenderer->IsAnimationEnd())
+	std::vector<GameEngineCollision*> _Collision;
+	if (true == TruckCollision->Collision(CollisionOrder::BulletCollision, _Collision
+		, CollisionType::Rect
+		, CollisionType::Rect
+	))
+	{
+		for (size_t i = 0; i < _Collision.size(); i++)
+		{
+			GameEngineCollision* Collision = _Collision[i];
+
+			GameEngineActor* Actor = Collision->GetActor();
+			Collision->Off();
+		}
+		Hp--;
+		
+	}
+
+	if(Hp <= 0)
 	{
 		ChangeState(TruckState::Destroy);
+	}
+
+	if (TruckRenderer->IsAnimationEnd())
+	{
+		ChangeAnimationState("DeployEnd");
 	}
 }
 
 void Truck::DestroyStart()
 {
+	IsDestroy = true;
+	TruckCollision->Off();
 	ChangeAnimationState("Destroy");
 }
 void Truck::DestroyUpdate(float _Delta)

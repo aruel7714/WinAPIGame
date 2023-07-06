@@ -420,7 +420,9 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Fire", "Right_Rifle_Upper.bmp", 30, 33, 0.02f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_Granade", "Right_Rifle_Upper.bmp", 34, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt1", "Right_Rifle_Upper.bmp", 40, 45, 0.01f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt1End", "Right_Rifle_Upper.bmp", 45, 45, 0.2f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt2", "Right_Rifle_Upper.bmp", 46, 51, 0.02f, false);
+		UpperRenderer->CreateAnimation("Right_Rifle_Upper_MeleeAtt2End", "Right_Rifle_Upper.bmp", 51, 51, 0.2f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookUp", "Right_Rifle_Upper.bmp", 52, 53, 0.05f, false);
 		UpperRenderer->CreateAnimation("Right_Rifle_Upper_LookDown", "Right_Rifle_Upper.bmp", 53, 52, 0.05f, false);
 		UpperRenderer->CreateAnimation("RightUp_Rifle_Upper_Idle1", "Right_Rifle_Upper.bmp", 54, 57, 0.1f, false);
@@ -450,7 +452,9 @@ void Player::Start()
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Fire", "Left_Rifle_Upper.bmp", 30, 33, 0.02f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_Granade", "Left_Rifle_Upper.bmp", 34, 39, 0.05f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt1", "Left_Rifle_Upper.bmp", 40, 45, 0.01f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt1End", "Left_Rifle_Upper.bmp", 45, 45, 0.2f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt2", "Left_Rifle_Upper.bmp", 46, 51, 0.02f, false);
+		UpperRenderer->CreateAnimation("Left_Rifle_Upper_MeleeAtt2End", "Left_Rifle_Upper.bmp", 51, 51, 0.2f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookUp", "Left_Rifle_Upper.bmp", 52, 53, 0.05f, false);
 		UpperRenderer->CreateAnimation("Left_Rifle_Upper_LookDown", "Left_Rifle_Upper.bmp", 53, 52, 0.05f, false);
 		UpperRenderer->CreateAnimation("LeftUp_Rifle_Upper_Idle1", "Left_Rifle_Upper.bmp", 54, 57, 0.1f, false);
@@ -487,6 +491,7 @@ void Player::Start()
 		LowerRenderer->GetActor()->SetPos({ 500, 400 });
 		//LowerRenderer->GetActor()->SetPos({ 1216, 864 });
 		//LowerRenderer->GetActor()->SetPos({ 2400, 864 });
+		//LowerRenderer->GetActor()->SetPos({ 5800, 864 });
 		//LowerRenderer->GetActor()->SetPos({ 8600, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 12300, 850 });
 		//LowerRenderer->GetActor()->SetPos({ 4000, 860 });
@@ -536,20 +541,35 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	
+	// Debug Key
+	{
+		if (true == GameEngineInput::IsDown(VK_F2))
+		{
+			GameEngineLevel::CollisionDebugRenderSwitch();
+		}
 
-	if (true == GameEngineInput::IsDown(VK_F2))
-	{
-		GameEngineLevel::CollisionDebugRenderSwitch();
-	}
+		if (true == GameEngineInput::IsDown('P'))
+		{
+			WeaponName = "Rifle_";
+		}
 
-	/*if (true == GameEngineInput::IsDown('P'))
-	{
-		SetFocusOff();;
+		if (true == GameEngineInput::IsDown('O'))
+		{
+			WeaponName = "Pistol_";
+		}
+
+		if (true == GameEngineInput::IsDown(VK_F5))
+		{
+			BodyCollision->Off();
+		}
+
+		if (true == GameEngineInput::IsDown(VK_F6))
+		{
+			BodyCollision->On();
+		}
 	}
-	if (true == GameEngineInput::IsDown('O'))
-	{
-		SetFocusOn();
-	}*/
+	
+
 
 	std::vector<GameEngineCollision*> _Collision;
 	if (true == BodyCollision->Collision(CollisionOrder::DebugCollision, _Collision
@@ -587,7 +607,13 @@ void Player::Render(float _Delta)
 		PosText += std::to_string(GetPos().iX());
 		PosText += ", ";
 		PosText += std::to_string(GetPos().iY());
-		TextOutA(dc, 2, 3, PosText.c_str(), static_cast<int>(PosText.size()));
+		TextOutA(dc, 2, 2, PosText.c_str(), static_cast<int>(PosText.size()));
+	}
+	{
+		std::string WeaponText = "";
+		WeaponText += "¹«±â : ";
+		WeaponText += WeaponName;
+		TextOutA(dc, 2, 20, WeaponText.c_str(), static_cast<int>(WeaponText.size()));
 	}
 
 	CollisionData Data;

@@ -32,7 +32,13 @@ private:
 	//Enemy
 	class Arabian* NewArabian = nullptr;
 	
-	class Berserker* NewBerserker = nullptr;
+	class Berserker* NewBerserker1 = nullptr;
+	class Berserker* NewBerserker2 = nullptr;
+	class Berserker* NewBerserker3 = nullptr;
+
+	class Berserker* SecondBerserker1 = nullptr;
+	class Berserker* SecondBerserker2 = nullptr;
+	class Berserker* SecondBerserker3 = nullptr;
 	
 	class Truck* NewTruck = nullptr;
 	
@@ -66,9 +72,19 @@ private:
 
 	class DebugCollision* FirstCollision = nullptr;
 	class DebugCollision* SecondCollision = nullptr;
+	class DebugCollision* ThirdCollision = nullptr;
+	class DebugCollision* BossSceneCollision = nullptr;
 
 	//class Arabian* EnemyArabian = nullptr;
 	
 	bool IsCamelArabian = false;
+
+	bool FirstFocus = true;
+
+	bool SecondFocus = true;
+	bool SecondTriger = false;
+
+	bool ThirdFocus = true;
+	bool ThirdTriger = false;
 };
 

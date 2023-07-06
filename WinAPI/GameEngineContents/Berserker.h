@@ -3,6 +3,7 @@
 
 enum class BerserkerState
 {
+	Spawn,
 	SitIdle,
 	StandIdle,
 	Move,
@@ -25,6 +26,13 @@ public:
 	Berserker& operator=(const Berserker & _Other) = delete;
 	Berserker& operator=(Berserker && _Other) noexcept = delete;
 
+	bool BerserkerDeath = false;
+
+	void SetSpawn()
+	{
+		ChangeState(BerserkerState::Spawn);
+	}
+
 	void SetMove()
 	{
 		ChangeState(BerserkerState::Move);
@@ -32,11 +40,15 @@ public:
 
 protected:
 	BerserkerState State = BerserkerState::Max;
+	BerserkerState PrevState = BerserkerState::Max;
 
 	void ChangeState(BerserkerState _State);
 	void StateUpdate(float _Delta);
 
 	void ChangeAnimationState(const std::string& _State);
+
+	void SpawnStart();
+	void SpawnUpdate(float _Delta);
 
 	void SitIdleStart();
 	void SitIdleUpdate(float _Delta);

@@ -3,7 +3,6 @@
 
 enum class TruckState
 {
-	Spawn,
 	Idle,
 	Drive,
 	Deploy,
@@ -25,6 +24,15 @@ public:
 	Truck& operator=(const Truck & _Other) = delete;
 	Truck& operator=(Truck && _Other) noexcept = delete;
 
+	bool IsDestroy = false;
+
+	int Hp = 20;
+
+	void SetDrive()
+	{
+		ChangeState(TruckState::Drive);
+	}
+
 protected:
 	TruckState State = TruckState::Max;
 
@@ -32,9 +40,6 @@ protected:
 	void StateUpdate(float _Delta);
 
 	void ChangeAnimationState(const std::string& _State);
-
-	void SpawnStart();
-	void SpawnUpdate(float _Delta);
 
 	void IdleStart();
 	void IdleUpdate(float _Delat);
@@ -50,6 +55,8 @@ protected:
 
 private:
 	GameEngineRenderer* TruckRenderer = nullptr;
+
+	GameEngineCollision* TruckCollision = nullptr;
 
 	void Start() override;
 	void Update(float _Delta) override;

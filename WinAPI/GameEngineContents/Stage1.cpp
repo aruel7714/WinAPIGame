@@ -120,9 +120,11 @@ void Stage1::Start()
 
 		SecondCollision = CreateActor<DebugCollision>();
 		SecondCollision->FocusCollision->SetCollisionPos({ 5850, 400 });
+
+		ThirdCollision = CreateActor<DebugCollision>();
+		ThirdCollision->FocusCollision->SetCollisionPos({ 8350, 400 });
 		// 5850 864
 		// 8170
-		// 9950
 
 		
 	}
@@ -200,17 +202,31 @@ void Stage1::Start()
 	// 6678 380
 
 	{
-		NewBerserker = CreateActor<Berserker>();
-		NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");
-		NewBerserker->SetPos({ 6640, 864 });
+		NewBerserker1 = CreateActor<Berserker>();
+		NewBerserker1->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewBerserker1->SetPos({ 6640, 864 });
 
-		NewBerserker = CreateActor<Berserker>();
-		NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");
-		NewBerserker->SetPos({ 6740, 864 });
+		NewBerserker2 = CreateActor<Berserker>();
+		NewBerserker2->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewBerserker2->SetPos({ 6740, 864 });
 
-		NewBerserker = CreateActor<Berserker>();
-		NewBerserker->SetGroundTexture("Mission1_Debug_Test.bmp");
-		NewBerserker->SetPos({ 6840, 864 });
+		NewBerserker3 = CreateActor<Berserker>();
+		NewBerserker3->SetGroundTexture("Mission1_Debug_Test.bmp");
+		NewBerserker3->SetPos({ 6840, 864 });
+	}
+
+	{
+		SecondBerserker1 = CreateActor<Berserker>();
+		SecondBerserker1->SetGroundTexture("Mission1_Debug_Test.bmp");
+		SecondBerserker1->SetPos({ 8480, 400 });
+
+		SecondBerserker2 = CreateActor<Berserker>();
+		SecondBerserker2->SetGroundTexture("Mission1_Debug_Test.bmp");
+		SecondBerserker2->SetPos({ 8580, 400 });
+
+		SecondBerserker3 = CreateActor<Berserker>();
+		SecondBerserker3->SetGroundTexture("Mission1_Debug_Test.bmp");
+		SecondBerserker3->SetPos({ 8680, 400 });
 	}
 	
 
@@ -327,18 +343,46 @@ void Stage1::Update(float _Delta)
 		IsCamelArabian = true;
 	}
 
-	if (true == SecondCollision->FocusCollision->IsDeath())
-	{
-		LevelPlayer->SetFocusOff();
-	}
-
 	if (NewCamelArabian1 != nullptr && IsCamelArabian == true)
 	{
 		//LevelPlayer->SetFocusOn();
-		if (true == NewCamelArabian1->CamelDeath)
+		if (true == NewCamelArabian1->CamelDeath && true == FirstFocus)
 		{
+			FirstFocus = false;
 			LevelPlayer->SetFocusOn();
 		}
+	}
+
+	if (true == SecondCollision->FocusCollision->IsDeath() && SecondTriger == false)
+	{
+		SecondTriger = true;
+		NewTruck->SetDrive();
+		NewBerserker1->SetSpawn();
+		NewBerserker2->SetSpawn();
+		NewBerserker3->SetSpawn();
+	}
+
+	if (true == NewTruck->IsDestroy && SecondFocus == true)
+	{
+		SecondFocus = false;
+		LevelPlayer->SetFocusOn();
+	}
+
+	if (true == ThirdCollision->FocusCollision->IsDeath() && ThirdTriger == false)
+	{
+		ThirdTriger = true;
+		SecondBerserker1->SetMove();
+		SecondBerserker2->SetMove();
+		SecondBerserker3->SetMove();
+	}
+
+	if (true == SecondBerserker1->BerserkerDeath &&
+		true == SecondBerserker2->BerserkerDeath &&
+		true == SecondBerserker3->BerserkerDeath &&
+		ThirdFocus == true)
+	{
+		ThirdFocus = false;
+		LevelPlayer->SetFocusOn();
 	}
 
 	//if (NewCamelArabian1->IsDeath())
