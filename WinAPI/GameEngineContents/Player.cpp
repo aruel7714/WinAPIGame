@@ -264,6 +264,24 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Left_Rifle_Sit.bmp"), 5, 8);
 	}
 
+	if (nullptr == GameEngineSound::FindSound("KnifeAttackSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("KnifeAttackSound.wav"));
+	}
+
+	if (nullptr == GameEngineSound::FindSound("MarcoDeathSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("MarcoDeathSound.wav"));
+	}
+
 	{
 		//LowerRenderer = CreateRenderer("Right_Lower.bmp", RenderOrder::PlayerLower);
 		LowerRenderer = CreateRenderer(RenderOrder::PlayerLower);
@@ -525,8 +543,8 @@ void Player::Start()
 	}
 
 
-	//WeaponName = "Pistol_";
-	WeaponName = "Rifle_";
+	WeaponName = "Pistol_";
+	//WeaponName = "Rifle_";
 
 	//ChangeState(PlayerState::Idle);
 	//ChangeState(PlayerState::Move);
@@ -556,6 +574,11 @@ void Player::Update(float _Delta)
 		if (true == GameEngineInput::IsDown('O'))
 		{
 			WeaponName = "Pistol_";
+		}
+
+		if (true == GameEngineInput::IsDown('P'))
+		{
+			ChangeUpperState(PlayerUpperState::MeleeAtt);
 		}
 
 		if (true == GameEngineInput::IsDown(VK_F5))

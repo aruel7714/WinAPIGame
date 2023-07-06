@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayActor.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 enum class CamelArabianLowerState
 {
@@ -52,6 +53,8 @@ public:
 	GameEngineRenderer* UpperDownCamelArabianRenderer = nullptr;
 
 	bool CamelDeath = false;
+
+	GameEngineSoundPlayer Sound;
 
 protected:
 	CamelArabianLowerState LowerState = CamelArabianLowerState::Max;

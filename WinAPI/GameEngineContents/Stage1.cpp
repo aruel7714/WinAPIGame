@@ -85,6 +85,31 @@ void Stage1::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mission1_Object.bmp"));
 	}
 
+	if (nullptr == GameEngineSound::FindSound("mission1BGM.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("mission1BGM.wav"));
+	}
+	if (nullptr == GameEngineSound::FindSound("mission1Start.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("mission1Start.wav"));
+	}
+	if (nullptr == GameEngineSound::FindSound("Boss2Sound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Boss2Sound.wav"));
+	}
+
 	//if (false == ResourcesManager::GetInst().IsLoadTexture("Mission1_SecondBackGround.bmp"))
 	//{
 	//	GameEnginePath FilePath;
@@ -104,6 +129,8 @@ void Stage1::Start()
 	BackGroundPtr->ObjectInit("Mission1_Object.bmp");
 	//BackGroundPtr->Init("Mission1.bmp");
 	// BackGroundPtr->SecondInit("Mission1_SecondBackGround.bmp");
+
+	
 
 	GameEngineWindowTexture* Ptr = ResourcesManager::GetInst().FindTexture("Mission1_Test.bmp");
 
@@ -313,6 +340,11 @@ void Stage1::Update(float _Delta)
 		BackGroundPtr->SwitchRender();
 	}
 
+	/*if (true == GameEngineInput::IsDown('M'))
+	{
+		BGMPlayer.Stop();
+	}*/
+
 	//SlaveNPC::AllSlave
 	for (SlaveNPC* Slave : SlaveNPC::AllSlave)
 	{
@@ -391,10 +423,14 @@ void Stage1::Update(float _Delta)
 
 	if (true == BossSceneCollision->FocusCollision->IsDeath() && FinalBossTriger == false)
 	{
+		
 		FinalBossTriger = true;
 		FinalBossPtr->SetSpawn();
-		
+		BGMPlayer.Stop();
+		BossBGMPlayer = GameEngineSound::SoundPlay("Boss2Sound.wav");
 	}
+
+	
 
 	//if (NewCamelArabian1->IsDeath())
 	//{
@@ -410,12 +446,9 @@ void Stage1::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다.");
 	}
 
-	/*if (nullptr == EnemyArabian)
-	{
-		MsgBoxAssert("적군을 세팅해주지 않았습니다.");
-	}*/
+	BGMPlayer = GameEngineSound::SoundPlay("mission1Start.wav");
+	BGMPlayer = GameEngineSound::SoundPlay("mission1BGM.wav");
 
-	//LevelPlayer->SetGroundTexture("Mission1_Debug.bmp");
 }
 
 void Stage1::LevelEnd(GameEngineLevel* _NextLevel)

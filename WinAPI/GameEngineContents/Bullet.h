@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayActor.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 enum class BulletState
 {
@@ -37,6 +38,8 @@ public:
 	void SetPistolDirTexture();
 
 	void SetRifleDirTexture();
+
+	GameEngineSoundPlayer BulletSound;
 
 protected:
 	BulletState State = BulletState::Max;

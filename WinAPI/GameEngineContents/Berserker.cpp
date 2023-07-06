@@ -26,6 +26,14 @@ void Berserker::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Berserker.bmp"), 5, 6);
 	}
+	if (nullptr == GameEngineSound::FindSound("BerserkerDeathSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("BerserkerDeathSound.wav"));
+	}
 
 	{
 		BerserkerRenderer = CreateRenderer(RenderOrder::Enemy);
@@ -394,6 +402,7 @@ void Berserker::DeathCollisionCheck()
 		}
 		BerserkerCollision->Off();
 		BerserkerMeleeAttCollision->Off();
+		Sound = GameEngineSound::SoundPlay("BerserkerDeathSound.wav");
 		ChangeState(BerserkerState::Death);
 	}
 	else if (true == BerserkerCollision->Collision(CollisionOrder::PlayerMeleeCollision, _Collision
@@ -408,6 +417,7 @@ void Berserker::DeathCollisionCheck()
 			GameEngineActor* Actor = Collision->GetActor();
 
 		}
+		Sound = GameEngineSound::SoundPlay("BerserkerDeathSound.wav");
 		if (Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
 			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
 			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||

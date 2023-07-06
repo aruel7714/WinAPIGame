@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayActor.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 enum class GranadeState
 {
@@ -31,6 +32,8 @@ public:
 	Granade& operator=(Granade && _Other) noexcept = delete;
 
 	GameEngineRenderer* GranadeRenderer = nullptr;
+
+	GameEngineSoundPlayer BombSound;
 
 protected:
 	GranadeState State = GranadeState::Max;

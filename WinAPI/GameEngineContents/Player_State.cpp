@@ -1067,6 +1067,7 @@ void Player::MeleeAttStart()
 		ChangeUpperAnimationState("MeleeAtt2");
 	}
 
+	Sound = GameEngineSound::SoundPlay("KnifeAttackSound.wav");
 	
 }
 void Player::MeleeAttUpdate(float _Delta)
@@ -1074,13 +1075,17 @@ void Player::MeleeAttUpdate(float _Delta)
 	if (UpperRenderer->IsAnimationEnd())
 	{
 		if (UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
-			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1"))
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||
+			UpperRenderer->IsAnimation("Right_Rifle_Upper_MeleeAtt1") || 
+			UpperRenderer->IsAnimation("Left_Rifle_Upper_MeleeAtt1"))
 		{
 			MeleeAttCount++;
 			ChangeUpperAnimationState("MeleeAtt1End");
 		}
 		else if (UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
-			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2"))
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2") ||
+			UpperRenderer->IsAnimation("Right_Rifle_Upper_MeleeAtt2") || 
+			UpperRenderer->IsAnimation("Left_Rifle_Upper_MeleeAtt2"))
 		{
 			MeleeAttCount++;
 			ChangeUpperAnimationState("MeleeAtt2End");
@@ -1088,7 +1093,11 @@ void Player::MeleeAttUpdate(float _Delta)
 		else if(UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1End") ||
 			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1End") ||
 			UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2End") ||
-			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2End"))
+			UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2End") ||
+			UpperRenderer->IsAnimation("Right_Rifle_Upper_MeleeAtt1End") || 
+			UpperRenderer->IsAnimation("Left_Rifle_Upper_MeleeAtt1End") || 
+			UpperRenderer->IsAnimation("Right_Rifle_Upper_MeleeAtt2End") || 
+			UpperRenderer->IsAnimation("Left_Rifle_Upper_MeleeAtt2End"))
 		{
 			ChangeUpperState(PlayerUpperState::Idle);
 		}
@@ -1112,6 +1121,7 @@ void Player::RangeDeathJumpStart()
 	}
 	
 	UpperRenderer->Off();
+	Sound = GameEngineSound::SoundPlay("MarcoDeathSound.wav");
 	ChangeLowerAnimationState("RangeDeathJump", false);
 }
 void Player::RangeDeathJumpUpdate(float _Delta)
@@ -1164,6 +1174,7 @@ void Player::RangeDeathGroundUpdate(float _Delta)
 void Player::MeleeDeathStart()
 {
 	UpperRenderer->Off();
+	Sound = GameEngineSound::SoundPlay("MarcoDeathSound.wav");
 	ChangeLowerAnimationState("MeleeDeath", false);
 }
 void Player::MeleeDeathUpdate(float _Delta)
@@ -1179,6 +1190,7 @@ void Player::MeleeDeathUpdate(float _Delta)
 void Player::SwordDeathStart()
 {
 	UpperRenderer->Off();
+	Sound = GameEngineSound::SoundPlay("MarcoDeathSound.wav");
 	ChangeLowerAnimationState("SwordDeath", false);
 }
 void Player::SwordDeathUpdate(float _Delta)

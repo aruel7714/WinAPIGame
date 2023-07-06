@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayActor.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 enum class SlaveState
 {
@@ -39,6 +40,8 @@ public:
 	SlaveNPC(SlaveNPC && _Other) noexcept = delete;
 	SlaveNPC& operator=(const SlaveNPC & _Other) = delete;
 	SlaveNPC& operator=(SlaveNPC && _Other) noexcept = delete;
+
+	GameEngineSoundPlayer Sound;
 
 	void SetSlaveItem(SlaveItem _Item)
 	{

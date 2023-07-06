@@ -62,6 +62,15 @@ void Arabian::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Arabian_Death.bmp"), 5, 9);
 	}
 
+	if (nullptr == GameEngineSound::FindSound("ArabianDeathSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("ArabianDeathSound.wav"));
+	}
+
 	{
 		ArabianRenderer = CreateRenderer(RenderOrder::Enemy);
 		
@@ -712,6 +721,7 @@ void Arabian::DeathCollisionCheck()
 		ArabianCollision->Off();
 		ArabianMeleeAttCollision->Off();
 		ChangeState(ArabianState::RangeDeath);
+		Sound = GameEngineSound::SoundPlay("ArabianDeathSound.wav");
 	}
 	else if (true == ArabianCollision->Collision(CollisionOrder::PlayerMeleeCollision, _Collision
 		, CollisionType::Rect
@@ -725,6 +735,7 @@ void Arabian::DeathCollisionCheck()
 			GameEngineActor* Actor = Collision->GetActor();
 
 		}
+		Sound = GameEngineSound::SoundPlay("ArabianDeathSound.wav");
 		if (Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
 			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
 			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||

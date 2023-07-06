@@ -30,6 +30,15 @@ void HeavyMachineGun::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunItem.bmp"));
 	}
 
+	if (nullptr == GameEngineSound::FindSound("machinegunSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("machinegunSound.wav"));
+	}
+
 	ResourcesManager::GetInst().FindTexture("HeavyMachineGunItem.bmp");
 	ItemRenderer->SetTexture("HeavyMachineGunItem.bmp");
 	ItemRenderer->SetRenderScaleToTexture();
@@ -80,8 +89,10 @@ void HeavyMachineGun::Update(float _Delta)
 			GameEngineActor* Actor = Collision->GetActor();
 
 			ItemRenderer->Off();
+			ItemCollision->Off();
 			
 			Player::WeaponName = "Rifle_";
 		}
+		Sound = GameEngineSound::SoundPlay("machinegunSound.wav");
 	}
 }

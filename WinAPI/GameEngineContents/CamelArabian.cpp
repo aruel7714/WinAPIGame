@@ -77,6 +77,15 @@ void CamelArabian::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_CamelArabian_Upper_Death.bmp"), 5, 2);
 	}
 
+	if (nullptr == GameEngineSound::FindSound("ArabianDeathSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("ArabianDeathSound.wav"));
+	}
+
 	{
 		LowerCamelArabianRenderer = CreateRenderer(RenderOrder::CamelLower);
 
@@ -581,6 +590,7 @@ void CamelArabian::UpUpperUpdate(float _Delta)
 
 void CamelArabian::DeathUpperStart()
 {	
+	Sound = GameEngineSound::SoundPlay("ArabianDeathSound.wav");
 	UpperDownCamelArabianRenderer->Off();
 	UpperCamelArabianRenderer->On();
 	ChangeUpperAnimationState("Death");

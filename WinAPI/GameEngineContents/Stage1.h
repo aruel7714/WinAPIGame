@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 // Ό³Έν : 
 class Stage1 : public GameEngineLevel
@@ -27,6 +28,10 @@ private:
 	void Release() override;
 
 	class BackGround* BackGroundPtr;
+
+	GameEngineSoundPlayer BGMPlayer;
+	GameEngineSoundPlayer BossBGMPlayer;
+
 	class Player* LevelPlayer = nullptr;
 
 	//Enemy

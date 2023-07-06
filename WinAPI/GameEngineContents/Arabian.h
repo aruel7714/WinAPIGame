@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayActor.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 enum class ArabianState
 {
@@ -52,6 +53,8 @@ public:
 			Dir = ArabianDir::Right;
 		}
 	}
+
+	GameEngineSoundPlayer Sound;
 
 protected:
 	ArabianState State = ArabianState::Max;

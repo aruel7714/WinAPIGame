@@ -42,6 +42,15 @@ void SlaveNPC::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("Right_Slave.bmp"), 5, 11);
 	}
 
+	if (nullptr == GameEngineSound::FindSound("thankyouSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("thankyouSound.wav"));
+	}
+
 	{
 		SlaveRenderer = CreateRenderer(RenderOrder::NPC);
 
@@ -226,7 +235,11 @@ void SlaveNPC::CatchOnUpdate(float _Delta)
 		if (Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt1") ||
 			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Pistol_Upper_MeleeAtt2") ||
 			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt1") ||
-			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2"))
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Pistol_Upper_MeleeAtt2") ||
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Rifle_Upper_MeleeAtt1") || 
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Right_Rifle_Upper_MeleeAtt2") || 
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Rifle_Upper_MeleeAtt1") || 
+			Player::GetMainPlayer()->UpperRenderer->IsAnimation("Left_Rifle_Upper_MeleeAtt2"))
 		{
 			if (Player::GetMainPlayer()->UpperRenderer->IsAnimationEnd())
 			{
@@ -307,6 +320,7 @@ void SlaveNPC::MoveUpdate(float _Delta)
 void SlaveNPC::GiftStart()
 {
 	SlaveCatchOffCollision->Off();
+	Sound = GameEngineSound::SoundPlay("thankyouSound.wav");
 	ChangeAnimationState("Gift");
 }
 void SlaveNPC::GiftUpdate(float _Delta)

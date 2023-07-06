@@ -166,6 +166,24 @@ void Bullet::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("HeavyMachineGunLeftDown90.bmp"));
 	}
 
+	if (nullptr == GameEngineSound::FindSound("pistolShot.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("pistolShot.wav"));
+	}
+
+	if (nullptr == GameEngineSound::FindSound("machinegunBulletSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("machinegunBulletSound.wav"));
+	}
+
 	Renderer->CreateAnimation("BulletExplosion", "WeaponExplosion.bmp", 0, 9, 0.05f, false);
 	
 	if (Player::WeaponName == "Pistol_")
@@ -313,6 +331,8 @@ void Bullet::SetPistolDirTexture()
 		ResourcesManager::GetInst().FindTexture("PistolBulletUpDown.bmp");
 		Renderer->SetTexture("PistolBulletUpDown.bmp");
 	}
+
+	BulletSound = GameEngineSound::SoundPlay("pistolShot.wav");
 }
 
 void Bullet::SetRifleDirTexture()
@@ -377,4 +397,6 @@ void Bullet::SetRifleDirTexture()
 		ResourcesManager::GetInst().FindTexture("HeavyMachineGunLeftDown90.bmp");
 		Renderer->SetTexture("HeavyMachineGunLeftUP90.bmp");
 	}
+
+	BulletSound = GameEngineSound::SoundPlay("machinegunBulletSound.wav");
 }

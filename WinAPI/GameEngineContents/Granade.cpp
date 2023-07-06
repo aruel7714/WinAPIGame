@@ -67,6 +67,15 @@ void Granade::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath("GranadeExplosion.bmp"), 27, 1);
 	}
 
+	if (nullptr == GameEngineSound::FindSound("BombSound.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("ContentsResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("BombSound.wav"));
+	}
+
 	GranadeRenderer = CreateRenderer("OneGranade.bmp", RenderOrder::Granade);
 
 	
@@ -181,13 +190,13 @@ void Granade::FireStart()
 	GravityDir = float4::UP;
 	if (Player::Dir == PlayerDir::Right)
 	{
-		GravityDir += (float4::RIGHT);
+		GravityDir += (float4::RIGHT * 0.7f);
 	}
 	else if (Player::Dir == PlayerDir::Left)
 	{
-		GravityDir += (float4::LEFT);
+		GravityDir += (float4::LEFT * 0.7f);
 	}
-	SetGravityVector(GravityDir * 650.0f);
+	SetGravityVector(GravityDir * 700.0f);
 	ChangeAnimationState("Fire");
 }
 void Granade::FireUpdate(float _Delta)
@@ -247,7 +256,7 @@ void Granade::ExplosionStart()
 
 	ChangeAnimationState("Explosion");
 	GranadeRenderer->SetRenderScaleToTexture();
-
+	BombSound = GameEngineSound::SoundPlay("BombSound.wav");
 }
 void Granade::ExplosionUpdate(float _Delta)
 {

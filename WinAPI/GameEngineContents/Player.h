@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayActor.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 enum class PlayerState
 {
@@ -140,7 +141,7 @@ public:
 
 	//void CameraFocus();
 
-	
+	GameEngineSoundPlayer Sound;
 
 protected:
 	// PlayerState°ü·Ã

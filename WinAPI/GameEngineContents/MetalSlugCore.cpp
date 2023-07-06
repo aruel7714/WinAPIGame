@@ -4,6 +4,7 @@
 #include "Stage1.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include "GlobalValue.h"
+#include <GameEnginePlatform/GameEngineSound.h>
 
 MetalSlugCore::MetalSlugCore()
 {
@@ -35,8 +36,8 @@ void MetalSlugCore::Start()
 	//GameEngineCore::CreateLevel<CharacterSelectLevel>("CharacterSelectLevel");
 	GameEngineCore::CreateLevel<Stage1>("Stage1");
 
-	//GameEngineCore::ChangeLevel("TitleLevel");
-	GameEngineCore::ChangeLevel("Stage1");
+	GameEngineCore::ChangeLevel("TitleLevel");
+	//GameEngineCore::ChangeLevel("Stage1");
 
 
 }
