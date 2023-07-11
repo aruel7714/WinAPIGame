@@ -19,6 +19,7 @@
 #include "CamelArabian.h"
 #include "Berserker.h"
 #include "Truck.h"
+#include "UIManager.h"
 
 
 Stage1::Stage1()
@@ -162,6 +163,8 @@ void Stage1::Start()
 
 	LevelPlayer = CreateActor<Player>();
 	LevelPlayer->SetGroundTexture("Mission1_Debug_Test.bmp");
+
+	CreateActor<UIManager>();
 
 	
 	//EnemyArabian = CreateActor<Arabian>();

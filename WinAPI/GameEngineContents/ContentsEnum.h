@@ -7,6 +7,7 @@ enum class RenderOrder
 	SecondBackGround,
 	FirstBackGround,
 	Object1,
+	UI,
 	MiddleBoss,
 	MiddleBossTexture,
 	CamelUpper,

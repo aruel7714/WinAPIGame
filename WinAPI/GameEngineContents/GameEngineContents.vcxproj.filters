@@ -91,6 +91,9 @@
     <ClInclude Include="TitleBackGround.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleLevel.cpp">
@@ -158,6 +161,9 @@
       <Filter>Global\WeaponSFX</Filter>
     </ClCompile>
     <ClCompile Include="TitleBackGround.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
       <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
